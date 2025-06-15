@@ -6,6 +6,7 @@ import org.example.models.Element;
 
 import java.io.*;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 import static org.example.Constants.COMMA;
@@ -22,10 +23,18 @@ public class InventoryLoader implements Loader<Inventory> {
         try(BufferedReader file = new BufferedReader(new InputStreamReader(stream))) {
             String line;
             while ((line = file.readLine()) != null) {
-                if (line.contains(SLASH))
-                String[] columns = line.split(COMMA);
-                data.put(new Element(columns[0], Classification.valueOf(columns[1])), Integer.valueOf(columns[2]));
+                if (!line.contains(SLASH)) {
+                    String[] columns = line.split(COMMA);
+                    data.put(
+                        new Element(
+                            columns[0].toUpperCase(Locale.ROOT),
+                            Classification.valueOf(columns[1].toUpperCase(Locale.ROOT))
+                        ),
+                        Integer.parseInt(columns[2])
+                    );
+                }
             }
+
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
