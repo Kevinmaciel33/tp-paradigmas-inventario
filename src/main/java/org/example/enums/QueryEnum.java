@@ -8,9 +8,9 @@ public enum QueryEnum {
     MISSING_ELEMENTS(null),
     HOW_MANY_ELEMENTS(null);
 
-    public final Query q;
+    public final Query query;
 
-    QueryEnum(Query q) {
-        this.q = q;
+    QueryEnum(Query query) {
+        this.query = query;
     }
 }
