@@ -12,7 +12,7 @@ import java.util.List;
  * Not apply any special interaction with the inventory or the produced element
  */
 public abstract class Crafter {
-    public final Classification type = Classification.ALL;
+    public Classification type() { return Classification.ALL; }
 
     public void craft(Element element, Inventory inventory, Recipe recipe) {
 

@@ -66,7 +66,7 @@ public class RecipeLoader implements Loader<RecipeBook> {
             }
 
 
-            var l = new Library(mesa, recipe);
+            var l = new Library(mesa.toUpperCase(Locale.ROOT), recipe);
             libraries.add(l);
         }
 

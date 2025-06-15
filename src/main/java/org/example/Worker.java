@@ -1,19 +1,21 @@
 package org.example;
 
 
+import org.example.crafters.BaseCrafter;
 import org.example.crafters.Crafter;
 import org.example.enums.Classification;
 import org.example.enums.QueryEnum;
 import org.example.models.Element;
-import org.example.models.Library;
 import org.example.models.Recipe;
 
 import java.util.List;
 
 public class Worker {
-    private Inventory inventory;
-    private RecipeBook recipeBook;
-    private final List<Crafter> crafters = List.of();
+    private final Inventory inventory;
+    private final RecipeBook recipeBook;
+    private final List<Crafter> crafters = List.of(
+        new BaseCrafter()// esto podria ser un parametro en el constructor o leerse de una config
+    );
 
     public Worker(Inventory i, RecipeBook r) {
         this.inventory = i;
@@ -22,8 +24,8 @@ public class Worker {
 
     public void create(Element element) throws RuntimeException {
         for(Crafter crafter : crafters) {
-            if ( crafter.type == Classification.ALL || element.type() == crafter.type ) {
-                Recipe r = QueryEnum.ELEMENTS.q.run(element, this.recipeBook.libraries);
+            if ( crafter.type() == Classification.ALL || element.type() == crafter.type() ) {
+                Recipe r = QueryEnum.ELEMENTS.query.run(element, this.recipeBook.libraries);
                 crafter.craft(element, inventory, r);
                 break;
             }
@@ -36,6 +38,6 @@ public class Worker {
         }
 
         QueryEnum query = QueryEnum.valueOf(input);
-        query.q.run(e, this.recipeBook.libraries);
+        query.query.run(e, this.recipeBook.libraries);
     }
 }
