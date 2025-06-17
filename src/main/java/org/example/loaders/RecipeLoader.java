@@ -63,6 +63,7 @@ public class RecipeLoader implements Loader<RecipeBook> {
                 }
 
                 recipe = new Recipe(produce, in, with);
+                recipe.mostrarReceta(produce, with); //muestra la receta disponible
             }
 
 

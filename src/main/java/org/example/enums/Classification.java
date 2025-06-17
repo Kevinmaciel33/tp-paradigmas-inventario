@@ -5,5 +5,10 @@ public enum Classification {
     FUEGO,
     WATER,
     AGUA,
+    LIQUIDO,
+    GASES,
+    ACIDO,
+    MINERAL,
+    METAL,
     ALL;
 }
