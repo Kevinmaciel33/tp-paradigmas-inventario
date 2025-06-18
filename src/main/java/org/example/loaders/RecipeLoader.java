@@ -33,7 +33,19 @@ public class RecipeLoader implements Loader<RecipeBook> {
                     // time, type, ...elements
                     List<String> content = Arrays.asList(columns).subList(2, columns.length);
 
-                    data.put(columns[0], Map.of(columns[1], content));
+                    String mesa = columns[0]; // La clave de la "mesa"
+                    String recipeKey = columns[1]; // La clave de la receta dentro de la tabla
+                    
+                    //Se creara un Map interno por cada tabla en el libro de recetas
+                    //Si el tableKey de la receta encontrada no existe, quiere decir que encontro una receta de otra tabla 
+                    Map<String, List<String>> recipesForTable = data.get(mesa);
+                    if (recipesForTable == null) {
+                        recipesForTable = new HashMap<>(); 
+                        data.put(mesa, recipesForTable);
+                    }
+                    
+                    // Agregar la nueva receta al mapa de la tabla
+                    recipesForTable.put(recipeKey, content);
                 }
             }
         } catch (IOException e) {
@@ -43,9 +55,9 @@ public class RecipeLoader implements Loader<RecipeBook> {
 
     public static RecipeBook getData() {
         List<Library> libraries = new ArrayList<>(data.size());
-
+        
+        //Se recorre cada mesa
         for ( var mesa : data.keySet() ) {
-            Recipe recipe = null;
             var columns = data.get(mesa);
             for ( var give : columns.keySet() ) {
                 var contents = columns.get(give);
@@ -58,16 +70,14 @@ public class RecipeLoader implements Loader<RecipeBook> {
                 List<Element> with = new ArrayList<>(elements.size());
 
                 for ( var element : elements ) {
-                    // no necesito la clasificacion de los ingredientes, eso me da igual
-                    with.add(new Element(element, Classification.ALL));
+                	// no necesito la clasificacion de los ingredientes, eso me da igual
+                    with.add(new Element(element.toUpperCase(Locale.ROOT), Classification.ALL));
                 }
 
-                recipe = new Recipe(produce, in, with);
+                Recipe recipe = new Recipe(produce, in, with);
+                var l = new Library(mesa.toUpperCase(Locale.ROOT), recipe);
+                libraries.add(l);
             }
-
-
-            var l = new Library(mesa.toUpperCase(Locale.ROOT), recipe);
-            libraries.add(l);
         }
 
         return new RecipeBook(libraries);
