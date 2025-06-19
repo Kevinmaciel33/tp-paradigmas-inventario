@@ -30,34 +30,7 @@ public class Main {
         final RecipeBook r = RecipeLoader.getData();
         Worker w = new Worker(i, r);
         
-        /////////////////////////////////////////
-        ////////////PRUEBAS PARA MAIN////////////
-        ////////////DESPUES SE BORRA/////////////
-        /////////////////////////////////////////
-        System.out.println("el main funciona :)");
-
-//        System.out.println("Lista de todos los elementos cargados en RecipeBook");
-//        System.out.println("----- -- ----- --- --------- -------- -- ----------");
-//        
-//        int count = 0;
-//
-//        for (var library : r.libraries) {
-//            Recipe recipe = library.recipe();
-//
-//            System.out.println("Receta: " + recipe.give().name());
-//            System.out.println("Tipo: " + recipe.give().type());
-//            System.out.println("Ingredientes:");
-//            for (Element ingredient : recipe.ingredients()) {
-//                System.out.println("- " + ingredient.name() + " (" + ingredient.type() + ")");
-//            }
-//            System.out.println("------------------------------");
-//            count++;
-//        }
-//        System.out.println("Cant de recetas : "+count);
-//        System.out.println("-------------------------------------");
-//        System.out.println("-------------------------------------");
-        
-        
+        //Pruebas de consultas en main
         QueryElementsFromZero query = new QueryElementsFromZero();  
 
         Element percloricoElement = new Element("PERCLORICO", Classification.ALL);
