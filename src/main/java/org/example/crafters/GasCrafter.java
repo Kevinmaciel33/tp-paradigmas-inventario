@@ -9,7 +9,7 @@ public class GasCrafter extends Crafter {
 
     @Override
     public Classification catalystType() {
-        return Classification.GASES;
+        return Classification.GAS;
     }
 
     @Override

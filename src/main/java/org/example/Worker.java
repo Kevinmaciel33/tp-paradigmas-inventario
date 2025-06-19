@@ -2,7 +2,6 @@ package org.example;
 
 
 import org.example.crafters.*;
-import org.example.enums.Classification;
 import org.example.enums.QueryEnum;
 import org.example.models.Element;
 import org.example.models.Recipe;

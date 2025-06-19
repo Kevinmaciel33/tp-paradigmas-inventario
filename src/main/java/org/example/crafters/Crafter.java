@@ -5,7 +5,6 @@ import org.example.enums.Classification;
 import org.example.models.Element;
 import org.example.models.Recipe;
 
-import java.util.List;
 
 /**
  * Base to create element

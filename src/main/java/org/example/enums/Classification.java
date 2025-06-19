@@ -6,7 +6,7 @@ public enum Classification {
     WATER,
     AGUA,
     LIQUIDO,
-    GASES,
+    GAS,
     ACIDO,
     MINERAL,
     METAL,
