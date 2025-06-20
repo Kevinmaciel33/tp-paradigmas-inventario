@@ -7,7 +7,7 @@ import org.example.enums.Classification;
 //Catalizador para tipo ácido
 public class AcidoCrafter extends Crafter {
  @Override
- public Classification catalystType() {
+ public Classification type() {
      return Classification.ACIDO;
  }
 

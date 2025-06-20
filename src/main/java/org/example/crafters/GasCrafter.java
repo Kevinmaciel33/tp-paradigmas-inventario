@@ -8,15 +8,15 @@ import org.example.enums.Classification;
 public class GasCrafter extends Crafter {
 
     @Override
-    public Classification catalystType() {
+    public Classification type() {
         return Classification.GAS;
     }
 
     @Override
     public void craft(Element element, Inventory inventory, Recipe recipe) {
         // Verificamos que el tipo de receta coincida
-        if (element.type() != catalystType()) {
-            throw new IllegalArgumentException("Este catalizador solo aplica a recetas de tipo " + catalystType());
+        if (element.type() != type()) {
+            throw new IllegalArgumentException("Este catalizador solo aplica a recetas de tipo " + type());
         }
 
         Element catalyst = catalyst(); // Usamos el método de la clase base

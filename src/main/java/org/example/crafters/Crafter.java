@@ -11,25 +11,25 @@ import org.example.models.Recipe;
  * Not apply any special interaction with the inventory or the produced element
  */
 public abstract class Crafter {
-    public abstract Classification catalystType();
+    public abstract Classification type();
 
-    public boolean isApplicable(Inventory inventory, Element element) {
+    public boolean shouldApply(Inventory inventory, Element element) {
         // Verificamos que el tipo del elemento coincida con el tipo de catalizador de este crafter
-        boolean typeMatch = catalystType() == Classification.ALL || catalystType() == element.type();
+        boolean typeMatch = type() == Classification.ALL || type() == element.type();
         
         // Verificamos que si el crafter requiere catalizador, el inventario lo tenga
-        boolean hasCatalyst = catalystType() == Classification.ALL || inventory.hasElement(catalyst());
+        boolean hasCatalyst = type() == Classification.ALL || inventory.hasElement(catalyst());
 
         return typeMatch && hasCatalyst;
     }
 
 
     protected Element catalyst() {
-        return new Element("CATALIZADOR_" + catalystType().name(), catalystType());
+        return new Element("CATALIZADOR_" + type().name(), type());
     }
     
     public boolean hasCatalyst(Inventory inventory) {
-        if (catalystType() == Classification.ALL) {
+        if (type() == Classification.ALL) {
             // No requiere catalizador específico
             return true;
         }
@@ -43,7 +43,7 @@ public abstract class Crafter {
             inventory.remove(ingrediente);
         }
 
-        if (catalystType() != Classification.ALL) {
+        if (type() != Classification.ALL) {
             inventory.remove(catalyst());
         }
 

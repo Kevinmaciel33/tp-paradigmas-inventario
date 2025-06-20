@@ -7,7 +7,7 @@ import org.example.enums.Classification;
 //Catalizador para tipo metal
 public class MetalCrafter extends Crafter {
  @Override
- public Classification catalystType() {
+ public Classification type() {
      return Classification.METAL;
  }
 

@@ -7,7 +7,7 @@ import org.example.enums.Classification;
 //Catalizador para tipo liquido
 public class LiquidoCrafter extends Crafter {
  @Override
- public Classification catalystType() {
+ public Classification type() {
      return Classification.LIQUIDO;
  }
 

@@ -5,9 +5,9 @@ import org.example.models.Element;
 import org.example.models.Recipe;
 import org.example.Inventory;
 
-public class FireCrafter extends Crafter{
+public class FireCrafter extends Crafter {
 	@Override
-    public Classification catalystType() {
+    public Classification type() {
         return Classification.FIRE;  // Este crafter solo aplica a recetas tipo FIRE
     }
 	

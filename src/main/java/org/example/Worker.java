@@ -12,13 +12,13 @@ public class Worker {
     private final Inventory inventory;
     private final RecipeBook recipeBook;
     private final List<Crafter> crafters = List.of(
-        new BaseCrafter(),// esto podria ser un parametro en el constructor o leerse de una config
         new FireCrafter(),
         new LiquidoCrafter(),
         new AcidoCrafter(),
         new GasCrafter(),
         new MineralCrafter(),
-        new MetalCrafter()
+        new MetalCrafter(),
+        new BaseCrafter()// esto podria ser un parametro en el constructor o leerse de una config
     );
 
     public Worker(Inventory i, RecipeBook r) {
@@ -30,7 +30,7 @@ public class Worker {
         Recipe recipe = QueryEnum.ELEMENTS.query.run(element, this.recipeBook.libraries);
 
         for (Crafter crafter : crafters) {
-            if (crafter.isApplicable(inventory, element)) {
+            if (crafter.shouldApply(inventory, element)) {
                 crafter.craft(element, inventory, recipe);
                 return;
             }

@@ -7,7 +7,7 @@ import org.example.enums.Classification;
 //Catalizador para tipo Mineral
 public class MineralCrafter extends Crafter {
  @Override
- public Classification catalystType() {
+ public Classification type() {
      return Classification.MINERAL;
  }
 

@@ -8,7 +8,7 @@ import org.example.models.Recipe;
 public class BaseCrafter extends Crafter {
 	
 	@Override
-    public Classification catalystType() {
+    public Classification type() {
         return Classification.ALL; 
     }
 
