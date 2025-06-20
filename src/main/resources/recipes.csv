@@ -1,2 +1,16 @@
 //table,give,time,type,...elements
-base,aguita,2,agua,h,h,o
+base,aguita,2,liquido,h,h,o
+base,dioxido_carbono,2,gas,c,o,o
+base,sal,2,mineral,na,cl
+base,amoniaco,2,gas,n,h,h,h
+base,sulfurico,2,acido,h,h,s,o,o,o,o
+base,etanol,2,liquido,c,c,h,h,h,h,h,h,o
+base,metano,2,gas,c,h,h,h,h
+base,oxido_aluminio,3,metal,al,al,o,o,o
+base,acero,1,metal,fe,c
+base,agua_ox,4,liquido,h,h,o,o
+base,clorhidrico,2,acido,h,cl
+base,lejia,4,liquido,na,cl,o
+base,perclorico,1,acido,h,cl,o,o,o,o
+base,sulf_hierro,3,metal,fe,h,h,s,o,o,o,o
+base,comb_avanz,2,liquido,c,h,h,h,h,o,o

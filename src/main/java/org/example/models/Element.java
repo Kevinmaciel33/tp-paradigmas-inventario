@@ -19,4 +19,12 @@ public record Element(String name, Classification type) {
     public int hashCode() {
         return Objects.hash(name);
     }
+
+	@Override
+	public String toString() {
+		return name + " | " + "del tipo " + type;
+	}
+    
+    
+    
 }

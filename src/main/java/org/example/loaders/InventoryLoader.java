@@ -1,42 +1,39 @@
 package org.example.loaders;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.example.Inventory;
 import org.example.enums.Classification;
 import org.example.models.Element;
 
-import java.io.*;
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
-import static org.example.Constants.COMMA;
-import static org.example.Constants.SLASH;
-
 public class InventoryLoader implements Loader<Inventory> {
-    private static final String PATH = "inventory.csv";
+    private static final String PATH = "inventory.json"; // cambiado
     private static Map<Element, Integer> data = new HashMap<>();
 
     public void loadFile() {
+        data.clear(); // para evitar acumulación entre ejecuciones de test
 
         ClassLoader cl = Thread.currentThread().getContextClassLoader();
         InputStream stream = cl.getResourceAsStream(PATH);
-        try(BufferedReader file = new BufferedReader(new InputStreamReader(stream))) {
-            String line;
-            while ((line = file.readLine()) != null) {
-                if (!line.contains(SLASH)) {
-                    String[] columns = line.split(COMMA);
-                    data.put(
-                        new Element(
-                            columns[0].toUpperCase(Locale.ROOT),
-                            Classification.valueOf(columns[1].toUpperCase(Locale.ROOT))
-                        ),
-                        Integer.parseInt(columns[2])
-                    );
-                }
+
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            InventoryJson[] items = mapper.readValue(stream, InventoryJson[].class);
+
+            for (InventoryJson i : items) {
+                Element element = new Element(
+                    i.name.toUpperCase(Locale.ROOT),
+                    Classification.valueOf(i.type.toUpperCase(Locale.ROOT))
+                );
+                data.put(element, i.quantity);
             }
 
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+        } catch (Exception e) {
+            throw new RuntimeException("Error al leer el inventario JSON", e);
         }
     }
 

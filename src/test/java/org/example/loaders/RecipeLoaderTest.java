@@ -8,7 +8,6 @@ import org.example.models.Recipe;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class RecipeLoaderTest {
     Loader<RecipeBook> loader = new RecipeLoader();
