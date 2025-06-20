@@ -52,8 +52,6 @@ class QueryElementsFromZeroTest {
         
         assertEquals(2, countH, "Debería haber exactamente 2 átomos de hidrógeno");
         assertEquals(1, countO, "Debería haber exactamente 1 átomo de oxígeno");
-
-        System.out.println("--------------------------------------------------------------");
     }
     
     @Test
@@ -71,8 +69,6 @@ class QueryElementsFromZeroTest {
         
         assertEquals(1, countC, "Debería haber exactamente 1 átomo de carbono");
         assertEquals(2, countO, "Debería haber exactamente 2 átomos de oxígeno");
-        
-        System.out.println("--------------------------------------------------------------");
     }
     
     @Test
@@ -91,8 +87,6 @@ class QueryElementsFromZeroTest {
         assertEquals(2, countH, "Debería haber exactamente 2 átomos de hidrógeno");
         assertEquals(3, countO, "Debería haber exactamente 3 átomos de oxígeno");
         assertEquals(1, countC, "Debería haber exactamente 1 átomo de carbono");
-        
-        System.out.println("--------------------------------------------------------------");
     }
    
     @Test
@@ -103,8 +97,6 @@ class QueryElementsFromZeroTest {
 
         assertNotNull(result, "Debería encontrar la receta de elemento ficticio");
         assertEquals("SUPER_ELEMENTO", result.give().name(), "Debería ser la receta de super elemento");
-        
-        System.out.println("--------------------------------------------------------------");
     }
     
     @Test 
@@ -113,8 +105,7 @@ class QueryElementsFromZeroTest {
 
         Recipe result = query.run(elemNoExistente, libraries);
         
-        assertNull(result, "Deberia ser null");
-        
+        assertNull(result, "Deberia ser null");  
     }
     
     @Test 
@@ -125,18 +116,5 @@ class QueryElementsFromZeroTest {
 
         assertNotNull(result, "Debería encontrar la receta de elemento ficticio");
         assertEquals("AMONIACO", result.give().name(), "Debería ser la receta de elemento amoniaco");
-        
-        System.out.println("------------------------------------------------");
     }
 }
-    
-
-
-
-
-
-
-
-
-
-

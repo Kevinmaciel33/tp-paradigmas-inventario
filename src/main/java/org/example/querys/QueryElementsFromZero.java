@@ -6,18 +6,20 @@ import org.example.models.Recipe;
 
 import java.util.List;
 
-public class QueryElementsFromZero implements Query{
+public class QueryElementsFromZero implements Query {
 	@Override
     public Recipe run(Element element, List<Library> libraries) {
         // Buscar la receta 
-        Recipe recipe = libraries.stream()
-                .filter(l -> l.recipe().give().name().equals(element.name()))
-                .map(Library::recipe)
-                .findFirst()
-                .orElse(null);
+		Recipe recipe = null;
+		for (Library l : libraries) {
+		    if (l.recipe().give().name().equals(element.name())) {
+		        recipe = l.recipe();
+		        break;
+		    }
+		}
+
 
         if (recipe != null) {
-            //System.out.println(element.name());
             System.out.println("\nArbol de ingredientes de\n" + element.name() + ":");
 
             processRecipe(recipe, libraries, "    ");
@@ -41,11 +43,13 @@ public class QueryElementsFromZero implements Query{
            
             // Si el ingrediente de un elemento es a su vez un elemento crafteable se hace
             // ...el procesamiento de ese elemento y su respectiva receta
-            Recipe craftableIngredient = libraries.stream()
-                    .filter(l -> l.recipe().give().name().equals(ingredient.name()))
-                    .map(Library::recipe)
-                    .findFirst()
-                    .orElse(null);
+            Recipe craftableIngredient = null;
+            for (Library l : libraries) {
+                if (l.recipe().give().name().equals(ingredient.name())) {
+                    craftableIngredient = l.recipe();
+                    break;
+                }
+            }
 
             System.out.println(indent + (isLast ? "└── " : "├── ") + ingredient.name());
             

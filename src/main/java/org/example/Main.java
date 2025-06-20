@@ -29,17 +29,5 @@ public class Main {
         final Inventory i = InventoryLoader.getData();
         final RecipeBook r = RecipeLoader.getData();
         Worker w = new Worker(i, r);
-        
-        //Pruebas de consultas en main
-        QueryElementsFromZero query = new QueryElementsFromZero();  
-
-        Element percloricoElement = new Element("PERCLORICO", Classification.ALL);
-        Element superElement = new Element("SUPER_ELEMENTO", Classification.ALL);
-     
-        query.run(percloricoElement, r.libraries);
-        System.out.println("-------------------------------------");
-        query.run(superElement, r.libraries);
     }
-    
-    
 }

@@ -8,8 +8,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.HashSet;
 
-public class ElementCounter {
-	
+public class ElementCounter {	
 	//Cuenta y muestra el total de cada elemento basico que hay en una receta
 	public void countAllBasicElements(Recipe recipe, List<Library> libraries) {
 		Set<String> basicElements = getBasicElements(libraries);
@@ -32,11 +31,13 @@ public class ElementCounter {
             if (ingredient.name().equals(elementName)) {
                 count++;
             } else {
-                Recipe nestedRecipe = libraries.stream()
-                        .filter(l -> l.recipe().give().name().equals(ingredient.name()))
-                        .map(Library::recipe)
-                        .findFirst()
-                        .orElse(null);
+            	Recipe nestedRecipe = null;
+            	for (Library l : libraries) {
+            	    if (l.recipe().give().name().equals(ingredient.name())) {
+            	        nestedRecipe = l.recipe();
+            	        break;
+            	    }
+            	}
 
                 if (nestedRecipe != null) {
                     count += countBasicElement(nestedRecipe, elementName, libraries);

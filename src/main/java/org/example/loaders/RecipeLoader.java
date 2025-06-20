@@ -70,7 +70,6 @@ public class RecipeLoader implements Loader<RecipeBook> {
                 List<Element> with = new ArrayList<>(elements.size());
 
                 for ( var element : elements ) {
-                	// no necesito la clasificacion de los ingredientes, eso me da igual
                     with.add(new Element(element.toUpperCase(Locale.ROOT), Classification.ALL));
                 }
 
