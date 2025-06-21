@@ -1,4 +1,4 @@
-package org.example;
+package org.unlam.paradigmas.zeta;
 
 public class Constants {
     public static final String SLASH = "/";

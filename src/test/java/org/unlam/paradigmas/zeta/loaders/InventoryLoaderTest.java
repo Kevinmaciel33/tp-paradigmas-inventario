@@ -1,9 +1,8 @@
-package org.example.loaders;
+package org.unlam.paradigmas.zeta.loaders;
 
-import org.example.Inventory;
-import org.example.enums.Classification;
-import org.example.models.Element;
-import org.junit.jupiter.api.BeforeAll;
+import org.unlam.paradigmas.zeta.Inventory;
+import org.unlam.paradigmas.zeta.enums.Classification;
+import org.unlam.paradigmas.zeta.models.Element;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

@@ -1,12 +1,11 @@
-package org.example;
+package org.unlam.paradigmas.zeta;
 
-import org.example.models.Element;
+import org.unlam.paradigmas.zeta.models.Element;
 
-import java.util.HashMap;
 import java.util.Map;
 
-import static org.example.Constants.NONE;
-import static org.example.Constants.SINGLE;
+import static org.unlam.paradigmas.zeta.Constants.NONE;
+import static org.unlam.paradigmas.zeta.Constants.SINGLE;
 
 public class Inventory {
 

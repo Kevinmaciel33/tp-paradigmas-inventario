@@ -1,6 +1,6 @@
-package org.example.crafters;
+package org.unlam.paradigmas.zeta.crafters;
 
-import org.example.enums.Classification;
+import org.unlam.paradigmas.zeta.enums.Classification;
 
 public class BaseCrafter extends Crafter {
     @Override
