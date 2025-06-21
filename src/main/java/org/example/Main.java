@@ -1,9 +1,12 @@
 package org.example;
 
+import org.example.enums.Classification;
 import org.example.loaders.InventoryLoader;
 import org.example.loaders.Loader;
 import org.example.loaders.RecipeLoader;
+import org.example.models.Element;
 import org.example.models.Recipe;
+import org.example.querys.QueryElementsFromZero;
 
 import java.util.concurrent.CompletableFuture;
 
