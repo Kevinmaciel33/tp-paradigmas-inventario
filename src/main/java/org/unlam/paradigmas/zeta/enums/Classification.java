@@ -1,4 +1,4 @@
-package org.example.enums;
+package org.unlam.paradigmas.zeta.enums;
 
 public enum Classification {
     FIRE,

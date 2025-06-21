@@ -1,16 +1,16 @@
-package org.example.loaders;
+package org.unlam.paradigmas.zeta.loaders;
 
-import org.example.Inventory;
-import org.example.enums.Classification;
-import org.example.models.Element;
+import org.unlam.paradigmas.zeta.Inventory;
+import org.unlam.paradigmas.zeta.enums.Classification;
+import org.unlam.paradigmas.zeta.models.Element;
 
 import java.io.*;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
-import static org.example.Constants.COMMA;
-import static org.example.Constants.SLASH;
+import static org.unlam.paradigmas.zeta.Constants.COMMA;
+import static org.unlam.paradigmas.zeta.Constants.SLASH;
 
 public class InventoryLoader implements Loader<Inventory> {
     private static final String PATH = "inventory.csv";

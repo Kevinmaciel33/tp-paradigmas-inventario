@@ -1,10 +1,14 @@
-package org.example.models;
+package org.unlam.paradigmas.zeta.models;
 
-import org.example.enums.Classification;
+import org.unlam.paradigmas.zeta.enums.Classification;
 
 import java.util.Objects;
 
 public record Element(String name, Classification type) {
+
+    public Element(String name) {
+        this(name, Classification.ALL);
+    }
 
     @Override
     public boolean equals(Object o) {
