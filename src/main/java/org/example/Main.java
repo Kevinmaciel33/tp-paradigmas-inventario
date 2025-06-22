@@ -26,5 +26,6 @@ public class Main {
         final Inventory i = InventoryLoader.getData();
         final RecipeBook r = RecipeLoader.getData();
         Worker w = new Worker(i, r);
+        
     }
 }
