@@ -1,9 +1,7 @@
 package org.unlam.paradigmas.zeta;
 
 
-import org.unlam.paradigmas.zeta.crafters.BaseCrafter;
-import org.unlam.paradigmas.zeta.crafters.Crafter;
-import org.unlam.paradigmas.zeta.enums.Classification;
+import org.unlam.paradigmas.zeta.crafters.*;
 import org.unlam.paradigmas.zeta.enums.QueryEnum;
 import org.unlam.paradigmas.zeta.models.Element;
 import org.unlam.paradigmas.zeta.models.Recipe;
@@ -14,6 +12,12 @@ public class Worker {
     private final Inventory inventory;
     private final RecipeBook recipeBook;
     private final List<Crafter> crafters = List.of(
+        new FireCrafter(),
+        new LiquidoCrafter(),
+        new AcidoCrafter(),
+        new GasCrafter(),
+        new MineralCrafter(),
+        new MetalCrafter(),
         new BaseCrafter()// esto podria ser un parametro en el constructor o leerse de una config
     );
 
@@ -22,14 +26,17 @@ public class Worker {
         this.recipeBook = r;
     }
 
-    public void create(Element element) throws RuntimeException {
-        for(Crafter crafter : crafters) {
-            if ( crafter.type() == Classification.ALL || element.type() == crafter.type() ) {
-                Recipe r = QueryEnum.ELEMENTS.query.run(element, this.recipeBook.libraries);
-                crafter.craft(element, inventory, r);
-                break;
+    public void create(Element element) {
+        Recipe recipe = QueryEnum.ELEMENTS.query.run(element, this.recipeBook.libraries);
+
+        for (Crafter crafter : crafters) {
+            if (crafter.shouldApply(inventory, element)) {
+                crafter.craft(element, inventory, recipe);
+                return;
             }
         }
+
+        throw new RuntimeException("No hay crafter aplicable para el elemento: " + element.name());
     }
 
     public void query(String input, Element e) throws IllegalArgumentException {

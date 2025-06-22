@@ -4,7 +4,6 @@ import org.unlam.paradigmas.zeta.RecipeBook;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class RecipeLoaderTest {
     Loader<RecipeBook> loader = new RecipeLoader();
@@ -14,10 +13,10 @@ public class RecipeLoaderTest {
         loader.loadFile();
         RecipeBook r = RecipeLoader.getData();
         assertEquals("BASE", r.libraries.get(1).originTable());
-        assertEquals("AGUITA", r.libraries.get(1).recipe().give().name());
+        assertEquals("DIOXIDO_CARBONO", r.libraries.get(1).recipe().give().name());
         assertEquals(3, r.libraries.get(1).recipe().ingredients().size());
 
-        assertEquals("NUEVA_TABLA", r.libraries.get(0).originTable());
+        assertEquals("BASE", r.libraries.get(0).originTable());
         assertEquals("AGUITA", r.libraries.get(0).recipe().give().name());
         assertEquals(3, r.libraries.get(0).recipe().ingredients().size());
 

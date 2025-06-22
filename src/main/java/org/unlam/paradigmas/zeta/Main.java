@@ -4,8 +4,6 @@ import org.unlam.paradigmas.zeta.loaders.InventoryLoader;
 import org.unlam.paradigmas.zeta.loaders.Loader;
 import org.unlam.paradigmas.zeta.loaders.RecipeLoader;
 
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
     public static void main(String[] args) {
 
@@ -23,5 +21,7 @@ public class Main {
         final Inventory i = InventoryLoader.getData();
         final RecipeBook r = RecipeLoader.getData();
         Worker w = new Worker(i, r);
+    	  
+        Menu.ejecutarMenu();
     }
 }
