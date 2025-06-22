@@ -3,6 +3,7 @@ package org.example;
 import org.example.models.Element;
 import org.example.models.Library;
 import org.example.models.Recipe;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -18,6 +19,25 @@ public class WorkerTest {
     Inventory inventory;
     RecipeBook recipeBook;
     Worker w;
+    private static List<Library> LIBRARY;
+
+    @BeforeAll
+    public static void setUp() {
+        LIBRARY = List.of(
+            new Library(
+                "base",
+                new Recipe(
+                    new Element("C"),
+                    15,
+                    List.of(
+                        new Element("H"),
+                        new Element("H"),
+                        new Element("H")
+                    )
+                )
+            )
+        );
+    }
 
     @BeforeEach
     public void setup() {
@@ -28,22 +48,7 @@ public class WorkerTest {
 
     @Test
     public void whenCraftElementShouldCheckInventoryAndAddElement() {
-        when(this.recipeBook.getLibraries()).thenReturn(
-            List.of(
-                new Library(
-                    "",
-                    new Recipe(
-                        new Element("C"),
-                        15,
-                        List.of(
-                            new Element("H"),
-                            new Element("H"),
-                            new Element("H")
-                        )
-                    )
-                )
-            )
-        );
+        when(this.recipeBook.getLibraries()).thenReturn(LIBRARY);
         when(this.inventory.hasElement(any())).thenReturn(true);
 
         w.create(new Element("C"));
@@ -54,22 +59,7 @@ public class WorkerTest {
 
     @Test
     public void whenCraftElementWithoutAllIngredientsShouldNotCreateTheElement() {
-        when(this.recipeBook.getLibraries()).thenReturn(
-            List.of(
-                new Library(
-                    "",
-                    new Recipe(
-                        new Element("C"),
-                        15,
-                        List.of(
-                            new Element("H"),
-                            new Element("H"),
-                            new Element("H")
-                        )
-                    )
-                )
-            )
-        );
+        when(this.recipeBook.getLibraries()).thenReturn(LIBRARY);
         when(this.inventory.hasElement(any())).thenReturn(false);
 
         assertThrows(RuntimeException.class, () -> w.create(new Element("C")));
@@ -86,5 +76,13 @@ public class WorkerTest {
 
         verify(this.inventory, never()).add(any(Element.class), anyInt());
         assertThrows(RuntimeException.class, () -> w.create(new Element("H")));
+    }
+
+    @Test
+    public void whenCraftElementIsNull() {
+        when(this.recipeBook.getLibraries()).thenReturn(LIBRARY);
+
+        verify(this.inventory, never()).add(any(Element.class), anyInt());
+        assertThrows(RuntimeException.class, () -> w.create(null));
     }
 }
