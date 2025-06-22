@@ -18,14 +18,15 @@ public class Main {
 // en caso de que el archivo de error, cargar un backup anterior
         for ( int i = 0; i < loader.length; ++i ) {
             int finalI = i;
-            //CompletableFuture.runAsync(() -> {
+            CompletableFuture.runAsync(() -> {
                 loader[finalI].loadFile();
-            //});
+            });
         }
 
         final Inventory i = InventoryLoader.getData();
         final RecipeBook r = RecipeLoader.getData();
         Worker w = new Worker(i, r);
-        
+    	  
+        Menu.ejecutarMenu();
     }
 }
