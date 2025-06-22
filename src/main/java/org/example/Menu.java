@@ -6,10 +6,10 @@ public class Menu {
 
     public static void ejecutarMenu() {
         Scanner scanner = new Scanner(System.in);
-        int opcion;
+        int option;
 
         do {
-            mostrarMenu();
+            ShowMenu();
             System.out.print("Elegí una opción: ");
 
             while (!scanner.hasNextInt()) {
@@ -17,15 +17,15 @@ public class Menu {
                 scanner.next();
             }
 
-            opcion = scanner.nextInt();
-            ejecutarOpcion(opcion);
+            option = scanner.nextInt();
+            executeOption(option);
 
-        } while (opcion != 0);
+        } while (option != 0);
 
         scanner.close();
     }
 
-    public static void mostrarMenu() {
+    public static void ShowMenu() {
         System.out.println("\n=== MENÚ PRINCIPAL ===");
         System.out.println("1. ¿Qué necesito para craftear un objeto?");
         System.out.println("2. ¿Qué necesito para craftear un objeto desde cero?");
@@ -39,35 +39,35 @@ public class Menu {
         System.out.println("0. Salir");
     }
 
-    public static void ejecutarOpcion(int opcion) {
-        limpiarConsola();
-        switch (opcion) {
+    public static void executeOption(int option) {
+        clearConsole();
+        switch (option) {
         case 1:
-            queNecesitoParaCraftear();
+            whatDoINeedToCraft();
             break;
         case 2:
-            queNecesitoDesdeCero();
+            whatDoINeedToCraftFromScratch();
             break;
         case 3:
-            queMeFaltaParaCraftear();
+            whatAmIMissingToCraft();
             break;
         case 4:
-            queMeFaltaDesdeCero();
+            whatAmIMissingToCraftFromScratch();
             break;
         case 5:
-            cuantosPuedoCraftear();
+            howManyCanICraft();
             break;
         case 6:
-            realizarCrafteo();
+            performCraft();
             break;
         case 7:
-            mostrarHistorial();
+            showCraftHistory();
             break;
         case 8:
-            mostrarRecetaArbol();
+            showCraftRecipeTree();
             break;
         case 9:
-            mostrarInventario();
+            showCurrentInventory();
             break;
         case 0:
             System.out.println("Volviendo al menú anterior / Saliendo...");
@@ -77,9 +77,9 @@ public class Menu {
         }
     }
 
-    public static void queNecesitoParaCraftear() {
+    public static void whatDoINeedToCraft() {
         System.out.println("[1] Mostrando lo necesario para craftear el objeto...");
-        limpiarConsola();
+        clearConsole();
         Scanner scanner = new Scanner(System.in);
         int opcion;
 
@@ -107,39 +107,39 @@ public class Menu {
         } while (opcion != 0);
     }
 
-    public static void queNecesitoDesdeCero() {
+    public static void whatDoINeedToCraftFromScratch() {
         System.out.println("[2] Mostrando lo necesario para craftear el objeto desde cero...");
     }
 
-    public static void queMeFaltaParaCraftear() {
+    public static void whatAmIMissingToCraft() {
         System.out.println("[3] Mostrando lo que te falta para craftear el objeto...");
     }
 
-    public static void queMeFaltaDesdeCero() {
+    public static void whatAmIMissingToCraftFromScratch() {
         System.out.println("[4] Mostrando lo que te falta para craftear desde cero...");
     }
 
-    public static void cuantosPuedoCraftear() {
+    public static void howManyCanICraft() {
         System.out.println("[5] Calculando cuántos objetos se pueden craftear...");
     }
 
-    public static void realizarCrafteo() {
+    public static void performCraft() {
         System.out.println("[6] Realizando el crafteo...");
     }
 
-    public static void mostrarHistorial() {
+    public static void showCraftHistory() {
         System.out.println("[7] Mostrando historial de crafteos...");
     }
 
-    public static void mostrarRecetaArbol() {
+    public static void showCraftRecipeTree() {
         System.out.println("[8] Mostrando receta en forma de árbol...");
     }
 
-    public static void mostrarInventario() {
+    public static void showCurrentInventory() {
         System.out.println("[9] Mostrando inventario actual...");
     }
 
-    public static void limpiarConsola() {
+    public static void clearConsole() {
         for (int i = 0; i < 50; ++i)
             System.out.println();
     }
