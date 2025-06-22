@@ -24,7 +24,4 @@ public record Element(String name, Classification type) {
 	public String toString() {
 		return name + " | " + "del tipo " + type;
 	}
-    
-    
-    
 }
