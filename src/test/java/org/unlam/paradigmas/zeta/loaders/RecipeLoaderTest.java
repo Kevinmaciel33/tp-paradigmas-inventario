@@ -1,10 +1,6 @@
-package org.example.loaders;
+package org.unlam.paradigmas.zeta.loaders;
 
-import org.example.Inventory;
-import org.example.RecipeBook;
-import org.example.enums.Classification;
-import org.example.models.Element;
-import org.example.models.Recipe;
+import org.unlam.paradigmas.zeta.RecipeBook;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

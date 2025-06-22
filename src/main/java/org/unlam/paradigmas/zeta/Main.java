@@ -1,11 +1,8 @@
-package org.example;
+package org.unlam.paradigmas.zeta;
 
-import org.example.loaders.InventoryLoader;
-import org.example.loaders.Loader;
-import org.example.loaders.RecipeLoader;
-import org.example.models.Recipe;
-
-import java.util.concurrent.CompletableFuture;
+import org.unlam.paradigmas.zeta.loaders.InventoryLoader;
+import org.unlam.paradigmas.zeta.loaders.Loader;
+import org.unlam.paradigmas.zeta.loaders.RecipeLoader;
 
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.

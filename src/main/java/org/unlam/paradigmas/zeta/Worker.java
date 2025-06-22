@@ -1,12 +1,12 @@
-package org.example;
+package org.unlam.paradigmas.zeta;
 
 
-import org.example.crafters.BaseCrafter;
-import org.example.crafters.Crafter;
-import org.example.enums.Classification;
-import org.example.enums.QueryEnum;
-import org.example.models.Element;
-import org.example.models.Recipe;
+import org.unlam.paradigmas.zeta.crafters.BaseCrafter;
+import org.unlam.paradigmas.zeta.crafters.Crafter;
+import org.unlam.paradigmas.zeta.enums.Classification;
+import org.unlam.paradigmas.zeta.enums.QueryEnum;
+import org.unlam.paradigmas.zeta.models.Element;
+import org.unlam.paradigmas.zeta.models.Recipe;
 
 import java.util.List;
 

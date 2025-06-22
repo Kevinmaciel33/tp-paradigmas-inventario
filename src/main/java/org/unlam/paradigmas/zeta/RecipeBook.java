@@ -1,6 +1,6 @@
-package org.example;
+package org.unlam.paradigmas.zeta;
 
-import org.example.models.Library;
+import org.unlam.paradigmas.zeta.models.Library;
 
 import java.util.List;
 

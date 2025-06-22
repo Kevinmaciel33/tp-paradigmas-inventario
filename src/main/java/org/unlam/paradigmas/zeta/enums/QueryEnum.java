@@ -1,6 +1,6 @@
-package org.example.enums;
+package org.unlam.paradigmas.zeta.enums;
 
-import org.example.querys.Query;
+import org.unlam.paradigmas.zeta.querys.Query;
 
 public enum QueryEnum {
     ELEMENTS_FROM_ZERO(null),

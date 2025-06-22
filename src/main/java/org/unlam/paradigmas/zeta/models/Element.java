@@ -1,6 +1,6 @@
-package org.example.models;
+package org.unlam.paradigmas.zeta.models;
 
-import org.example.enums.Classification;
+import org.unlam.paradigmas.zeta.enums.Classification;
 
 import java.util.Objects;
 

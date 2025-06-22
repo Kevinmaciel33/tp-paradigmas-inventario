@@ -1,11 +1,9 @@
-package org.example.crafters;
+package org.unlam.paradigmas.zeta.crafters;
 
-import org.example.Inventory;
-import org.example.enums.Classification;
-import org.example.models.Element;
-import org.example.models.Recipe;
-
-import java.util.List;
+import org.unlam.paradigmas.zeta.Inventory;
+import org.unlam.paradigmas.zeta.enums.Classification;
+import org.unlam.paradigmas.zeta.models.Element;
+import org.unlam.paradigmas.zeta.models.Recipe;
 
 /**
  * Base to create element

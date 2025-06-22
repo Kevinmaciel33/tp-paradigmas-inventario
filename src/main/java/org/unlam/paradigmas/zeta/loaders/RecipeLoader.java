@@ -1,10 +1,10 @@
-package org.example.loaders;
+package org.unlam.paradigmas.zeta.loaders;
 
-import org.example.RecipeBook;
-import org.example.enums.Classification;
-import org.example.models.Element;
-import org.example.models.Library;
-import org.example.models.Recipe;
+import org.unlam.paradigmas.zeta.RecipeBook;
+import org.unlam.paradigmas.zeta.enums.Classification;
+import org.unlam.paradigmas.zeta.models.Element;
+import org.unlam.paradigmas.zeta.models.Library;
+import org.unlam.paradigmas.zeta.models.Recipe;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -12,8 +12,8 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.*;
 
-import static org.example.Constants.COMMA;
-import static org.example.Constants.SLASH;
+import static org.unlam.paradigmas.zeta.Constants.COMMA;
+import static org.unlam.paradigmas.zeta.Constants.SLASH;
 
 public class RecipeLoader implements Loader<RecipeBook> {
 

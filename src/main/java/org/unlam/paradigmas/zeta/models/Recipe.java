@@ -1,4 +1,4 @@
-package org.example.models;
+package org.unlam.paradigmas.zeta.models;
 
 import java.util.List;
 
