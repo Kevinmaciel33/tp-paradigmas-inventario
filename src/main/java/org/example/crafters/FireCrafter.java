@@ -27,7 +27,7 @@ public class FireCrafter extends Crafter {
         inventory.remove(catalyst);
 
         // Añadir el producto final al inventario
-        inventory.add(element, 1);
+        inventory.add(element, 2);
     }
 	
 }

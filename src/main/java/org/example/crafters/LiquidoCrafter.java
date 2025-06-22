@@ -4,26 +4,37 @@ import org.example.models.Element;
 import org.example.models.Recipe;
 import org.example.Inventory;
 import org.example.enums.Classification;
-//Catalizador para tipo liquido
+
 public class LiquidoCrafter extends Crafter {
- @Override
- public Classification type() {
-     return Classification.LIQUIDO;
- }
+	
+	@Override
+	public Classification type() {
+		return Classification.LIQUIDO;
+	}
 
- @Override
- public void craft(Element element, Inventory inventory, Recipe recipe) {
-     float tiempoReducido = recipe.time() / 2; // ejemplo: reduce tiempo a la mitad
-     System.out.println("Crafteando " + element.name() + " con catalizador liquido. Tiempo reducido: " + tiempoReducido);
+	@Override
+	public void craft(Element element, Inventory inventory, Recipe recipe) {
+	    // Verificamos que el tipo de receta coincida
+	    if (element.type() != type()) {
+	        throw new IllegalArgumentException("Este catalizador solo aplica a recetas de tipo " + type());
+	    }
 
-     for (Element ingrediente : recipe.ingredients()) {
-         inventory.remove(ingrediente);
-     }
+	    Element catalyst = catalyst(); // Usamos el método de la clase base
 
-     Element catalyst = new Element("CATALIZADOR_LIQUIDO", Classification.LIQUIDO);
-     inventory.remove(catalyst);
+	    // Verificamos disponibilidad del catalizador
+	    if (!inventory.hasElement(catalyst)) {
+	        throw new RuntimeException("Falta el catalizador de gases en el inventario.");
+	    }
 
-     inventory.add(element, 1);
- }
+	    // Consumimos ingredientes
+	    for (Element ingrediente : recipe.ingredients()) {
+	        inventory.remove(ingrediente);
+	    }
+
+	    // Consumimos el catalizador
+	    inventory.remove(catalyst);
+
+	    // Agregamos el resultado con bonificación (doble en este caso)
+	    inventory.add(element, 2);
+	}
 }
-
