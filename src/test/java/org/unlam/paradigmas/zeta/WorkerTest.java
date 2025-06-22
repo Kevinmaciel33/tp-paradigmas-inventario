@@ -85,6 +85,6 @@ public class WorkerTest {
         );
 
         verify(this.inventory, never()).add(any(Element.class), anyInt());
-        assertThrows(RuntimeException.class, () -> w.create(new Element("h")));
+        assertThrows(RuntimeException.class, () -> w.create(new Element("H")));
     }
 }
