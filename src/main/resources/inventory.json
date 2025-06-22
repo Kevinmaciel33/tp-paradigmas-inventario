@@ -1,0 +1,12 @@
+[
+  {
+    "name": "H",
+    "type": "water",
+    "quantity": 2
+  },
+  {
+    "name": "O",
+    "type": "water",
+    "quantity": 1
+  }
+]
