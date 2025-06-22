@@ -1,0 +1,107 @@
+[
+  {
+    "table": "base",
+    "give": "aguita",
+    "time": 2.0,
+    "type": "liquido",
+    "elements": ["h", "h", "o"]
+  },
+  {
+    "table": "base",
+    "give": "dioxido_carbono",
+    "time": 2.0,
+    "type": "gas",
+    "elements": ["c", "o", "o"]
+  },
+  {
+    "table": "base",
+    "give": "sal",
+    "time": 2.0,
+    "type": "mineral",
+    "elements": ["na", "cl"]
+  },
+  {
+    "table": "base",
+    "give": "amoniaco",
+    "time": 2.0,
+    "type": "gas",
+    "elements": ["n", "h", "h","h"]
+  },
+  {
+    "table": "base",
+    "give": "sulfurico",
+    "time": 2.0,
+    "type": "acido",
+    "elements": ["h", "h", "s","o","o","o","o"]
+  },
+  {
+    "table": "base",
+    "give": "etanol",
+    "time": 2.0,
+    "type": "liquido",
+    "elements": ["c","c","h","h","h","h","h","h","o"]
+  },
+  {
+    "table": "base",
+    "give": "metano",
+    "time": 2.0,
+    "type": "gas",
+    "elements": ["c","h","h","h","h","o"]
+  },
+  {
+    "table": "base",
+    "give": "oxido_aluminio",
+    "time": 3.0,
+    "type": "metal",
+    "elements": ["al","al","o","o","o"]
+  },
+  {
+    "table": "base",
+    "give": "acero",
+    "time": 1.0,
+    "type": "metal",
+    "elements": ["fe", "c"]
+  },
+  {
+    "table": "base",
+    "give": "agua_ox",
+    "time": 4.0,
+    "type": "liquido",
+    "elements": ["h", "h","o","o"]
+  },
+  {
+    "table": "base",
+    "give": "clorhidrico",
+    "time": 2.0,
+    "type": "acido",
+    "elements": ["h", "cl"]
+  },
+  {
+    "table": "base",
+    "give": "lejia",
+    "time": 4.0,
+    "type": "liquido",
+    "elements": ["na", "cl", "o"]
+  },
+  {
+    "table": "base",
+    "give": "perclorico",
+    "time": 1.0,
+    "type": "acido",
+    "elements": ["h", "cl", "o","o","o","o"]
+  },
+  {
+    "table": "base",
+    "give": "sulf_hierro",
+    "time": 3.0,
+    "type": "metal",
+    "elements": ["fe","h", "h","s","o","o","o","o"]
+  },
+  {
+    "table": "base",
+    "give": "comb_avanz",
+    "time": 2.0,
+    "type": "liquido",
+    "elements": ["c","h","h","h", "h", "o","o"]
+  }
+]

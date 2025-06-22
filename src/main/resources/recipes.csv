@@ -1,8 +1,6 @@
 //table,give,time,type,...elements
-base,agua,2,liquido,h,h,o
-base,dioxido_de_carbono,4,agua,c,o,o
-base,acido_carbonico,6,agua,dioxido_de_carbono,agua
-base,super_elemento,10,agua,agua,dioxido_de_carbono,acido_carbonico,h,c,o,na
+base,aguita,2,liquido,h,h,o
+base,dioxido_carbono,2,gas,c,o,o
 base,sal,2,mineral,na,cl
 base,amoniaco,2,gas,n,h,h,h
 base,sulfurico,2,acido,h,h,s,o,o,o,o
@@ -16,5 +14,4 @@ base,lejia,4,liquido,na,cl,o
 base,perclorico,1,acido,h,cl,o,o,o,o
 base,sulf_hierro,3,metal,fe,h,h,s,o,o,o,o
 base,comb_avanz,2,liquido,c,h,h,h,h,o,o
-nueva_tabla,elemento_ficticio2,4,liquido,h,o
-nueva_tabla,elemento_ficticio3,2,liquido,c,c,h,h,
+

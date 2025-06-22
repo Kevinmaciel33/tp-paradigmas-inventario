@@ -1,37 +1,27 @@
 package org.example.loaders;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.example.RecipeBook;
 import org.example.enums.Classification;
-import org.example.models.Element;
-import org.example.models.Library;
-import org.example.models.Recipe;
+import org.example.models.*;
 
-import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.util.*;
-
-import static org.example.Constants.COMMA;
-import static org.example.Constants.SLASH;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
 
 public class RecipeLoader implements Loader<RecipeBook> {
 
-    private static final String PATH = "recipes.csv";
-    private static final Map<String, Map<String, List<String>>> data = new HashMap<>();
+    private static final String PATH = "recipes.json";
+    private static final List<Library> libraries = new ArrayList<>();
 
     public void loadFile() {
-
         ClassLoader cl = Thread.currentThread().getContextClassLoader();
         InputStream stream = cl.getResourceAsStream(PATH);
-        try(BufferedReader file = new BufferedReader(new InputStreamReader(stream))) {
-            String line;
-            while ((line = file.readLine()) != null) {
-                if (!line.contains(SLASH)) {
-                    String [] columns = line.split(COMMA);
 
-                    // time, type, ...elements
-                    List<String> content = Arrays.asList(columns).subList(2, columns.length);
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            RecipeJson[] recetas = mapper.readValue(stream, RecipeJson[].class);
 
                     String mesa = columns[0]; // La clave de la "mesa"
                     String recipeKey = columns[1]; // La clave de la receta dentro de la tabla
@@ -47,9 +37,14 @@ public class RecipeLoader implements Loader<RecipeBook> {
                     // Agregar la nueva receta al mapa de la tabla
                     recipesForTable.put(recipeKey, content);
                 }
+
+                Recipe recipe = new Recipe(product, r.time, ingredients);
+                recipe.mostrarReceta(product, ingredients); // mostrar receta
+
+                libraries.add(new Library(r.table.toUpperCase(Locale.ROOT), recipe));
             }
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+        } catch (Exception e) {
+            throw new RuntimeException("Error al leer el archivo JSON", e);
         }
     }
 
