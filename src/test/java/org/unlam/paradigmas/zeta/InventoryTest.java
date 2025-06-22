@@ -27,11 +27,11 @@ public class InventoryTest {
     void addAndRemoveToInventory() {
         Inventory i = new Inventory(new HashMap<>());
         Element e = new Element("H", Classification.ALL);
-        i.add(e, 1);
-        i.add(e, 1);
-        i.add(e, 1);
-        i.add(e, 1);
-        i.remove(e, 4);
+        i.add(e, 4);
+        i.remove(e);
+        i.remove(e);
+        i.remove(e);
+        i.remove(e);
 
         assertEquals(0, i.numberOf(e));
     }
@@ -54,5 +54,30 @@ public class InventoryTest {
         Inventory i = new Inventory(new HashMap<>());
         Element e = new Element("H", Classification.ALL);
         assertFalse(i.hasElement(e));
+    }
+
+    @Test
+    void whenTryToRemoveInAnEmptyInventoryShouldStillBeEmpty() {
+        Inventory i = new Inventory(new HashMap<>());
+        Element e = new Element("H", Classification.ALL);
+        i.remove(e);
+
+        assertEquals(0, i.numberOf(e));
+    }
+
+    @Test
+    void whenUseNullAsKeyToRemoveElements() {
+        Inventory i = new Inventory(new HashMap<>());
+        i.remove(null);
+
+        assertEquals(0, i.numberOf(null));
+    }
+
+    @Test
+    void whenUseNullAsKeyToAddElements() {
+        Inventory i = new Inventory(new HashMap<>());
+        i.add(null, 10);
+
+        assertFalse(i.hasElement(null));
     }
 }

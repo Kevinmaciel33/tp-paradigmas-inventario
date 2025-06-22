@@ -24,6 +24,9 @@ public class Inventory {
     }
 
     public void add(final Element e, int q) {
+        if (e == null) {
+            return;
+        }
         stock.put(e, stock.getOrDefault(e, NONE) + q);
     }
 
