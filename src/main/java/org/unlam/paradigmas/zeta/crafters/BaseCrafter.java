@@ -15,12 +15,10 @@ public class BaseCrafter extends Crafter {
     @Override
     public void craft(Element element, Inventory inventory, Recipe recipe) {
 
-        // Consumir ingredientes normales (no catalizadores)
-        for (Element ingrediente : recipe.ingredients()) {
-            inventory.remove(ingrediente);
+        for (Element ingredient : recipe.ingredients()) {
+            inventory.remove(ingredient);
         }
 
-        // Añadir el producto final al inventario
         inventory.add(element, 1);
     }
 

@@ -5,24 +5,27 @@ import org.unlam.paradigmas.zeta.enums.Classification;
 import org.unlam.paradigmas.zeta.models.Element;
 import org.unlam.paradigmas.zeta.models.Recipe;
 
-//Catalizador para tipo ácido
+/**
+ * Catalizador para tipo ácido
+ * Doble de material
+ */
 public class AcidoCrafter extends Crafter {
- @Override
- public Classification type() {
-     return Classification.ACIDO;
- }
+    @Override
+    public Classification type() {
+        return Classification.ACIDO;
+    }
 
- @Override
- public void craft(Element element, Inventory inventory, Recipe recipe) {
+    @Override
+    public void craft(Element element, Inventory inventory, Recipe recipe) {
 
-     for (Element ingrediente : recipe.ingredients()) {
-         inventory.remove(ingrediente);
-     }
+        for (Element ingredient : recipe.ingredients()) {
+            inventory.remove(ingredient);
+        }
 
-     Element catalyst = catalyst();
-     inventory.remove(catalyst);
+        Element catalyst = catalyst();
+        inventory.remove(catalyst);
 
-     inventory.add(element, 2); //Doble de material, ejemplo
- }
+        inventory.add(element, 2);
+    }
 }
 

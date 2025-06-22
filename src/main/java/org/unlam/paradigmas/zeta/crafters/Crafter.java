@@ -13,23 +13,19 @@ public abstract class Crafter {
     public abstract Classification type();
 
     public boolean shouldApply(Inventory inventory, Element element) {
-        // Verificamos que el tipo del elemento coincida con el tipo de catalizador de este crafter
-        boolean typeMatch = type() == Classification.ALL || type() == element.type();
-        
-        // Verificamos que si el crafter requiere catalizador, el inventario lo tenga
-        boolean hasCatalyst = type() == Classification.ALL || inventory.hasElement(catalyst());
+        final boolean allType = type() == Classification.ALL;
+        final boolean typeMatch =  type() == element.type();
+        final boolean hasCatalyst = hasCatalyst(inventory);
 
-        return typeMatch && hasCatalyst;
+        return allType && typeMatch && hasCatalyst;
     }
-
 
     protected Element catalyst() {
         return new Element("CATALIZADOR_" + type().name(), type());
     }
     
-    public boolean hasCatalyst(Inventory inventory) {
+    private boolean hasCatalyst(Inventory inventory) {
         if (type() == Classification.ALL) {
-            // No requiere catalizador específico
             return true;
         }
         Element catalyst = catalyst();
@@ -38,8 +34,8 @@ public abstract class Crafter {
 
 
     public void craft(Element element, Inventory inventory, Recipe recipe) {
-        for (Element ingrediente : recipe.ingredients()) {
-            inventory.remove(ingrediente);
+        for (Element ingredient : recipe.ingredients()) {
+            inventory.remove(ingredient);
         }
 
         if (type() != Classification.ALL) {
