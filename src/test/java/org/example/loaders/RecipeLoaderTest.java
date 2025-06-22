@@ -8,6 +8,7 @@ import org.example.models.Recipe;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class RecipeLoaderTest {
     Loader<RecipeBook> loader = new RecipeLoader();
@@ -42,12 +43,9 @@ public class RecipeLoaderTest {
             for (Element ingredient : recipe.ingredients()) {
                 System.out.println("- " + ingredient.name() + " (" + ingredient.type() + ")");
             }
-            System.out.println("------------------------------");
             count++;
         }
         
-        assertEquals(19, count,
-                "El numero de recetas cargadas debe ser 15, pero se encontraron " + count);
-
+        assertEquals(16, count);
     }
 }

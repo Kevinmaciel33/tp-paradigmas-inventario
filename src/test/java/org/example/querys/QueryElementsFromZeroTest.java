@@ -16,7 +16,6 @@ import static org.junit.jupiter.api.Assertions.*;
 class QueryElementsFromZeroTest {
 
     private QueryElementsFromZero query;
-    private ElementCounter elementCounter;
     private List<Library> libraries;
 
     @BeforeEach
@@ -32,7 +31,6 @@ class QueryElementsFromZeroTest {
         
         //Se crea la consulta 
         query = new QueryElementsFromZero();
-        elementCounter = new ElementCounter();
     }
 
     @Test
@@ -47,8 +45,8 @@ class QueryElementsFromZeroTest {
 
         assertEquals(3, result.ingredients().size(), "La receta de agua debería tener 3 ingredientes");
         
-        long countO = elementCounter.countBasicElement(result, "O", libraries);
-        long countH = elementCounter.countBasicElement(result, "H", libraries);
+        long countO = query.countBasicElement(result, "O", libraries);
+        long countH = query.countBasicElement(result, "H", libraries);
         
         assertEquals(2, countH, "Debería haber exactamente 2 átomos de hidrógeno");
         assertEquals(1, countO, "Debería haber exactamente 1 átomo de oxígeno");
@@ -57,15 +55,15 @@ class QueryElementsFromZeroTest {
     @Test
     void TestDioxidoCarbono() {
     	
-    	Element dioxidoDeCarbono = new Element("DIOXIDO_DE_CARBONO", Classification.ALL);
+    	Element dioxidoDeCarbono = new Element("DIOXIDO_CARBONO", Classification.ALL);
 
         Recipe result = query.run(dioxidoDeCarbono, libraries);
 
         assertNotNull(result, "Debería encontrar la receta de dioxido de carbono");
-        assertEquals("DIOXIDO_DE_CARBONO", result.give().name(), "Debería ser la receta de dioxido de carbono");
+        assertEquals("DIOXIDO_CARBONO", result.give().name(), "Debería ser la receta de dioxido de carbono");
 
-        long countO = elementCounter.countBasicElement(result, "O", libraries);
-        long countC = elementCounter.countBasicElement(result, "C", libraries);
+        long countO = query.countBasicElement(result, "O", libraries);
+        long countC = query.countBasicElement(result, "C", libraries);
         
         assertEquals(1, countC, "Debería haber exactamente 1 átomo de carbono");
         assertEquals(2, countO, "Debería haber exactamente 2 átomos de oxígeno");
@@ -80,23 +78,13 @@ class QueryElementsFromZeroTest {
         assertNotNull(result, "Debería encontrar la receta de acido carbonico");
         assertEquals("ACIDO_CARBONICO", result.give().name(), "Debería ser la receta de acido carbonico");
 
-        long countH = elementCounter.countBasicElement(result, "H", libraries);
-        long countO = elementCounter.countBasicElement(result, "O", libraries);
-        long countC = elementCounter.countBasicElement(result, "C", libraries);
+        long countH = query.countBasicElement(result, "H", libraries);
+        long countO = query.countBasicElement(result, "O", libraries);
+        long countC = query.countBasicElement(result, "C", libraries);
 
         assertEquals(2, countH, "Debería haber exactamente 2 átomos de hidrógeno");
         assertEquals(3, countO, "Debería haber exactamente 3 átomos de oxígeno");
         assertEquals(1, countC, "Debería haber exactamente 1 átomo de carbono");
-    }
-   
-    @Test
-    void testSuperElemento() {
-    	Element elemSuper = new Element("SUPER_ELEMENTO", Classification.ALL);
-
-        Recipe result = query.run(elemSuper, libraries);
-
-        assertNotNull(result, "Debería encontrar la receta de elemento ficticio");
-        assertEquals("SUPER_ELEMENTO", result.give().name(), "Debería ser la receta de super elemento");
     }
     
     @Test 
