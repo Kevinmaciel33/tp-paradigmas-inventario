@@ -1,12 +1,9 @@
 package org.unlam.paradigmas.zeta;
 
-import org.example.enums.Classification;
-import org.example.loaders.InventoryLoader;
-import org.example.loaders.Loader;
-import org.example.loaders.RecipeLoader;
-import org.example.models.Element;
-import org.example.models.Recipe;
-import org.example.querys.QueryElementsFromZero;
+import org.unlam.paradigmas.zeta.loaders.InventoryLoader;
+import org.unlam.paradigmas.zeta.loaders.Loader;
+import org.unlam.paradigmas.zeta.loaders.RecipeLoader;
+
 
 public class Main {
     public static void main(String[] args) {

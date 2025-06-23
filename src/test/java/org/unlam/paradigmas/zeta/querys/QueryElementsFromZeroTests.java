@@ -1,11 +1,12 @@
-package org.example.querys;
+package org.unlam.paradigmas.zeta.querys;
 
-import org.example.RecipeBook;
-import org.example.enums.Classification;
-import org.example.loaders.RecipeLoader;
-import org.example.models.Element;
-import org.example.models.Library;
-import org.example.models.Recipe;
+import org.unlam.paradigmas.zeta.models.Recipe;
+import org.unlam.paradigmas.zeta.RecipeBook;
+import org.unlam.paradigmas.zeta.enums.Classification;
+import org.unlam.paradigmas.zeta.loaders.RecipeLoader;
+import org.unlam.paradigmas.zeta.models.Element;
+import org.unlam.paradigmas.zeta.models.Library;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -13,23 +14,20 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class QueryElementsFromZeroTest {
+class QueryElementsFromZeroTests {
 
     private QueryElementsFromZero query;
     private List<Library> libraries;
 
     @BeforeEach
     void setUp() {
-        // Cargar archivo de recetas
         RecipeLoader recipeLoader = new RecipeLoader();
-        
-        //inventoryLoader.loadFile();
+
         recipeLoader.loadFile();
         
         RecipeBook recipeBook = RecipeLoader.getData();
         libraries = recipeBook.libraries;
-        
-        //Se crea la consulta 
+
         query = new QueryElementsFromZero();
     }
 

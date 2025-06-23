@@ -1,8 +1,8 @@
-package org.example.querys;
+package org.unlam.paradigmas.zeta.querys;
 
-import org.example.models.Element;
-import org.example.models.Library;
-import org.example.models.Recipe;
+import org.unlam.paradigmas.zeta.models.Element;
+import org.unlam.paradigmas.zeta.models.Library;
+import org.unlam.paradigmas.zeta.models.Recipe;
 
 import java.util.List;
 import java.util.Set;

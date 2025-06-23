@@ -1,6 +1,7 @@
 package org.unlam.paradigmas.zeta.loaders;
 
 import org.unlam.paradigmas.zeta.RecipeBook;
+import org.unlam.paradigmas.zeta.models.Recipe;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -10,38 +11,16 @@ public class RecipeLoaderTest {
     Loader<RecipeBook> loader = new RecipeLoader();
 
     @Test
-    void checkRecipeBookLoaderFromTestResource() {
+    void verifyLoadedRecipesCountAndIntegrity() {
         loader.loadFile();
         RecipeBook r = RecipeLoader.getData();
-
-        //Este test fallaria si se agregan mas recetas..
-        //Por lo que entiendo , cada receta se carga en un map y no respeta 
-        //..el indice de insercion
-        /* assertEquals("BASE", r.libraries.get(1).originTable());
-        assertEquals("AGUITA", r.libraries.get(1).recipe().give().name());
-        assertEquals(3, r.libraries.get(1).recipe().ingredients().size());
-
-        assertEquals("BASE", r.libraries.get(0).originTable());
-        assertEquals("AGUITA", r.libraries.get(0).recipe().give().name());
-        assertEquals(3, r.libraries.get(0).recipe().ingredients().size()); */
-
-        
-        //Mueestro todas las recetas cargadas en el libro de recetas
-        int count = 0;
+      
+        assertEquals(16, r.libraries.size(), "Se esperaban 16 recetas cargadas");
 
         for (var library : r.libraries) {
             Recipe recipe = library.recipe();
             assertTrue(recipe.ingredients().size() > 0, "La receta debe tener al menos un ingrediente");
             assertTrue(recipe.give().name().length() > 0, "Debe tener un nombre");
-
-            System.out.println("Receta: " + recipe.give().name());
-            System.out.println("Ingredientes:");
-            for (Element ingredient : recipe.ingredients()) {
-                System.out.println("- " + ingredient.name() + " (" + ingredient.type() + ")");
-            }
-            count++;
         }
-        
-        assertEquals(16, count);
     }
 }
