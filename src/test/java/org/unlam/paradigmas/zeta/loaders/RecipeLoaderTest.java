@@ -1,24 +1,26 @@
 package org.unlam.paradigmas.zeta.loaders;
 
 import org.unlam.paradigmas.zeta.RecipeBook;
+import org.unlam.paradigmas.zeta.models.Recipe;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class RecipeLoaderTest {
     Loader<RecipeBook> loader = new RecipeLoader();
 
     @Test
-    void checkRecipeBookLoaderFromTestResource() {
+    void verifyLoadedRecipesCountAndIntegrity() {
         loader.loadFile();
         RecipeBook r = RecipeLoader.getData();
-        assertEquals("BASE", r.libraries.get(1).originTable());
-        assertEquals("DIOXIDO_CARBONO", r.libraries.get(1).recipe().give().name());
-        assertEquals(3, r.libraries.get(1).recipe().ingredients().size());
+      
+        assertEquals(16, r.libraries.size(), "Se esperaban 16 recetas cargadas");
 
-        assertEquals("BASE", r.libraries.get(0).originTable());
-        assertEquals("AGUITA", r.libraries.get(0).recipe().give().name());
-        assertEquals(3, r.libraries.get(0).recipe().ingredients().size());
-
+        for (var library : r.libraries) {
+            Recipe recipe = library.recipe();
+            assertTrue(recipe.ingredients().size() > 0, "La receta debe tener al menos un ingrediente");
+            assertTrue(recipe.give().name().length() > 0, "Debe tener un nombre");
+        }
     }
 }

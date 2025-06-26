@@ -31,11 +31,11 @@ public class RecipeLoader implements Loader<RecipeBook> {
 
                 List<Element> ingredients = new ArrayList<>();
                 for (String ing : r.elements) {
-                    ingredients.add(new Element(ing, Classification.ALL));
+                    ingredients.add(new Element(ing.toUpperCase(Locale.ROOT), Classification.ALL));
                 }
 
                 Recipe recipe = new Recipe(product, r.time, ingredients);
-                recipe.mostrarReceta(product, ingredients); // mostrar receta
+                //recipe.mostrarReceta(product, ingredients); // mostrar receta
 
                 libraries.add(new Library(r.table.toUpperCase(Locale.ROOT), recipe));
             }
