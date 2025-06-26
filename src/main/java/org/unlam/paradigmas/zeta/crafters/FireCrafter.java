@@ -6,28 +6,33 @@ import org.unlam.paradigmas.zeta.enums.Classification;
 import org.unlam.paradigmas.zeta.models.Element;
 import org.unlam.paradigmas.zeta.models.Recipe;
 
+/**
+ * Catalizador para tipo fuego
+ * Doble de material
+ * Mitad de tiempo
+ */
 public class FireCrafter extends Crafter {
 	@Override
     public Classification type() {
-        return Classification.FIRE;  // Este crafter solo aplica a recetas tipo FIRE
+        return Classification.FIRE;
     }
 	
 	@Override
     public void craft(Element element, Inventory inventory, Recipe recipe) {
-        // Reducir el tiempo a la mitad (solo como ejemplo)
-        float tiempoReducido = recipe.time() / 2;
-        System.out.println("Crafteando " + element.name() + " con tiempo reducido: " + tiempoReducido);
-
-        // Consumir ingredientes normales (no catalizadores)
-        for (Element ingrediente : recipe.ingredients()) {
-            inventory.remove(ingrediente);
+        if (shouldApply(inventory, element)) {
+            throw new IllegalArgumentException("Este catalizador solo aplica a recetas de tipo " + type());
         }
 
-        // Consumir un catalizador
+        float lessTime = recipe.time() / 2;
+        System.out.println("Crafteando " + element.name() + " con tiempo reducido: " + lessTime);
+
+        for (Element ingredient : recipe.ingredients()) {
+            inventory.remove(ingredient);
+        }
+
         Element catalyst = catalyst();
         inventory.remove(catalyst);
 
-        // Añadir el producto final al inventario
         inventory.add(element, 2);
     }
 	
