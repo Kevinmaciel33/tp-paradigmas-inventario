@@ -16,7 +16,7 @@ public class Inventory {
     }
 
     public boolean hasElement(final Element e) {
-        return stock.containsKey(e);
+        return stock.containsKey(e) && stock.get(e) > NONE;
     }
 
     public int numberOf(final Element e) {
@@ -24,8 +24,10 @@ public class Inventory {
     }
 
     public void add(final Element e, int q) {
-        //TODO: aca hay un error
-        stock.put(e, q);
+        if (e == null) {
+            return;
+        }
+        stock.put(e, stock.getOrDefault(e, NONE) + q);
     }
 
     public void remove(final Element e) {
@@ -33,7 +35,14 @@ public class Inventory {
     }
 
     public void remove(final Element e, int n) {
-        final int i = stock.get(e);
-        stock.put(e, i-n);
+        if ( !this.hasElement(e) ) {
+            return;
+        }
+
+        if ( this.numberOf(e) < n ) {
+            n = this.numberOf(e);
+        }
+
+        stock.put(e, stock.get(e)-n);
     }
 }
