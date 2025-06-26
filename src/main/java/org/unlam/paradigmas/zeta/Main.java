@@ -23,6 +23,6 @@ public class Main {
         final RecipeBook r = RecipeLoader.getData();
         Worker w = new Worker(i, r);
 
-        Menu.ejecutarMenu();
+        Menu.ejecutarMenu(w);
     }
 }
