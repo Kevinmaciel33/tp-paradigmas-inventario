@@ -4,6 +4,7 @@ import org.unlam.paradigmas.zeta.loaders.InventoryLoader;
 import org.unlam.paradigmas.zeta.loaders.Loader;
 import org.unlam.paradigmas.zeta.loaders.RecipeLoader;
 
+
 public class Main {
     public static void main(String[] args) {
 
@@ -14,14 +15,14 @@ public class Main {
         for ( int i = 0; i < loader.length; ++i ) {
             int finalI = i;
             //CompletableFuture.runAsync(() -> {
-                loader[finalI].loadFile();
+            loader[finalI].loadFile();
             //});
         }
 
         final Inventory i = InventoryLoader.getData();
         final RecipeBook r = RecipeLoader.getData();
         Worker w = new Worker(i, r);
-    	  
+
         Menu.ejecutarMenu();
     }
 }
