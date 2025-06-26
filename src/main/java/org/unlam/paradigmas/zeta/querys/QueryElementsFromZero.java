@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.HashSet;
 
-public class QueryElementsFromZero implements Query {
+public class QueryElementsFromZero implements Query<Recipe> {
 	@Override
     public Recipe run(Element element, List<Library> libraries) {
         // Buscar la receta 

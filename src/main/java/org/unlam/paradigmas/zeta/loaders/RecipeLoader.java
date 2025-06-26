@@ -31,7 +31,7 @@ public class RecipeLoader implements Loader<RecipeBook> {
 
                 List<Element> ingredients = new ArrayList<>();
                 for (String ing : r.elements) {
-                    ingredients.add(new Element(ing.toUpperCase(Locale.ROOT), Classification.ALL));
+                    ingredients.add(new Element(ing.toUpperCase(Locale.ROOT)));
                 }
 
                 Recipe recipe = new Recipe(product, r.time, ingredients);

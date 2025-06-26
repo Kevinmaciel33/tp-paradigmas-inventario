@@ -24,6 +24,7 @@ public class Inventory {
     }
 
     public void add(final Element e, int q) {
+        //TODO: aca hay un error
         stock.put(e, q);
     }
 

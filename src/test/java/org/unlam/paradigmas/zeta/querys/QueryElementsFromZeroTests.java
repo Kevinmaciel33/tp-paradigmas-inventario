@@ -26,7 +26,7 @@ class QueryElementsFromZeroTests {
         recipeLoader.loadFile();
         
         RecipeBook recipeBook = RecipeLoader.getData();
-        libraries = recipeBook.libraries;
+        libraries = recipeBook.getLibraries();
 
         query = new QueryElementsFromZero();
     }

@@ -15,14 +15,14 @@ public class Main {
         for ( int i = 0; i < loader.length; ++i ) {
             int finalI = i;
             //CompletableFuture.runAsync(() -> {
-                loader[finalI].loadFile();
+            loader[finalI].loadFile();
             //});
         }
 
         final Inventory i = InventoryLoader.getData();
         final RecipeBook r = RecipeLoader.getData();
         Worker w = new Worker(i, r);
-    	  
+
         Menu.ejecutarMenu();
     }
 }
