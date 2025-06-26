@@ -6,6 +6,10 @@ import java.util.Objects;
 
 public record Element(String name, Classification type) {
 
+    public Element(String name) {
+        this(name, Classification.ALL);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (o instanceof Element e) {
@@ -24,7 +28,4 @@ public record Element(String name, Classification type) {
 	public String toString() {
 		return name + " | " + "del tipo " + type;
 	}
-    
-    
-    
 }
