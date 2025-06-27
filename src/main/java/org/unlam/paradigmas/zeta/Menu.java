@@ -9,12 +9,12 @@ import java.util.Scanner;
 
 public class Menu {
 
-    public static void ejecutarMenu(Worker w) {
+    public static void run(Worker w) {
         Scanner scanner = new Scanner(System.in);
         int option;
 
         do {
-            ShowMenu();
+            showMenu();
             System.out.print("Elegí una opción: ");
 
             while (!scanner.hasNextInt()) {
@@ -30,7 +30,7 @@ public class Menu {
         scanner.close();
     }
 
-    public static void ShowMenu() {
+    public static void showMenu() {
         System.out.println("\n=== MENÚ PRINCIPAL ===");
         System.out.println("0. Guia de Elementos");
         System.out.println("1. ¿Qué necesito para craftear un objeto?");
@@ -46,68 +46,42 @@ public class Menu {
     }
 
     public static void executeOption(int option, Worker w) {
-        Scanner scanner = new Scanner(System.in);
-        Element e = null;
 
         switch (option) {
-        case 1:
-            e = buildElementFromInput();
-            try {
-                Queryable res = w.query(QueryEnum.ELEMENTS, e);
-                System.out.println(res.toString());
-                scanner.nextLine();
-            } catch (IllegalArgumentException ex) {
-                System.out.println("No encontramos receta para ese elemento");
-                scanner.nextLine();
-            }
-            break;
-        case 2:
-            e = buildElementFromInput();
-            try {
-                w.query(QueryEnum.ELEMENTS_FROM_ZERO, e);
-                scanner.nextLine();
-            } catch (IllegalArgumentException ex) {
-                System.out.println("No pudimos completar la peticion intente de nuevo");
-            }
-            break;
-        case 3:
-            e = buildElementFromInput();
-            w.query(QueryEnum.MISSING_ELEMENTS, e);
-            scanner.nextLine();
-            break;
-        case 4:
-            e = buildElementFromInput();
-            w.query(QueryEnum.MISSING_ELEMENTS_FROM_ZERO, e);
-            scanner.nextLine();
-            break;
-        case 5:
-            e = buildElementFromInput();
-            w.query(QueryEnum.HOW_MANY_ELEMENTS, e);
-            scanner.nextLine();
-            break;
-        case 6:
-            e = buildElementFromInput();
-            try {
-                w.create(e);
-                scanner.nextLine();
-            } catch (IllegalArgumentException ex) {
-                System.out.println("No pudimos completar la peticion intente de nuevo");
-            }
-            break;
-        case 7:
-            showCraftHistory();
-            break;
-        case 8:
-            showCraftRecipeTree();
-            break;
-        case 9:
-            showCurrentInventory();
-            break;
-        case 0:
-            //TODO: show list of all elements
-            break;
-        default:
-            System.out.println("Opción no válida. Intentá de nuevo.");
+            case 1:
+                queryProcessInput(w, QueryEnum.ELEMENTS);
+                break;
+            case 2:
+                queryProcessInput(w, QueryEnum.ELEMENTS_FROM_ZERO);
+                break;
+            case 3:
+                queryProcessInput(w, QueryEnum.MISSING_ELEMENTS);
+                break;
+            case 4:
+                queryProcessInput(w, QueryEnum.MISSING_ELEMENTS_FROM_ZERO);
+                break;
+            case 5:
+                queryProcessInput(w, QueryEnum.HOW_MANY_ELEMENTS);
+                break;
+            case 6:
+                Scanner scanner = new Scanner(System.in);
+                Element e = buildElementFromInput();
+                try {
+                    w.create(e);
+                    scanner.nextLine();
+                } catch (IllegalArgumentException ex) {
+                    System.out.println("No pudimos completar la peticion intente de nuevo");
+                }
+                showCraftRecipeTree();
+                break;
+            case 9:
+                showCurrentInventory();
+                break;
+            case 0:
+                //TODO: show list of all elements
+                break;
+            default:
+                System.out.println("Opción no válida. Intentá de nuevo.");
         }
     }
 
@@ -121,49 +95,17 @@ public class Menu {
         return new Element(line.toUpperCase(Locale.ROOT));
     }
 
-    public static void whatDoINeedToCraft() {
-        System.out.println("[1] Mostrando lo necesario para craftear el objeto...");
+    private static void queryProcessInput(Worker w, QueryEnum query) {
         Scanner scanner = new Scanner(System.in);
-        int opcion;
-
-        do {
-            System.out.println("=== ¿Qué me falta para craftear un objeto? ===");
-            System.out.println("--- Aca se mostraria el inventario");
-
-            System.out.println("0. Volver al menú principal");
-            System.out.print("Elegí una opción: ");
-
-            while (!scanner.hasNextInt()) {
-                System.out.print("Entrada inválida. Ingresá un número: ");
-                scanner.next();
-            }
-
-            opcion = scanner.nextInt();
-
-            switch (opcion) {
-            case 0:
-                System.out.println("Volviendo al menú principal...");
-                break;
-            default:
-                System.out.println("Opción no válida.");
-            }
-        } while (opcion != 0);
-    }
-
-    public static void whatDoINeedToCraftFromScratch() {
-        System.out.println("[2] Mostrando lo necesario para craftear el objeto desde cero...");
-    }
-
-    public static void whatAmIMissingToCraft() {
-        System.out.println("[3] Mostrando lo que te falta para craftear el objeto...");
-    }
-
-    public static void whatAmIMissingToCraftFromScratch() {
-        System.out.println("[4] Mostrando lo que te falta para craftear desde cero...");
-    }
-
-    public static void howManyCanICraft() {
-        System.out.println("[5] Calculando cuántos objetos se pueden craftear...");
+        Element e = buildElementFromInput();
+        try {
+            Queryable res = w.query(query, e);
+            System.out.println(res.toString());
+            scanner.nextLine();
+        } catch (IllegalArgumentException ex) {
+            System.out.println("No encontramos receta para ese elemento");
+            scanner.nextLine();
+        }
     }
 
     public static void performCraft() {

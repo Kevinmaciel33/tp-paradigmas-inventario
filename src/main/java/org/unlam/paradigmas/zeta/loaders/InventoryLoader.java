@@ -13,9 +13,9 @@ import java.util.Map;
 
 public class InventoryLoader implements Loader<Inventory> {
     private static final String PATH = "inventory.json"; // cambiado
-    private static Map<Element, Integer> data = new HashMap<>();
+    private final Map<Element, Integer> data = new HashMap<>();
 
-    public void loadFile() {
+    public Inventory loadFile() {
         data.clear(); // para evitar acumulación entre ejecuciones de test
 
         ClassLoader cl = Thread.currentThread().getContextClassLoader();
@@ -33,12 +33,10 @@ public class InventoryLoader implements Loader<Inventory> {
                 data.put(element, i.quantity);
             }
 
+            return new Inventory(data);
+
         } catch (Exception e) {
             throw new RuntimeException("Error al leer el inventario JSON", e);
         }
-    }
-
-    public static Inventory getData() {
-        return new Inventory(data);
     }
 }

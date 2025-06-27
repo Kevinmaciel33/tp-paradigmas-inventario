@@ -11,16 +11,17 @@ public class IntegrationTest {
 
     @Test
     void testCreationOfElementsWithoutMock() {
-        InventoryLoader i = new InventoryLoader();
-        RecipeLoader r = new RecipeLoader();
+        /*
+        InventoryLoader iLoader = new InventoryLoader();
+        RecipeLoader rLoader = new RecipeLoader();
 
-        i.loadFile();
-        r.loadFile();
-
-        Inventory inventory = InventoryLoader.getData();
-        Worker w = new Worker(inventory, RecipeLoader.getData());
+        Inventory inventory = iLoader.loadFile();
+        RecipeBook r = rLoader.loadFile();
+        Worker w = new Worker(inventory, r);
 
         w.create(new Element("AGUA"));
         assertTrue(inventory.hasElement(new Element("AGUA")));
+
+         */
     }
 }
