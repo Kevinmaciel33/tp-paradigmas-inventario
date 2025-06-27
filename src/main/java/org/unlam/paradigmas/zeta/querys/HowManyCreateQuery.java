@@ -20,6 +20,8 @@ public class HowManyCreateQuery implements Query<QuantityElements> {
     public QuantityElements run(Element e, List<Library> l) {
 
         int quantity = Integer.MAX_VALUE;
+        float time = Float.MAX_VALUE;
+
         for ( Library lb : l ) {
             for ( Recipe r : lb.recipes()) {
                 if (e.equals(r.give())) {
@@ -34,11 +36,11 @@ public class HowManyCreateQuery implements Query<QuantityElements> {
                         final int a = inventory.numberOf(new Element(element)) / necessary;
                         quantity = Math.min(quantity, a);
                     }
-                    //r.time();
+                    time = r.time();
                 }
             }
         }
 
-        return new QuantityElements(quantity == Integer.MAX_VALUE ? 0 : quantity);
+        return new QuantityElements(quantity == Integer.MAX_VALUE ? 0 : quantity, time);
     }
 }

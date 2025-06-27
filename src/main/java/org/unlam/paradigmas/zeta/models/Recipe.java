@@ -12,6 +12,6 @@ public record Recipe(Element give, float time, List<Element> ingredients) implem
 			result.add(e.toString());
 		}
 
-		return String.join("\n", result);
+		return "Esta receta produce "+give+" en "+time+"ms\n"+String.join("\n", result)+"\n";
 	}
 }

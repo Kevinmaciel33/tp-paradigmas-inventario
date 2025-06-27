@@ -2,10 +2,13 @@ package org.unlam.paradigmas.zeta;
 
 import org.unlam.paradigmas.zeta.enums.QueryEnum;
 import org.unlam.paradigmas.zeta.models.Element;
+import org.unlam.paradigmas.zeta.models.MultiRecipe;
 import org.unlam.paradigmas.zeta.models.Queryable;
+import org.unlam.paradigmas.zeta.models.Recipe;
 
-import java.util.Locale;
-import java.util.Scanner;
+import java.util.*;
+
+import static org.unlam.paradigmas.zeta.enums.QueryEnum.ELEMENTS;
 
 public class Menu {
 
@@ -64,15 +67,7 @@ public class Menu {
                 queryProcessInput(w, QueryEnum.HOW_MANY_ELEMENTS);
                 break;
             case 6:
-                Scanner scanner = new Scanner(System.in);
-                Element e = buildElementFromInput();
-                try {
-                    w.create(e);
-                    scanner.nextLine();
-                } catch (IllegalArgumentException ex) {
-                    System.out.println("No pudimos completar la peticion intente de nuevo");
-                }
-                showCraftRecipeTree();
+                performCraft(w);
                 break;
             case 9:
                 showCurrentInventory();
@@ -108,8 +103,35 @@ public class Menu {
         }
     }
 
-    public static void performCraft() {
-        System.out.println("[6] Realizando el crafteo...");
+    public static void performCraft(Worker w) {
+        Scanner scanner = new Scanner(System.in);
+        Element e = buildElementFromInput();
+        try {
+
+            MultiRecipe multiRecipe = (MultiRecipe) w.query(QueryEnum.ELEMENTS, e);
+            System.out.println(multiRecipe.show());
+
+            if ( multiRecipe.libraries.isEmpty()) {
+                return;
+            }
+
+            Map<Integer, Recipe> decitionMap = new HashMap<>();
+            for (int i=0;i<multiRecipe.libraries.size();++i) {
+                Map.Entry<String, Recipe> l = multiRecipe.libraries.get(i);
+                Recipe r = l.getValue();
+                decitionMap.put(i, r);
+                r.show();
+            }
+            System.out.println("Ingrese el numero de receta que desea usar: ");
+            int o = scanner.nextInt();
+
+            if ( o > decitionMap.size() || o < 0 ) o = 0;
+
+            w.create(e, decitionMap.get(o));
+            scanner.nextLine();
+        } catch (IllegalArgumentException ex) {
+            System.out.println("No pudimos completar la peticion intente de nuevo");
+        }
     }
 
     public static void showCraftHistory() {
