@@ -10,9 +10,9 @@ import java.util.List;
 public class ElementsQuery implements Query<Recipe> {
 
     @Override
-    public Recipe run(Element e, List<Library> l) {
+    public Recipe run(Element e, List<Library> l) throws IllegalArgumentException {
         if ( e == null ) {
-            throw new RuntimeException("Could not create the element");
+            throw new IllegalArgumentException("Could not create the element");
         }
 
         for ( Library lb : l ) {
@@ -21,6 +21,6 @@ public class ElementsQuery implements Query<Recipe> {
             }
         }
 
-        throw new RuntimeException("Could not create the element");
+        throw new IllegalArgumentException("Could not create the element");
     }
 }

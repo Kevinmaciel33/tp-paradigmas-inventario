@@ -21,11 +21,10 @@ class QueryElementsFromZeroTests {
 
     @BeforeEach
     void setUp() {
+
         RecipeLoader recipeLoader = new RecipeLoader();
 
-        recipeLoader.loadFile();
-        
-        RecipeBook recipeBook = RecipeLoader.getData();
+        RecipeBook recipeBook = recipeLoader.loadFile();
         libraries = recipeBook.getLibraries();
 
         query = new QueryElementsFromZero();

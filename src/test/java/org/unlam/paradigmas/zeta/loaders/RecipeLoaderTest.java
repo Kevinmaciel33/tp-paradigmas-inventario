@@ -11,8 +11,7 @@ public class RecipeLoaderTest {
 
     @Test
     void verifyLoadedRecipesCountAndIntegrity() {
-        loader.loadFile();
-        RecipeBook r = RecipeLoader.getData();
+        RecipeBook r = loader.loadFile();
         assertEquals(16, r.getLibraries().size(), "Se esperaban 16 recetas cargadas");
 
         for (var library : r.getLibraries()) {
