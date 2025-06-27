@@ -68,6 +68,7 @@ class QueryElementsFromZeroTests {
     
     @Test
     void TestAcidoCarbonico() {
+    	
     	Element acidoCarbonico = new Element("ACIDO_CARBONICO", Classification.ALL);
 
         Recipe result = query.run(acidoCarbonico, libraries);
@@ -86,6 +87,7 @@ class QueryElementsFromZeroTests {
     
     @Test 
     void testElementoNoExistenteEnReceta() {
+    	
     	Element elemNoExistente = new Element("VENENO", Classification.ALL);
 
     	IllegalArgumentException ex = assertThrows(IllegalArgumentException.class, () -> {
@@ -97,11 +99,77 @@ class QueryElementsFromZeroTests {
     
     @Test 
     void testAmoniaco() {
+    	
     	Element elemAmoniaco = new Element("AMONIACO", Classification.ALL);
 
         Recipe result = query.run(elemAmoniaco, libraries);
 
         assertNotNull(result, "Debería encontrar la receta de elemento ficticio");
         assertEquals("AMONIACO", result.give().name(), "Debería ser la receta de elemento amoniaco");
+    }
+    
+    @Test
+    void testAguaOxigenada() {
+    	
+        Element aguaOxigenada = new Element("AGUA_OXIGENADA", Classification.ALL);
+
+        Recipe result = query.run(aguaOxigenada, libraries);
+        
+        assertNotNull(result, "Debería encontrar la receta de agua oxigenada");
+        assertEquals("AGUA_OXIGENADA", result.give().name(), "Debería ser la receta de agua oxigenada");
+
+        assertEquals(4, result.ingredients().size(), "La receta de agua oxigenada debería tener 4 ingredientes");
+        
+        long countH = query.countBasicElement(result, "H", libraries);
+        long countO = query.countBasicElement(result, "O", libraries);
+        
+        assertEquals(2, countH, "Debería haber exactamente 2 átomos de hidrógeno");
+        assertEquals(2, countO, "Debería haber exactamente 2 átomos de oxígeno");
+    }
+    
+    @Test
+    void testMezclaExplosiva() {
+    	
+        Element mezclaExplosiva = new Element("MEZCLA_EXPLOSIVA", Classification.ALL);
+
+        Recipe result = query.run(mezclaExplosiva, libraries);
+        
+        assertNotNull(result, "Debería encontrar la receta de mezcla explosiva");
+        assertEquals("MEZCLA_EXPLOSIVA", result.give().name(), "Debería ser la receta de mezcla explosiva");
+
+        assertEquals(2, result.ingredients().size(), "La receta de mezcla explosiva debería tener 2 ingredientes");
+        
+        long countH = query.countBasicElement(result, "H", libraries);
+        long countO = query.countBasicElement(result, "O", libraries);
+        long countC = query.countBasicElement(result, "C", libraries);
+        
+        assertEquals(1, countC, "Debería haber exactamente 1 átomo de carbono");
+        assertEquals(6, countH, "Debería haber exactamente 6 átomos de hidrógeno");
+        assertEquals(4, countO, "Debería haber exactamente 4 átomos de oxígeno");
+    }
+    
+    @Test
+    void testExplosivoUltimoNivel() {
+    	
+        Element explosivoUltimoNivel = new Element("EXPLOSIVO_ULTIMO_NIVEL", Classification.ALL);
+
+        Recipe result = query.run(explosivoUltimoNivel, libraries);
+        
+        assertNotNull(result, "Debería encontrar la receta de explosivo último nivel");
+        assertEquals("EXPLOSIVO_ULTIMO_NIVEL", result.give().name(), "Debería ser la receta de explosivo último nivel");
+
+        assertEquals(2, result.ingredients().size(), "La receta de explosivo último nivel debería tener 2 ingredientes");
+        
+        long countH = query.countBasicElement(result, "H", libraries);
+        long countO = query.countBasicElement(result, "O", libraries);
+        long countC = query.countBasicElement(result, "C", libraries);
+        long countS = query.countBasicElement(result, "S", libraries);
+        long countCl = query.countBasicElement(result, "CL", libraries);
+        
+        assertEquals(1, countC, "Debería haber exactamente 1 átomo de carbono");
+        assertEquals(11, countH, "Debería haber exactamente 11 átomos de hidrógeno");
+        assertEquals(14, countO, "Debería haber exactamente 14 átomos de oxígeno");
+        assertEquals(1, countS, "Debería haber exactamente 1 átomo de azufre");
+        assertEquals(1, countCl, "Debería haber exactamente 1 átomo de cloro");
     }
 }

@@ -30,7 +30,6 @@ public class QueryElementsFromZero implements Query<Recipe> {
         }
 
         throw new IllegalArgumentException("No recipe found to craft the element");
-
     }
 
     private void processRecipe(Recipe recipe, List<Library> libraries, String indent) {
