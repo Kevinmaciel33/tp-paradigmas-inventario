@@ -16,8 +16,10 @@ public class ElementsQuery implements Query<Recipe> {
         }
 
         for ( Library lb : l ) {
-            if ( e.equals(lb.recipe().give()) ) {
-                return lb.recipe();
+            for ( Recipe r : lb.recipes() ) {
+                if (e.equals(r.give())) {
+                    return r;
+                }
             }
         }
 

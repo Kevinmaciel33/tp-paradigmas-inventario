@@ -28,13 +28,15 @@ public class WorkerTest {
         LIBRARY = List.of(
             new Library(
                 "base",
-                new Recipe(
-                    new Element("C"),
-                    15,
-                    List.of(
-                        new Element("H"),
-                        new Element("H"),
-                        new Element("H")
+                List.of(
+                    new Recipe(
+                        new Element("C"),
+                        15,
+                        List.of(
+                            new Element("H"),
+                            new Element("H"),
+                            new Element("H")
+                        )
                     )
                 )
             )

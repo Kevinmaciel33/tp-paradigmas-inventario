@@ -39,13 +39,15 @@ public class HowManyCreateQueryTest {
             List.of(
                 new Library(
                     "base",
-                    new Recipe(
-                        new Element("H"),
-                        15,
-                        List.of(
+                    List.of(
+                        new Recipe(
                             new Element("H"),
-                            new Element("H"),
-                            new Element("O")
+                            15,
+                            List.of(
+                                new Element("H"),
+                                new Element("H"),
+                                new Element("O")
+                            )
                         )
                     )
                 )
@@ -66,13 +68,15 @@ public class HowManyCreateQueryTest {
             List.of(
                 new Library(
                     "base",
-                    new Recipe(
-                        new Element("A"),
-                        15,
-                        List.of(
-                            new Element("H"),
-                            new Element("H"),
-                            new Element("O")
+                    List.of(
+                        new Recipe(
+                            new Element("A"),
+                            15,
+                            List.of(
+                                new Element("H"),
+                                new Element("H"),
+                                new Element("O")
+                            )
                         )
                     )
                 )
@@ -93,13 +97,15 @@ public class HowManyCreateQueryTest {
             List.of(
                 new Library(
                     "base",
-                    new Recipe(
-                        new Element("A"),
-                        15,
-                        List.of(
-                            new Element("H"),
-                            new Element("H"),
-                            new Element("O")
+                    List.of(
+                        new Recipe(
+                            new Element("A"),
+                            15,
+                            List.of(
+                                new Element("H"),
+                                new Element("H"),
+                                new Element("O")
+                            )
                         )
                     )
                 )
@@ -120,13 +126,15 @@ public class HowManyCreateQueryTest {
             List.of(
                 new Library(
                     "base",
-                    new Recipe(
-                        new Element("A"),
-                        15,
-                        List.of(
-                            new Element("H"),
-                            new Element("H"),
-                            new Element("O")
+                    List.of(
+                        new Recipe(
+                            new Element("A"),
+                            15,
+                            List.of(
+                                new Element("H"),
+                                new Element("H"),
+                                new Element("O")
+                            )
                         )
                     )
                 )
@@ -147,13 +155,15 @@ public class HowManyCreateQueryTest {
             List.of(
                 new Library(
                     "base",
-                    new Recipe(
-                        new Element("A"),
-                        15,
-                        List.of(
-                            new Element("H"),
-                            new Element("H"),
-                            new Element("O")
+                    List.of(
+                        new Recipe(
+                            new Element("A"),
+                            15,
+                            List.of(
+                                new Element("H"),
+                                new Element("H"),
+                                new Element("O")
+                            )
                         )
                     )
                 )

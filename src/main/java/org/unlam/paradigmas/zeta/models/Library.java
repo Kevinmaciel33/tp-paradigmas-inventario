@@ -1,4 +1,6 @@
 package org.unlam.paradigmas.zeta.models;
 
-public record Library(String originTable, Recipe recipe) {
+import java.util.List;
+
+public record Library(String originTable, List<Recipe> recipes) {
 }
