@@ -10,7 +10,7 @@ import java.util.HashSet;
 
 public class QueryElementsFromZero implements Query<Recipe> {
 	@Override
-    public Recipe run(Element element, List<Library> libraries) {
+    public Recipe run(Element element, List<Library> libraries) throws IllegalArgumentException{
         // Buscar la receta 
 		Recipe recipe = null;
 		for (Library l : libraries) {
@@ -29,8 +29,8 @@ public class QueryElementsFromZero implements Query<Recipe> {
             return recipe;
         }
 
-        System.out.println("No se encontró receta para: " + element.name());
-        return null;
+        throw new IllegalArgumentException("No recipe found to craft the element");
+
     }
 
     private void processRecipe(Recipe recipe, List<Library> libraries, String indent) {

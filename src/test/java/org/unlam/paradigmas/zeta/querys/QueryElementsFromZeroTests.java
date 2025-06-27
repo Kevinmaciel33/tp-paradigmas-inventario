@@ -88,9 +88,11 @@ class QueryElementsFromZeroTests {
     void testElementoNoExistenteEnReceta() {
     	Element elemNoExistente = new Element("VENENO", Classification.ALL);
 
-        Recipe result = query.run(elemNoExistente, libraries);
-        
-        assertNull(result, "Deberia ser null");  
+    	IllegalArgumentException ex = assertThrows(IllegalArgumentException.class, () -> {
+    	    query.run(elemNoExistente, libraries);
+    	});
+
+    	assertEquals("No recipe found to craft the element", ex.getMessage()); 
     }
     
     @Test 
