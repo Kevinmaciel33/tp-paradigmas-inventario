@@ -1,10 +1,14 @@
 package org.unlam.paradigmas.zeta;
 
 import java.util.Scanner;
+import org.unlam.paradigmas.zeta.loaders.InventorySaver;
+import org.unlam.paradigmas.zeta.loaders.InventoryLoader;
 
 public class Menu {
-
-    public static void ejecutarMenu() {
+	
+	public static final String FINAL_INVENTORY_PATH = "src/main/resources/inventory.json";
+    
+	public static void ejecutarMenu() {
         Scanner scanner = new Scanner(System.in);
         int option;
 
@@ -70,8 +74,10 @@ public class Menu {
             showCurrentInventory();
             break;
         case 0:
-            System.out.println("Volviendo al menú anterior / Saliendo...");
-            break;
+        	System.out.println("Guardando inventario...");
+        	InventorySaver.saveToFile(InventoryLoader.getData(), FINAL_INVENTORY_PATH);
+        	System.out.println("Inventario guardado en " + FINAL_INVENTORY_PATH + ". Saliendo...");
+        	break;
         default:
             System.out.println("Opción no válida. Intentá de nuevo.");
         }
