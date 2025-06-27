@@ -1,15 +1,20 @@
 package org.unlam.paradigmas.zeta;
 
+import org.unlam.paradigmas.zeta.enums.QueryEnum;
+import org.unlam.paradigmas.zeta.models.Element;
+import org.unlam.paradigmas.zeta.models.Queryable;
+
+import java.util.Locale;
 import java.util.Scanner;
 
 public class Menu {
 
-    public static void ejecutarMenu() {
+    public static void run(Worker w) {
         Scanner scanner = new Scanner(System.in);
         int option;
 
         do {
-            ShowMenu();
+            showMenu();
             System.out.print("Elegí una opción: ");
 
             while (!scanner.hasNextInt()) {
@@ -18,15 +23,16 @@ public class Menu {
             }
 
             option = scanner.nextInt();
-            executeOption(option);
+            executeOption(option, w);
 
-        } while (option != 0);
+        } while (option != 10);
 
         scanner.close();
     }
 
-    public static void ShowMenu() {
+    public static void showMenu() {
         System.out.println("\n=== MENÚ PRINCIPAL ===");
+        System.out.println("0. Guia de Elementos");
         System.out.println("1. ¿Qué necesito para craftear un objeto?");
         System.out.println("2. ¿Qué necesito para craftear un objeto desde cero?");
         System.out.println("3. ¿Qué me falta para craftear un objeto?");
@@ -36,91 +42,70 @@ public class Menu {
         System.out.println("7. Mostrar historial de crafteos");
         System.out.println("8. Mostrar receta de crafteo(Arbol)");
         System.out.println("9. Mostrar inventario actual");
-        System.out.println("0. Salir");
+        System.out.println("10. Salir");
     }
 
-    public static void executeOption(int option) {
-        clearConsole();
+    public static void executeOption(int option, Worker w) {
+
         switch (option) {
-        case 1:
-            whatDoINeedToCraft();
-            break;
-        case 2:
-            whatDoINeedToCraftFromScratch();
-            break;
-        case 3:
-            whatAmIMissingToCraft();
-            break;
-        case 4:
-            whatAmIMissingToCraftFromScratch();
-            break;
-        case 5:
-            howManyCanICraft();
-            break;
-        case 6:
-            performCraft();
-            break;
-        case 7:
-            showCraftHistory();
-            break;
-        case 8:
-            showCraftRecipeTree();
-            break;
-        case 9:
-            showCurrentInventory();
-            break;
-        case 0:
-            System.out.println("Volviendo al menú anterior / Saliendo...");
-            break;
-        default:
-            System.out.println("Opción no válida. Intentá de nuevo.");
+            case 1:
+                queryProcessInput(w, QueryEnum.ELEMENTS);
+                break;
+            case 2:
+                queryProcessInput(w, QueryEnum.ELEMENTS_FROM_ZERO);
+                break;
+            case 3:
+                queryProcessInput(w, QueryEnum.MISSING_ELEMENTS);
+                break;
+            case 4:
+                queryProcessInput(w, QueryEnum.MISSING_ELEMENTS_FROM_ZERO);
+                break;
+            case 5:
+                queryProcessInput(w, QueryEnum.HOW_MANY_ELEMENTS);
+                break;
+            case 6:
+                Scanner scanner = new Scanner(System.in);
+                Element e = buildElementFromInput();
+                try {
+                    w.create(e);
+                    scanner.nextLine();
+                } catch (IllegalArgumentException ex) {
+                    System.out.println("No pudimos completar la peticion intente de nuevo");
+                }
+                showCraftRecipeTree();
+                break;
+            case 9:
+                showCurrentInventory();
+                break;
+            case 0:
+                //TODO: show list of all elements
+                break;
+            default:
+                System.out.println("Opción no válida. Intentá de nuevo.");
         }
     }
 
-    public static void whatDoINeedToCraft() {
-        System.out.println("[1] Mostrando lo necesario para craftear el objeto...");
-        clearConsole();
+    private static Element buildElementFromInput() {
+
         Scanner scanner = new Scanner(System.in);
-        int opcion;
 
-        do {
-            System.out.println("=== ¿Qué me falta para craftear un objeto? ===");
-            System.out.println("--- Aca se mostraria el inventario");
-
-            System.out.println("0. Volver al menú principal");
-            System.out.print("Elegí una opción: ");
-
-            while (!scanner.hasNextInt()) {
-                System.out.print("Entrada inválida. Ingresá un número: ");
-                scanner.next();
-            }
-
-            opcion = scanner.nextInt();
-
-            switch (opcion) {
-            case 0:
-                System.out.println("Volviendo al menú principal...");
-                break;
-            default:
-                System.out.println("Opción no válida.");
-            }
-        } while (opcion != 0);
+        System.out.println("Ingrese el elemento y el tipo (opcional)");
+        String line = scanner.nextLine();
+        //TODO: leer el type y que cree una consulta por type
+        return new Element(line.toUpperCase(Locale.ROOT));
     }
 
-    public static void whatDoINeedToCraftFromScratch() {
-        System.out.println("[2] Mostrando lo necesario para craftear el objeto desde cero...");
-    }
-
-    public static void whatAmIMissingToCraft() {
-        System.out.println("[3] Mostrando lo que te falta para craftear el objeto...");
-    }
-
-    public static void whatAmIMissingToCraftFromScratch() {
-        System.out.println("[4] Mostrando lo que te falta para craftear desde cero...");
-    }
-
-    public static void howManyCanICraft() {
-        System.out.println("[5] Calculando cuántos objetos se pueden craftear...");
+    private static void queryProcessInput(Worker w, QueryEnum query) {
+        Scanner scanner = new Scanner(System.in);
+        Element e = buildElementFromInput();
+        try {
+            Queryable res = w.query(query, e);
+            System.out.println(res.show());
+            scanner.nextLine();
+        } catch (IllegalArgumentException ex) {
+            System.out.println("No encontramos receta para ese elemento");
+            scanner.nextLine();
+        }
     }
 
     public static void performCraft() {
@@ -137,10 +122,5 @@ public class Menu {
 
     public static void showCurrentInventory() {
         System.out.println("[9] Mostrando inventario actual...");
-    }
-
-    public static void clearConsole() {
-        for (int i = 0; i < 50; ++i)
-            System.out.println();
     }
 }

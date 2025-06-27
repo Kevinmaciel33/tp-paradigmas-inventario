@@ -8,21 +8,13 @@ import org.unlam.paradigmas.zeta.loaders.RecipeLoader;
 public class Main {
     public static void main(String[] args) {
 
-        Loader[] loader = { new InventoryLoader(), new RecipeLoader() };
+        Loader<Inventory> il = new InventoryLoader();
+        Loader<RecipeBook> el = new RecipeLoader();
 
-// TODO idea: hacer hilos para cargar los archivos y crons para que se actualicen cada n segundos
-// en caso de que el archivo de error, cargar un backup anterior
-        for ( int i = 0; i < loader.length; ++i ) {
-            int finalI = i;
-            //CompletableFuture.runAsync(() -> {
-            loader[finalI].loadFile();
-            //});
-        }
-
-        final Inventory i = InventoryLoader.getData();
-        final RecipeBook r = RecipeLoader.getData();
+        final Inventory i = il.loadFile();
+        final RecipeBook r = el.loadFile();
         Worker w = new Worker(i, r);
 
-        Menu.ejecutarMenu();
+        Menu.run(w);
     }
 }

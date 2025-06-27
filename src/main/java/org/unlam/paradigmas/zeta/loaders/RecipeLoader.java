@@ -13,9 +13,9 @@ import java.util.*;
 public class RecipeLoader implements Loader<RecipeBook> {
 
     private static final String PATH = "recipes.json";
-    private static final List<Library> libraries = new ArrayList<>();
+    private final List<Library> libraries = new ArrayList<>();
 
-    public void loadFile() {
+    public RecipeBook loadFile() {
         ClassLoader cl = Thread.currentThread().getContextClassLoader();
         InputStream stream = cl.getResourceAsStream(PATH);
 
@@ -43,12 +43,9 @@ public class RecipeLoader implements Loader<RecipeBook> {
                 libraries.add(new Library(k, mapa.get(k)));
             }
 
+            return new RecipeBook(libraries);
         } catch (Exception e) {
             throw new RuntimeException("Error al leer el archivo JSON", e);
         }
-    }
-
-    public static RecipeBook getData() {
-        return new RecipeBook(libraries);
     }
 }
