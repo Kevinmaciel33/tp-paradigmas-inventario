@@ -6,4 +6,9 @@ public class QuantityElements implements Queryable {
     public QuantityElements(int number) {
         this.number = number;
     }
+
+    @Override
+    public String show() {
+        return "Se pueden crear: "+number+" elementos";
+    }
 }

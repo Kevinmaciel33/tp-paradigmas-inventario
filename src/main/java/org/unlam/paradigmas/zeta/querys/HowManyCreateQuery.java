@@ -34,6 +34,7 @@ public class HowManyCreateQuery implements Query<QuantityElements> {
                         final int a = inventory.numberOf(new Element(element)) / necessary;
                         quantity = Math.min(quantity, a);
                     }
+                    //r.time();
                 }
             }
         }
