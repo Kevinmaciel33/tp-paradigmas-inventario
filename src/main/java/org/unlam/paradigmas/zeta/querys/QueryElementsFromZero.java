@@ -14,10 +14,12 @@ public class QueryElementsFromZero implements Query<Recipe> {
         // Buscar la receta 
 		Recipe recipe = null;
 		for (Library l : libraries) {
-		    if (l.recipe().give().name().equals(element.name())) {
-		        recipe = l.recipe();
-		        break;
-		    }
+            for(Recipe r : l.recipes()) {
+                if (r.give().name().equals(element.name())) {
+                    recipe = r;
+                    break;
+                }
+            }
 		}
 
         if (recipe != null) {
@@ -44,9 +46,11 @@ public class QueryElementsFromZero implements Query<Recipe> {
             // ...el procesamiento de ese elemento y su respectiva receta
             Recipe craftableIngredient = null;
             for (Library l : libraries) {
-                if (l.recipe().give().name().equals(ingredient.name())) {
-                    craftableIngredient = l.recipe();
-                    break;
+                for(Recipe r : l.recipes()) {
+                    if (r.give().name().equals(ingredient.name())) {
+                        craftableIngredient = r;
+                        break;
+                    }
                 }
             }
 
@@ -84,10 +88,12 @@ public class QueryElementsFromZero implements Query<Recipe> {
             } else {
             	Recipe nestedRecipe = null;
             	for (Library l : libraries) {
-            	    if (l.recipe().give().name().equals(ingredient.name())) {
-            	        nestedRecipe = l.recipe();
-            	        break;
-            	    }
+                    for(Recipe r : l.recipes()) {
+                        if (r.give().name().equals(ingredient.name())) {
+                            nestedRecipe = r;
+                            break;
+                        }
+                    }
             	}
 
                 if (nestedRecipe != null) {
@@ -105,10 +111,12 @@ public class QueryElementsFromZero implements Query<Recipe> {
         Set<String> recipeResults = new HashSet<>();
 
         for (Library library : libraries) {
-            Recipe recipe = library.recipe();
-            recipeResults.add(recipe.give().name());
-            for (Element element : recipe.ingredients()) {
-                allElements.add(element.name());
+            for(Recipe r : library.recipes()) {
+                Recipe recipe = r;
+                recipeResults.add(recipe.give().name());
+                for (Element element : recipe.ingredients()) {
+                    allElements.add(element.name());
+                }
             }
         }
 
