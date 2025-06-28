@@ -14,6 +14,7 @@ public class QueryUtils {
     
     //Busca una receta, si no la encuentra devuelve null
     public static Recipe findRecipe(Element element, List<Library> libraries) {
+    	
         for (Library library : libraries) {
             if (library.recipe().give().name().equals(element.name())) {
                 return library.recipe();
@@ -24,6 +25,7 @@ public class QueryUtils {
 
     //Retorna un set con los elementos basicos de una receta 
     public static Set<String> getBasicElements(List<Library> libraries) {
+    	
         Set<String> allElements = new HashSet<>();
         Set<String> recipeResults = new HashSet<>();
 

@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 
 public class ElementsFromZeroQuery implements Query<ElementsFromZeroQuery>, Queryable {
+	
 	private Recipe recipe;
 	private String elementName;
 	private boolean hasRecipe;
@@ -16,6 +17,7 @@ public class ElementsFromZeroQuery implements Query<ElementsFromZeroQuery>, Quer
 
 	@Override
     public ElementsFromZeroQuery run(Element element, List<Library> libraries) throws IllegalArgumentException {
+		
         this.elementName = element.name();
         this.libraries = libraries;
         
@@ -32,6 +34,7 @@ public class ElementsFromZeroQuery implements Query<ElementsFromZeroQuery>, Quer
 
     //Cuenta y muestra el total de cada elemento basico que hay en una receta
 	public void countAllBasicElements(Recipe recipe, List<Library> libraries) {
+		
 		Map<String, Long> elementCounts = QueryUtils.countAllBasicElements(recipe, libraries);
 		
 		System.out.println("\nElementos básicos necesarios:");
@@ -46,6 +49,7 @@ public class ElementsFromZeroQuery implements Query<ElementsFromZeroQuery>, Quer
 
     @Override
     public String toString() {
+    	
         if (!hasRecipe) {
             return "No se encontró receta para: " + elementName;
         }
@@ -67,6 +71,7 @@ public class ElementsFromZeroQuery implements Query<ElementsFromZeroQuery>, Quer
     }
 
     private void processRecipeToString(Recipe recipe, String indent, boolean isLast, StringBuilder message) {
+    	
         List<Element> ingredients = recipe.ingredients();
 
         for (int i = 0; i < ingredients.size(); i++) {

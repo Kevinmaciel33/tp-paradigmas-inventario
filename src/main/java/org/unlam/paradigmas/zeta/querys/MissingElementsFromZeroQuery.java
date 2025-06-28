@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Map;
 
 public class MissingElementsFromZeroQuery implements Query<MissingElementsFromZeroQuery>, Queryable {
+	
     private Inventory inventory;
     private Map<String, Integer> missingElements;
     private String elementName;
@@ -22,6 +23,7 @@ public class MissingElementsFromZeroQuery implements Query<MissingElementsFromZe
 
     @Override
     public MissingElementsFromZeroQuery run(Element element, List<Library> libraries) {
+    	
         this.elementName = element.name();
         
         Recipe originalRecipe = QueryUtils.findRecipe(element, libraries);
@@ -56,6 +58,7 @@ public class MissingElementsFromZeroQuery implements Query<MissingElementsFromZe
 
     @Override
     public String toString() {
+    	
         if (!hasRecipe) {
             return "No se encontró receta para: " + elementName;
         }
