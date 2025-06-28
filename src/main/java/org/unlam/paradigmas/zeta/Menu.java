@@ -1,5 +1,6 @@
 package org.unlam.paradigmas.zeta;
 
+import org.unlam.paradigmas.zeta.enums.Classification;
 import org.unlam.paradigmas.zeta.enums.QueryEnum;
 import org.unlam.paradigmas.zeta.models.Element;
 import org.unlam.paradigmas.zeta.models.MultiRecipe;
@@ -73,7 +74,7 @@ public class Menu {
                 showCurrentInventory();
                 break;
             case 0:
-                //TODO: show list of all elements
+                //TODO: show list of all elements and the classififcations
                 break;
             default:
                 System.out.println("Opción no válida. Intentá de nuevo.");
@@ -84,10 +85,16 @@ public class Menu {
 
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println("Ingrese el elemento y el tipo (opcional)");
-        String line = scanner.nextLine();
+        System.out.println("Ingrese el elemento:");
+        String name = scanner.nextLine().trim();
+        System.out.println("Ingrese el tipo del elemento ( default ALL ):");
+        String type = scanner.nextLine().trim();
         //TODO: leer el type y que cree una consulta por type
-        return new Element(line.toUpperCase(Locale.ROOT));
+        if ( type.isEmpty() ) {
+            return new Element(name.toUpperCase(Locale.ROOT));
+        }
+
+        return new Element(name.toUpperCase(Locale.ROOT), Classification.valueOf(type.toUpperCase(Locale.ROOT)));
     }
 
     private static void queryProcessInput(Worker w, QueryEnum query) {
