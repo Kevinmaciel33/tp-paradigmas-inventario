@@ -9,6 +9,7 @@ import org.unlam.paradigmas.zeta.models.Recipe;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class ElementsQueryTest {
     Query<MultiRecipe> query = new ElementsQuery();
@@ -65,8 +66,7 @@ public class ElementsQueryTest {
 
         List<Library> l = List.of();
 
-        MultiRecipe mr = query.run(new Element("C"), l);
-        assertEquals(0, mr.libraries.size());
+        assertThrows(IllegalArgumentException.class, () -> query.run(new Element("C"), l));
     }
 
     @Test
@@ -79,8 +79,7 @@ public class ElementsQueryTest {
             )
         );
 
-        MultiRecipe mr = query.run(new Element("C"), l);
-        assertEquals(0, mr.libraries.size());
+        assertThrows(IllegalArgumentException.class, () -> query.run(new Element("C"), l));
     }
 
     @Test
