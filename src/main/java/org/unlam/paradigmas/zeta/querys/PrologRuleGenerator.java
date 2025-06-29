@@ -1,10 +1,10 @@
-package java.org.unlam.paradigmas.zeta.querys;
+package org.unlam.paradigmas.zeta.querys;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.*;
-import java.org.unlam.paradigmas.zeta.loaders.InventoryJson;
-import java.org.unlam.paradigmas.zeta.loaders.RecipeJson;
+import org.unlam.paradigmas.zeta.loaders.InventoryJson;
+import org.unlam.paradigmas.zeta.loaders.RecipeJson;
 import java.util.*;
 import java.util.stream.Collectors;
 
