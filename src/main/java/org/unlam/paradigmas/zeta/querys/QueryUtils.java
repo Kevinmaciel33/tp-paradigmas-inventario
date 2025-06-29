@@ -12,12 +12,16 @@ import java.util.Set;
 
 public class QueryUtils {
     
-    //Busca una receta, si no la encuentra devuelve null
     public static Recipe findRecipe(Element element, List<Library> libraries) {
     	
         for (Library library : libraries) {
-            if (library.recipe().give().name().equals(element.name())) {
-                return library.recipe();
+            //Se busca solo en la mesa base (por ahora)...
+            if (library.originTable().equals("BASE")) {
+                for (Recipe recipe : library.recipes()) {
+                    if (recipe.give().name().equals(element.name())) {
+                        return recipe;
+                    }
+                }
             }
         }
         return null;
@@ -30,10 +34,11 @@ public class QueryUtils {
         Set<String> recipeResults = new HashSet<>();
 
         for (Library library : libraries) {
-            Recipe recipe = library.recipe();
-            recipeResults.add(recipe.give().name());
-            for (Element element : recipe.ingredients()) {
-                allElements.add(element.name());
+            for (Recipe recipe : library.recipes()) {
+                recipeResults.add(recipe.give().name());
+                for (Element element : recipe.ingredients()) {
+                    allElements.add(element.name());
+                }
             }
         }
 

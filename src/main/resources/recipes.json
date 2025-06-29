@@ -222,5 +222,12 @@
     "time": 12.0,
     "type": "liquido",
     "elements": ["mezcla_explosiva", "acido_super_concentrado"]
+  },
+  {
+    "table": "otra-tabla",
+    "give": "acido_carbonico",
+    "time": 5.0,
+    "type": "liquido",
+    "elements": ["agua"]
   }
 ]

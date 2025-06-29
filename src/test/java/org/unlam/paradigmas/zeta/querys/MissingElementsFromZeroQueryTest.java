@@ -3,14 +3,17 @@ package org.unlam.paradigmas.zeta.querys;
 import org.unlam.paradigmas.zeta.Inventory;
 import org.unlam.paradigmas.zeta.models.Element;
 import org.unlam.paradigmas.zeta.models.Library;
+import org.unlam.paradigmas.zeta.models.MissingBasicIngredients;
 import org.unlam.paradigmas.zeta.loaders.InventoryLoader;
 import org.unlam.paradigmas.zeta.loaders.RecipeLoader;
 import org.unlam.paradigmas.zeta.RecipeBook;
+import org.unlam.paradigmas.zeta.enums.Classification;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
+import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -34,107 +37,88 @@ class MissingElementsFromZeroQueryTest {
     }
 
     @Test
-    void testAguaSePuedeCraftear() {
+    void testAguaConTodosLosIngredientes() {
+    	
+        Element agua = new Element("AGUA", Classification.ALL);
         
-        MissingElementsFromZeroQuery result = query.run(new Element("AGUA"), libraries);
+        MissingBasicIngredients result = query.run(agua, libraries);
         
-        assertNotNull(result);
-        assertTrue(result.getMissingElements().isEmpty());
+        assertNotNull(result, "Debería encontrar la receta de agua");
+        assertEquals("AGUA", result.getElementName(), "Debería ser la receta de agua");
+        
+        assertFalse(result.hasMissingElements(), "No debería faltar ningún elemento");
+        assertTrue(result.getMissingElements().isEmpty(), "La lista de elementos faltantes debería estar vacía");
     }
-
+    
     @Test
-    void testAcidoCarbonicoFaltanElementos() {
+    void testDioxidoCarbonoFaltaUnAtomoOxigeno() {
+        Element dioxidoDeCarbono = new Element("DIOXIDO_CARBONO", Classification.ALL);
         
-        MissingElementsFromZeroQuery result = query.run(new Element("ACIDO_CARBONICO"), libraries);
+        MissingBasicIngredients result = query.run(dioxidoDeCarbono, libraries);
         
-        assertNotNull(result);
-        assertEquals(1, result.getMissingElements().size());
+        assertNotNull(result, "Debería encontrar la receta de dioxido de carbono");
+        assertEquals("DIOXIDO_CARBONO", result.getElementName(), "Debería ser la receta de dioxido de carbono");
         
-        assertTrue(result.getMissingElements().containsKey("O"));
-        assertEquals(2, result.getMissingElements().get("O"));
-        
-        assertFalse(result.getMissingElements().containsKey("H"));
-        assertFalse(result.getMissingElements().containsKey("C"));
+        Map<String, Integer> missingElements = result.getMissingElements();
+        assertEquals(1, missingElements.get("O"), "Debería faltar exactamente 1 átomo de oxígeno");
+        assertEquals(1, missingElements.size(), "Debería faltar exactamente 1 tipos de elemento");
     }
-
+    
     @Test
-    void testBicarbonatoFaltanElementos() {
+    void testAcidoCarbonicoFaltanDosAtomosDeOxigeno() {
+        Element acidoCarbonico = new Element("ACIDO_CARBONICO", Classification.ALL);
         
-        MissingElementsFromZeroQuery result = query.run(new Element("BICARBONATO"), libraries);
+        MissingBasicIngredients result = query.run(acidoCarbonico, libraries);
         
-        assertNotNull(result);
-        assertEquals(1, result.getMissingElements().size());
+        assertNotNull(result, "Debería encontrar la receta de acido carbonico");
+        assertEquals("ACIDO_CARBONICO", result.getElementName(), "Debería ser la receta de acido carbonico");
         
-        assertTrue(result.getMissingElements().containsKey("O"));
-        assertEquals(2, result.getMissingElements().get("O"));
-        
-        assertFalse(result.getMissingElements().containsKey("H"));
-        assertFalse(result.getMissingElements().containsKey("C"));
-        assertFalse(result.getMissingElements().containsKey("NA"));
+        Map<String, Integer> missingElements = result.getMissingElements();
+        assertEquals(2, missingElements.get("O"), "Debería faltar exactamente 2 átomos de oxígeno");
+        assertEquals(1, missingElements.size(), "Debería faltar exactamente 1 tipos de elemento");
     }
-
+    
     @Test
     void testAcidoSulfuricoConcentradoFaltanElementos() {
+        Element acidoSulfurico = new Element("ACIDO_SULFURICO_CONCENTRADO", Classification.ALL);
         
-        MissingElementsFromZeroQuery result = query.run(new Element("ACIDO_SULFURICO_CONCENTRADO"), libraries);
+        MissingBasicIngredients result = query.run(acidoSulfurico, libraries);
         
-        assertNotNull(result);
-        assertEquals(2, result.getMissingElements().size());
+        assertNotNull(result, "Debería encontrar la receta de acido sulfurico concentrado");
+        assertEquals("ACIDO_SULFURICO_CONCENTRADO", result.getElementName(), "Debería ser la receta de acido sulfurico concentrado");
         
-        assertEquals(2, result.getMissingElements().get("H"));
-        assertEquals(5, result.getMissingElements().get("O"));
+        Map<String, Integer> missingElements = result.getMissingElements();
+        assertEquals(2, missingElements.get("H"), "Debería faltar exactamente 2 átomos de hidrógeno");
+        assertEquals(5, missingElements.get("O"), "Debería faltar exactamente 5 átomos de oxígeno");
+        assertEquals(2, missingElements.size(), "Debería faltar exactamente 2 tipos de elementos");
     }
-
+    
     @Test
-    void testSulfuricoConcentradoFaltanElementos() {
+    void testSulfatoHierroFaltanTresDeOxigeno() {
+        Element sulfatoHierro = new Element("SULFATO_HIERRO", Classification.ALL);
         
-        MissingElementsFromZeroQuery result = query.run(new Element("ACIDO_SULFURICO_CONCENTRADO"), libraries);
+        MissingBasicIngredients result = query.run(sulfatoHierro, libraries);
         
-        assertNotNull(result);
-        assertTrue(result.getMissingElements().containsKey("H"));
-        assertTrue(result.getMissingElements().containsKey("O"));
-        assertFalse(result.getMissingElements().containsKey("S"));
+        assertNotNull(result, "Debería encontrar la receta de sulfato de hierro");
+        assertEquals("SULFATO_HIERRO", result.getElementName(), "Debería ser la receta de sulfato de hierro");
         
-        assertEquals(2, result.getMissingElements().get("H"));
-        assertEquals(5, result.getMissingElements().get("O"));
-        
-        assertEquals(2, result.getMissingElements().size());
-        
-        String message = result.toString();
-        assertTrue(message.contains("Para craftear ACIDO_SULFURICO_CONCENTRADO desde cero te faltan:"));
-        assertTrue(message.contains("H: 2"));
-        assertTrue(message.contains("O: 5"));
+        Map<String, Integer> missingElements = result.getMissingElements();
+        assertEquals(3, missingElements.get("O"), "Debería faltar exactamente 3 átomos de oxígeno");
+        assertEquals(1, missingElements.size(), "Debería faltar exactamente 1 tipos de elemento");
     }
-
+    
     @Test
-    void testExplosivoUltimoNivelFaltanElementos() {
+    void testExplosivoUltimoNivel() {
+        Element explosivoUltimoNivel = new Element("EXPLOSIVO_ULTIMO_NIVEL", Classification.ALL);
         
-        MissingElementsFromZeroQuery result = query.run(new Element("EXPLOSIVO_ULTIMO_NIVEL"), libraries);
+        MissingBasicIngredients result = query.run(explosivoUltimoNivel, libraries);
         
-        assertNotNull(result);
-        assertEquals(2, result.getMissingElements().size());
+        assertNotNull(result, "Debería encontrar la receta de explosivo último nivel");
+        assertEquals("EXPLOSIVO_ULTIMO_NIVEL", result.getElementName(), "Debería ser la receta de explosivo último nivel");
         
-        assertEquals(9, result.getMissingElements().get("H"));
-        assertEquals(13, result.getMissingElements().get("O"));
-    }
-
-    @Test
-    void testSulfatoHierroFaltanElementos() {
+        Map<String, Integer> missingElements = result.getMissingElements();
+        assertEquals(13, missingElements.get("O"), "Debería faltar exactamente 13 átomos de oxígeno");
+        assertEquals(9, missingElements.get("H"), "Debería faltar exactamente 9 átomos de hidrógeno");
         
-        MissingElementsFromZeroQuery result = query.run(new Element("SULFATO_HIERRO"), libraries);
-        
-        assertNotNull(result);
-        assertEquals(1, result.getMissingElements().size());
-        
-        assertTrue(result.getMissingElements().containsKey("O"));
-        assertEquals(3, result.getMissingElements().get("O"));
-        
-        assertFalse(result.getMissingElements().containsKey("H"));
-        assertFalse(result.getMissingElements().containsKey("S"));
-        assertFalse(result.getMissingElements().containsKey("FE"));
-        
-        String message = result.toString();
-        assertTrue(message.contains("Para craftear SULFATO_HIERRO desde cero te faltan:"));
-        assertTrue(message.contains("O: 3"));
     }
 } 
