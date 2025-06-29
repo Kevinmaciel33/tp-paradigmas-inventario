@@ -4,6 +4,7 @@ import org.unlam.paradigmas.zeta.Inventory;
 import org.unlam.paradigmas.zeta.enums.Classification;
 import org.unlam.paradigmas.zeta.models.Element;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.unlam.paradigmas.zeta.querys.PrologRuleGenerator;
 
 import java.io.InputStream;
 import java.util.HashMap;
@@ -32,6 +33,8 @@ public class InventoryLoader implements Loader<Inventory> {
                 );
                 data.put(element, i.quantity);
             }
+
+            PrologRuleGenerator.writeRulesInventoryToFile(items, "src/base.pl", false);
 
             return new Inventory(data);
 
