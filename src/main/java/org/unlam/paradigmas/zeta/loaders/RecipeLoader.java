@@ -2,6 +2,7 @@ package org.unlam.paradigmas.zeta.loaders;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.unlam.paradigmas.zeta.RecipeBook;
+import org.unlam.paradigmas.zeta.querys.PrologRuleGenerator;
 import org.unlam.paradigmas.zeta.enums.Classification;
 import org.unlam.paradigmas.zeta.models.Library;
 import org.unlam.paradigmas.zeta.models.Element;
@@ -42,6 +43,8 @@ public class RecipeLoader implements Loader<RecipeBook> {
                 libraries.add(new Library(k, mapa.get(k)));
             }
 
+            PrologRuleGenerator.writeRulesRecipeToFile(recetas, "src/base.pl", true);  //Realiza las reglas prolog
+            
             return new RecipeBook(libraries);
         } catch (Exception e) {
             throw new RuntimeException("Error al leer el archivo JSON", e);
