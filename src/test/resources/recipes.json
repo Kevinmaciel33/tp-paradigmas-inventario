@@ -110,5 +110,12 @@
     "time": 5.0,
     "type": "liquido",
     "elements": ["agua","dioxido_carbono"]
-  } 
+  },
+  {
+    "table": "otra-tabla",
+    "give": "acido_carbonico",
+    "time": 5.0,
+    "type": "liquido",
+    "elements": ["agua"]
+  }
 ]

@@ -13,8 +13,7 @@ public class InventoryLoaderTest {
 
     @Test
     void checkInventoryOfTestResource() {
-        loader.loadFile();
-        Inventory i = InventoryLoader.getData();
+        Inventory i = loader.loadFile();
 
         assertEquals(2, i.numberOf(new Element("H", Classification.WATER)));
         assertTrue(i.hasElement(new Element("H", Classification.WATER)));

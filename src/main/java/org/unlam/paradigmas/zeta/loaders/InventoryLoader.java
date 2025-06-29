@@ -5,7 +5,9 @@ import org.unlam.paradigmas.zeta.enums.Classification;
 import org.unlam.paradigmas.zeta.models.Element;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import java.io.BufferedReader;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
@@ -13,16 +15,15 @@ import java.util.Map;
 
 public class InventoryLoader implements Loader<Inventory> {
     private static final String PATH = "inventory.json"; // cambiado
-    private static Map<Element, Integer> data = new HashMap<>();
+    private final Map<Element, Integer> data = new HashMap<>();
 
-    public void loadFile() {
+    public Inventory loadFile() {
         data.clear(); // para evitar acumulación entre ejecuciones de test
 
         ClassLoader cl = Thread.currentThread().getContextClassLoader();
-        InputStream stream = cl.getResourceAsStream(PATH);
-
         ObjectMapper mapper = new ObjectMapper();
-        try {
+
+        try(InputStream stream = cl.getResourceAsStream(PATH)) {
             InventoryJson[] items = mapper.readValue(stream, InventoryJson[].class);
 
             for (InventoryJson i : items) {
@@ -33,12 +34,10 @@ public class InventoryLoader implements Loader<Inventory> {
                 data.put(element, i.quantity);
             }
 
+            return new Inventory(data);
+
         } catch (Exception e) {
             throw new RuntimeException("Error al leer el inventario JSON", e);
         }
-    }
-
-    public static Inventory getData() {
-        return new Inventory(data);
     }
 }
