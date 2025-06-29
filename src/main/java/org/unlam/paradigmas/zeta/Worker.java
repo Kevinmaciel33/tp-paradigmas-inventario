@@ -2,9 +2,7 @@ package org.unlam.paradigmas.zeta;
 
 import org.unlam.paradigmas.zeta.crafters.*;
 import org.unlam.paradigmas.zeta.enums.QueryEnum;
-import org.unlam.paradigmas.zeta.models.Element;
-import org.unlam.paradigmas.zeta.models.Queryable;
-import org.unlam.paradigmas.zeta.models.Recipe;
+import org.unlam.paradigmas.zeta.models.*;
 import org.unlam.paradigmas.zeta.querys.ElementsQuery;
 import org.unlam.paradigmas.zeta.querys.HowManyCreateQuery;
 import org.unlam.paradigmas.zeta.querys.Query;
@@ -44,8 +42,10 @@ public class Worker {
         );
     }
 
-    public void create(Element element) throws RuntimeException {
-        Recipe recipe = (Recipe) this.querys.get(ELEMENTS).run(element, this.recipeBook.getLibraries());
+    public void create(Element element, Recipe recipe) throws RuntimeException {
+        if ( element == null || recipe == null || !element.equals(recipe.give()) ) {
+            throw new IllegalArgumentException("Invalid recipe or element");
+        }
 
         for (Crafter crafter : crafters) {
             if (crafter.shouldApply(inventory, element)) {

@@ -17,7 +17,7 @@ public abstract class Crafter {
         final boolean typeMatch =  type() == element.type();
         final boolean hasCatalyst = hasCatalyst(inventory);
 
-        return allType && typeMatch && hasCatalyst;
+        return allType || (typeMatch && hasCatalyst);
     }
 
     protected Element catalyst() {

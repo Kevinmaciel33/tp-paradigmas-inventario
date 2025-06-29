@@ -7,6 +7,13 @@
     "elements": ["h", "h", "o"]
   },
   {
+    "table": "alternativa",
+    "give": "agua",
+    "time": 2.0,
+    "type": "liquido",
+    "elements": ["h", "o"]
+  },
+  {
     "table": "base",
     "give": "dioxido_carbono",
     "time": 2.0,

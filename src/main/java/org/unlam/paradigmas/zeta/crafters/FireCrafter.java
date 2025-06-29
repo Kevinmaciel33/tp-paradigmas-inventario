@@ -19,7 +19,7 @@ public class FireCrafter extends Crafter {
 	
 	@Override
     public void craft(Element element, Inventory inventory, Recipe recipe) {
-        if (shouldApply(inventory, element)) {
+        if (!shouldApply(inventory, element)) {
             throw new IllegalArgumentException("Este catalizador solo aplica a recetas de tipo " + type());
         }
 
