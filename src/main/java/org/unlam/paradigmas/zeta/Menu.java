@@ -1,6 +1,8 @@
 package org.unlam.paradigmas.zeta;
 
 import java.util.Scanner;
+
+import org.unlam.paradigmas.zeta.loaders.InventoryJson;
 import org.unlam.paradigmas.zeta.loaders.InventorySaver;
 import org.unlam.paradigmas.zeta.enums.Classification;
 import org.unlam.paradigmas.zeta.enums.QueryEnum;
@@ -73,7 +75,7 @@ public class Menu {
                 performCraft(w);
                 break;
             case 9:
-                showCurrentInventory();
+                showCurrentInventory(w);
                 break;
             case 0:
                 //TODO: show list of all elements and the classififcations
@@ -139,7 +141,7 @@ public class Menu {
             System.out.println("Ingrese el numero de receta que desea usar: ");
             int o = scanner.nextInt();
 
-            if ( o > decitionMap.size() || o < 0 ) o = 0;
+            if ( o > decitionMap.size() || o < 0 ) o = 1;
 
             w.create(e, decitionMap.get(o-1));
             scanner.nextLine();
@@ -154,11 +156,16 @@ public class Menu {
         System.out.println("[7] Mostrando historial de crafteos...");
     }
 
-    public static void showCraftRecipeTree() {
-        System.out.println("[8] Mostrando receta en forma de árbol...");
-    }
+    public static void showCurrentInventory(Worker w) {
+        Inventory inventory = w.getInventory();
+        System.out.println("Inventario: ");
+        for (Map.Entry<Element, Integer> entry : inventory.getStock().entrySet()) {
+            if ( entry.getValue() == 0 ) {
+                continue;
+            }
 
-    public static void showCurrentInventory() {
-        System.out.println("[9] Mostrando inventario actual...");
+            System.out.println(entry.getKey() + " - " + entry.getValue());
+        }
+
     }
 }
