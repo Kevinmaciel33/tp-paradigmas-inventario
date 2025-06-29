@@ -6,7 +6,8 @@ import org.unlam.paradigmas.zeta.models.*;
 import org.unlam.paradigmas.zeta.querys.ElementsQuery;
 import org.unlam.paradigmas.zeta.querys.HowManyCreateQuery;
 import org.unlam.paradigmas.zeta.querys.Query;
-import org.unlam.paradigmas.zeta.querys.QueryElementsFromZero;
+import org.unlam.paradigmas.zeta.querys.ElementsFromZeroQuery;
+import org.unlam.paradigmas.zeta.querys.MissingElementsFromZeroQuery;
 
 import java.util.*;
 
@@ -33,9 +34,9 @@ public class Worker {
         this.querys = new EnumMap<>(
             Map.of(
                 ELEMENTS, new ElementsQuery(),
-                ELEMENTS_FROM_ZERO, new QueryElementsFromZero(),
-                MISSING_ELEMENTS, new QueryElementsFromZero(),
-                MISSING_ELEMENTS_FROM_ZERO, new QueryElementsFromZero(),
+                ELEMENTS_FROM_ZERO, new ElementsFromZeroQuery(),
+                MISSING_ELEMENTS, new ElementsFromZeroQuery(),
+                MISSING_ELEMENTS_FROM_ZERO, new MissingElementsFromZeroQuery(inventory),
                 HOW_MANY_ELEMENTS, new HowManyCreateQuery(inventory)
             )
         );
