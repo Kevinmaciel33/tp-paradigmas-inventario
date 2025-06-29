@@ -1,13 +1,9 @@
 [ {
   "name" : "H",
   "type" : "WATER",
-  "quantity" : 0
+  "quantity" : 2
 }, {
   "name" : "O",
   "type" : "WATER",
-  "quantity" : 0
-}, {
-  "name" : "AGUA",
-  "type" : "ALL",
   "quantity" : 1
-} ]
+}  ]

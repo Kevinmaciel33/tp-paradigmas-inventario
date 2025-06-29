@@ -1,8 +1,4 @@
 [ {
-  "name" : "H",
-  "type" : "WATER",
-  "quantity" : 1
-}, {
   "name" : "AGUA",
   "type" : "ALL",
   "quantity" : 1

@@ -80,7 +80,7 @@ public class Menu {
                 break;
             case 10:
                 System.out.println("Guardando inventario...");
-                InventorySaver.saveToFile(w.getInventory());
+                InventorySaver.saveToFile(w.getInventory(), FILE_INVENTORY_OUT);
                 System.out.println("Inventario guardado en " +FILE_INVENTORY_OUT+ ". Saliendo...");
                 break;
             default:
@@ -141,10 +141,12 @@ public class Menu {
 
             if ( o > decitionMap.size() || o < 0 ) o = 0;
 
-            w.create(e, decitionMap.get(o));
+            w.create(e, decitionMap.get(o-1));
             scanner.nextLine();
         } catch (IllegalArgumentException ex) {
             System.out.println("No pudimos completar la peticion intente de nuevo");
+        } catch (MissingResourceException ex) {
+            System.out.println("No tiene todos los ingredientes necestarios. Falta: " + ex.getKey());
         }
     }
 
