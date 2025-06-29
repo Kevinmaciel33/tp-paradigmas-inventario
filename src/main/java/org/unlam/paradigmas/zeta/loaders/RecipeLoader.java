@@ -17,10 +17,9 @@ public class RecipeLoader implements Loader<RecipeBook> {
 
     public RecipeBook loadFile() {
         ClassLoader cl = Thread.currentThread().getContextClassLoader();
-        InputStream stream = cl.getResourceAsStream(PATH);
 
         ObjectMapper mapper = new ObjectMapper();
-        try {
+        try(InputStream stream = cl.getResourceAsStream(PATH)) {
             RecipeJson[] recetas = mapper.readValue(stream, RecipeJson[].class);
             Map<String, List<Recipe>> mapa = new HashMap<>();
 

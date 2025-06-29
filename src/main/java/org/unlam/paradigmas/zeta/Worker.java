@@ -61,4 +61,8 @@ public class Worker {
     public Queryable query(QueryEnum input, Element e) throws RuntimeException {
         return this.querys.get(input).run(e, this.recipeBook.getLibraries());
     }
+
+    public Inventory getInventory() {
+        return inventory;
+    }
 }

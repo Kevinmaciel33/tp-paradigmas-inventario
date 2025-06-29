@@ -1,5 +1,7 @@
 package org.unlam.paradigmas.zeta;
 
+import java.util.Scanner;
+import org.unlam.paradigmas.zeta.loaders.InventorySaver;
 import org.unlam.paradigmas.zeta.enums.Classification;
 import org.unlam.paradigmas.zeta.enums.QueryEnum;
 import org.unlam.paradigmas.zeta.models.Element;
@@ -9,7 +11,7 @@ import org.unlam.paradigmas.zeta.models.Recipe;
 
 import java.util.*;
 
-import static org.unlam.paradigmas.zeta.enums.QueryEnum.ELEMENTS;
+import static org.unlam.paradigmas.zeta.Constants.FILE_INVENTORY_OUT;
 
 public class Menu {
 
@@ -76,6 +78,11 @@ public class Menu {
             case 0:
                 //TODO: show list of all elements and the classififcations
                 break;
+            case 10:
+                System.out.println("Guardando inventario...");
+                InventorySaver.saveToFile(w.getInventory(), FILE_INVENTORY_OUT);
+                System.out.println("Inventario guardado en " +FILE_INVENTORY_OUT+ ". Saliendo...");
+                break;
             default:
                 System.out.println("Opción no válida. Intentá de nuevo.");
         }
@@ -134,10 +141,12 @@ public class Menu {
 
             if ( o > decitionMap.size() || o < 0 ) o = 0;
 
-            w.create(e, decitionMap.get(o));
+            w.create(e, decitionMap.get(o-1));
             scanner.nextLine();
         } catch (IllegalArgumentException ex) {
             System.out.println("No pudimos completar la peticion intente de nuevo");
+        } catch (MissingResourceException ex) {
+            System.out.println("No tiene todos los ingredientes necestarios. Falta: " + ex.getKey());
         }
     }
 
