@@ -5,6 +5,8 @@ import org.unlam.paradigmas.zeta.enums.Classification;
 import org.unlam.paradigmas.zeta.models.Element;
 import org.unlam.paradigmas.zeta.models.Recipe;
 
+import java.util.MissingResourceException;
+
 public class BaseCrafter extends Crafter {
 	
 	@Override
@@ -24,7 +26,7 @@ public class BaseCrafter extends Crafter {
             if ( inventory.hasElement(ingredient) ) {
                 inventory.remove(ingredient);
             } else {
-                throw new RuntimeException("Could not create element. Missing element " + ingredient.name());
+                throw new MissingResourceException("Could not create element. Missing element", element.getClass().toString(), ingredient.name());
             }
         }
 

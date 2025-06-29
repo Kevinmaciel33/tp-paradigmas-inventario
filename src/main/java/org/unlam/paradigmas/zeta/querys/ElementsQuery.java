@@ -28,6 +28,10 @@ public class ElementsQuery implements Query<MultiRecipe> {
             }
         }
 
+        if ( multi.isEmpty() ) {
+            throw new IllegalArgumentException("Could not create the element");
+        }
+
         return new MultiRecipe(multi);
     }
 }

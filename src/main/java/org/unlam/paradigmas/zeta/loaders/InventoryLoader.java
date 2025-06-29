@@ -5,7 +5,9 @@ import org.unlam.paradigmas.zeta.enums.Classification;
 import org.unlam.paradigmas.zeta.models.Element;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import java.io.BufferedReader;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
@@ -19,10 +21,9 @@ public class InventoryLoader implements Loader<Inventory> {
         data.clear(); // para evitar acumulación entre ejecuciones de test
 
         ClassLoader cl = Thread.currentThread().getContextClassLoader();
-        InputStream stream = cl.getResourceAsStream(PATH);
-
         ObjectMapper mapper = new ObjectMapper();
-        try {
+
+        try(InputStream stream = cl.getResourceAsStream(PATH)) {
             InventoryJson[] items = mapper.readValue(stream, InventoryJson[].class);
 
             for (InventoryJson i : items) {

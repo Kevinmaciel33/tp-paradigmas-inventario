@@ -45,4 +45,9 @@ public class Inventory {
 
         stock.put(e, stock.get(e)-n);
     }
+    
+    public Map<Element, Integer> getStock() {
+        return this.stock;
+    }
+
 }
