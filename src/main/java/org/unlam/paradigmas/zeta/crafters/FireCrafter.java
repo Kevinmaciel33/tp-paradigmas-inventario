@@ -23,8 +23,6 @@ public class FireCrafter extends Crafter {
             throw new IllegalArgumentException("Este catalizador solo aplica a recetas de tipo " + type());
         }
 
-        float lessTime = recipe.time() / 2;
-        System.out.println("Crafteando " + element.name() + " con tiempo reducido: " + lessTime);
 
         for (Element ingredient : recipe.ingredients()) {
             inventory.remove(ingredient);
@@ -33,6 +31,8 @@ public class FireCrafter extends Crafter {
         Element catalyst = catalyst();
         inventory.remove(catalyst);
 
+        float lessTime = recipe.time() / 2;
+        System.out.println(element+"*2 creado con el catalizador de gas en "+lessTime+"ms");
         inventory.add(element, 2);
     }
 	

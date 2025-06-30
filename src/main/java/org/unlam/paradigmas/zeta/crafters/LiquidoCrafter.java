@@ -29,6 +29,8 @@ public class LiquidoCrafter extends Crafter {
 	    }
 
 	    inventory.remove(catalyst);
+
+		System.out.println(element+"*2 creado con el catalizador de liquido en "+recipe.time()+"ms");
 	    inventory.add(element, 2);
 	}
 }

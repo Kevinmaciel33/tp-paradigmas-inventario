@@ -30,6 +30,7 @@ public class BaseCrafter extends Crafter {
             }
         }
 
+        System.out.println(element+" creado en "+recipe.time()+"ms");
         inventory.add(element, 1);
     }
 

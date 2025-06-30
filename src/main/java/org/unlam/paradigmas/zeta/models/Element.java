@@ -2,12 +2,13 @@ package org.unlam.paradigmas.zeta.models;
 
 import org.unlam.paradigmas.zeta.enums.Classification;
 
+import java.util.Locale;
 import java.util.Objects;
 
 public record Element(String name, Classification type) {
 
     public Element(String name) {
-        this(name, Classification.ALL);
+        this(name.toUpperCase(Locale.ROOT), Classification.ALL);
     }
 
     @Override
