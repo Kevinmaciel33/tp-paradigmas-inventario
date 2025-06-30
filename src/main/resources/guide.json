@@ -1,0 +1,155 @@
+{
+
+  "base": [
+    {
+      "name": "H",
+      "description": "Hidrogeno"
+    },
+    {
+      "name": "O",
+      "description": "Oxigeno"
+    },
+    {
+      "name": "F",
+      "description": "Fluor"
+    },
+    {
+      "name": "E",
+      "description": "Electricidad"
+    },
+    {
+      "name": "A",
+      "description": "Algodon"
+    },
+    {
+      "name": "C",
+      "description": "Carbono"
+    },
+    {
+      "name": "N",
+      "description": "Nitrogeno"
+    },
+    {
+      "name": "S",
+      "description": "Azufre"
+    },
+    {
+      "name": "P",
+      "description": "Fosforo"
+    },
+    {
+      "name": "K",
+      "description": "Potasio"
+    },
+    {
+      "name": "Na",
+      "description": "Sodio"
+    },
+    {
+      "name": "Cl",
+      "description": "Cloro"
+    },
+    {
+      "name": "Fe",
+      "description": "Hierro"
+    },
+    {
+      "name": "Cu",
+      "description": "Cobre"
+    },
+    {
+      "name": "Ag",
+      "description": "Plata"
+    }
+  ],
+  "create": [
+    {
+      "name": "agua",
+      "description": "Ideal para hidratarse."
+    },
+    {
+      "name": "dioxido_carbono",
+      "description": "Dañino para la salud."
+    },
+    {
+      "name": "sal",
+      "description": "Puede provocar hipertensión."
+    },
+    {
+      "name": "amoniaco",
+      "description": "Perfecto para la limpieza."
+    },
+    {
+      "name": "sulfurico",
+      "description": "Corroe todo a su paso."
+    },
+    {
+      "name": "etanol",
+      "description": "Para crear combustibles."
+    },
+    {
+      "name": "metano",
+      "description": "Templa tu casa con esto."
+    },
+    {
+      "name": "oxido_aluminio",
+      "description": "Eliminemos el agua de la corriente de gas."
+    },
+    {
+      "name": "acero",
+      "description": "Duro como una puerta Pentágono."
+    },
+    {
+      "name": "clorhidrico",
+      "description": "Limpia la pileta de tu casa."
+    },
+    {
+      "name": "lejia",
+      "description": "Todos necesitamos un Ayudín de vez en cuando."
+    },
+    {
+      "name": "perclorico",
+      "description": "Sirve para pulir/grabar metales."
+    },
+    {
+      "name": "sulf_hierro",
+      "description": "Por mas raro que suene, sirve para teñir, o eso creo."
+    },
+    {
+      "name": "acido_carbonico",
+      "description": "Si tomas Coca-Cola, probablemente lo encuentres en la lista de ingredientes."
+    },
+    {
+      "name": "agua_salada",
+      "description": "Es agua, pero con sal."
+    },
+    {
+      "name": "bicarbonato",
+      "description": "Ideal para recrear un volcán en miniatura."
+    },
+    {
+      "name": "sulfato_cobre",
+      "description": "Evita los hongos, moho e insectos."
+    },
+    {
+      "name": "nitrato_potasio",
+      "description": "No acercar al fuego."
+    },
+    {
+      "name": "acetato_sodio",
+      "description": "Se usa en la industria textil."
+    },
+    {
+      "name": "sulfato_hierro",
+      "description": "Te ayuda a tratar la anemia."
+    },
+    {
+      "name": "solucion_ultra_limpieza",
+      "description": "Limpia, deja como nuevo."
+    },
+    {
+      "name": "explosivo_ultimo_nivel",
+      "description": "KABOOM!"
+    }
+  ]
+}
