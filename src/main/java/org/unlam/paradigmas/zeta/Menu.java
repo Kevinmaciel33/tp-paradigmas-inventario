@@ -158,11 +158,13 @@ public class Menu {
         }
     }
 
-    private void showCraftHistory() {
-        System.out.println("[7] Mostrando historial de crafteos...");
+    protected void showCraftHistory() {
+        for ( Log l : this.worker.getHistoric() ) {
+            System.out.println("["+l.time+"] se creo "+l.recipe.give()+" con "+l.recipe.ingredients());
+        }
     }
 
-    private void showGuide() {
+    protected void showGuide() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Los elementos bases son: ");
         for (Guide.Page p : this.guide.getBase()) {
@@ -172,10 +174,9 @@ public class Menu {
         for (Guide.Page p : this.guide.getCreate()) {
             System.out.println(p.name()+": "+p.description());
         }
-        scanner.nextLine();
     }
 
-    private void showCurrentInventory() {
+    protected void showCurrentInventory() {
         Inventory inventory = worker.getInventory();
         System.out.println("Inventario: ");
         for (Map.Entry<Element, Integer> entry : inventory.getStock().entrySet()) {
