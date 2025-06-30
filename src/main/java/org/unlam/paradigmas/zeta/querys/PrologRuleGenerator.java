@@ -49,10 +49,23 @@ public class PrologRuleGenerator {					//Requiere descargar projog y agregarlo e
             }
 
             String product = toPrologAtom(r.give);					//Separa claves y valores
-            String elements = String.join(",", counts.keySet());
-            String amount = counts.values().stream()
-                .map(String::valueOf)
-                .collect(Collectors.joining(","));
+
+            StringBuilder elementsBuilder = new StringBuilder();
+            StringBuilder amountBuilder = new StringBuilder();
+            boolean first = true;
+
+            for (Map.Entry<String, Integer> entry : counts.entrySet()) {
+                if (!first) {
+                    elementsBuilder.append(",");
+                    amountBuilder.append(",");
+                }
+                elementsBuilder.append(entry.getKey());
+                amountBuilder.append(entry.getValue());
+                first = false;
+            }
+
+            String elements = elementsBuilder.toString();
+            String amount = amountBuilder.toString();
 
             reglas.add(String.format("receta(%s, [%s], [%s]).", product, elements, amount));
         }
