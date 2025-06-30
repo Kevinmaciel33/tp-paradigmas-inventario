@@ -25,6 +25,7 @@ public class AcidoCrafter extends Crafter {
         Element catalyst = catalyst();
         inventory.remove(catalyst);
 
+        System.out.println(element+"*2 creado con el catalizador de gas en "+recipe.time()+"ms");
         inventory.add(element, 2);
     }
 }

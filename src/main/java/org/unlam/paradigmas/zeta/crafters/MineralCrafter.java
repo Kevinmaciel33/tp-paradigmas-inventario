@@ -3,6 +3,7 @@ package org.unlam.paradigmas.zeta.crafters;
 import org.unlam.paradigmas.zeta.Inventory;
 import org.unlam.paradigmas.zeta.enums.Classification;
 import org.unlam.paradigmas.zeta.models.Element;
+import org.unlam.paradigmas.zeta.models.Queryable;
 import org.unlam.paradigmas.zeta.models.Recipe;
 
 /**
@@ -29,7 +30,8 @@ public class MineralCrafter extends Crafter {
 	    }
 	
 	    inventory.remove(catalyst);
-	
+
+		System.out.println(element+"*2 creado con el catalizador de minerales en "+recipe.time()+"ms");
 	    inventory.add(element, 2);
 	 }
 }

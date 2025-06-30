@@ -21,6 +21,15 @@ public class QuantityElements implements Queryable {
         this.evaluations = evaluation;
     }
 
+    public int getNumber() {
+        int n = 0;
+        for (Evaluation evaluation : evaluations) {
+            n += evaluation.number;
+        }
+
+        return n;
+    }
+
     @Override
     public String show() {
         StringBuilder sb = new StringBuilder();

@@ -37,7 +37,7 @@ public class Worker {
             Map.of(
                 ELEMENTS, new ElementsQuery(),
                 ELEMENTS_FROM_ZERO, new ElementsFromZeroQuery(),
-                MISSING_ELEMENTS, new ElementsFromZeroQuery(),
+                MISSING_ELEMENTS, new ElementsQuery(),
                 MISSING_ELEMENTS_FROM_ZERO, new MissingElementsFromZeroQuery(inventory),
                 HOW_MANY_ELEMENTS, new HowManyCreateQuery(inventory)
             )

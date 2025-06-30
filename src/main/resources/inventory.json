@@ -1,5 +1,10 @@
 [
   {
+    "name": "CATALIZADOR_MINERAL",
+    "type": "MINERAL",
+    "quantity": 2
+  },
+  {
     "name": "H",
     "type": "water",
     "quantity": 4
