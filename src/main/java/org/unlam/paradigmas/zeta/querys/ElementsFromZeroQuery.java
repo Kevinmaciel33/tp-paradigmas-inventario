@@ -14,12 +14,12 @@ public class ElementsFromZeroQuery implements Query<RecipeTree> {
 		
         String elementName = element.name();
         
-		Recipe recipe = QueryUtils.findRecipe(element, libraries);
+		List<Recipe> recipes = QueryUtils.findRecipe(element, libraries);
 
-        if (recipe == null) {
+        if (recipes.isEmpty()) {
             throw new IllegalArgumentException("No recipe found to craft the element");
         }
 
-        return new RecipeTree(elementName, recipe, libraries);
+        return new RecipeTree(elementName, recipes, libraries);
     }
 } 

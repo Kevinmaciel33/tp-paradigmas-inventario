@@ -8,6 +8,7 @@ import org.unlam.paradigmas.zeta.loaders.RecipeLoader;
 import org.unlam.paradigmas.zeta.models.Element;
 import org.unlam.paradigmas.zeta.models.RecipeTree;
 import org.unlam.paradigmas.zeta.models.Library;
+import org.unlam.paradigmas.zeta.models.Recipe;
 
 import java.util.List;
 import java.util.Map;
@@ -37,13 +38,25 @@ class ElementsFromZeroQueryTests {
         
         assertNotNull(result, "Debería encontrar la receta de agua");
         assertEquals("AGUA", result.getElementName(), "Debería ser la receta de agua");
-        assertEquals("AGUA", result.getRecipe().give().name(), "Debería ser la receta de agua");
-
-        assertEquals(3, result.getRecipe().ingredients().size(), "La receta de agua debería tener 3 ingredientes");
         
-        Map<String, Long> basicElements = result.getBasicElementsCount();
-        assertEquals(2, basicElements.get("H"), "Debería haber exactamente 2 átomos de hidrógeno");
-        assertEquals(1, basicElements.get("O"), "Debería haber exactamente 1 átomo de oxígeno");
+        List<Recipe> recipes = result.getRecipes();
+        assertEquals(2, recipes.size(), "Debería encontrar exactamente 2 recetas de agua");
+        
+        //agua "alternativa" esta compuesta por ["h", "o"]
+        Recipe recipeAlternativa = recipes.get(0);
+        assertEquals(2, recipeAlternativa.ingredients().size(), "La primera receta debería tener 2 ingredientes");
+        
+        Map<String, Long> basicElementsAlternativa = QueryUtils.countAllBasicElements(recipeAlternativa, libraries);
+        assertEquals(1, basicElementsAlternativa.get("H"), "La receta alternativa debería tener exactamente 1 átomo de hidrógeno");
+        assertEquals(1, basicElementsAlternativa.get("O"), "La receta alternativa debería tener exactamente 1 átomo de oxígeno");
+        
+        //agua "base" esta compuesta por ["h", "h", "o"]
+        Recipe recipeBase = recipes.get(1);
+        assertEquals(3, recipeBase.ingredients().size(), "La segunda receta debería tener 3 ingredientes");
+        
+        Map<String, Long> basicElementsBase = QueryUtils.countAllBasicElements(recipeBase, libraries);
+        assertEquals(2, basicElementsBase.get("H"), "La receta base debería tener exactamente 2 átomos de hidrógeno");
+        assertEquals(1, basicElementsBase.get("O"), "La receta base debería tener exactamente 1 átomo de oxígeno");
     }
     
     @Test
@@ -71,10 +84,25 @@ class ElementsFromZeroQueryTests {
         assertNotNull(result, "Debería encontrar la receta de acido carbonico");
         assertEquals("ACIDO_CARBONICO", result.getElementName(), "Debería ser la receta de acido carbonico");
 
-        Map<String, Long> basicElements = result.getBasicElementsCount();
-        assertEquals(2, basicElements.get("H"), "Debería haber exactamente 2 átomos de hidrógeno");
-        assertEquals(3, basicElements.get("O"), "Debería haber exactamente 3 átomos de oxígeno");
-        assertEquals(1, basicElements.get("C"), "Debería haber exactamente 1 átomo de carbono");
+        List<Recipe> recipes = result.getRecipes();
+        assertEquals(2, recipes.size(), "Debería encontrar exactamente 2 recetas de acido carbonico");
+        
+        //acido_carbonico "otra-tabla" esta compuesta por ["agua"]
+        Recipe recipeOtraTabla = recipes.get(0);
+        assertEquals(1, recipeOtraTabla.ingredients().size(), "La primera receta debería tener 1 ingrediente");
+        
+        Map<String, Long> basicElementsOtraTabla = QueryUtils.countAllBasicElements(recipeOtraTabla, libraries);
+        assertEquals(2, basicElementsOtraTabla.get("H"), "La receta otra-tabla debería tener exactamente 2 átomos de hidrógeno");
+        assertEquals(1, basicElementsOtraTabla.get("O"), "La receta otra-tabla debería tener exactamente 1 átomo de oxígeno");
+        
+        //acido_carbonico "base" esta compuesta por ["agua","dioxido_carbono"]
+        Recipe recipeBase = recipes.get(1);
+        assertEquals(2, recipeBase.ingredients().size(), "La segunda receta debería tener 2 ingredientes");
+        
+        Map<String, Long> basicElementsBase = QueryUtils.countAllBasicElements(recipeBase, libraries);
+        assertEquals(2, basicElementsBase.get("H"), "La receta base debería tener exactamente 2 átomos de hidrógeno");
+        assertEquals(3, basicElementsBase.get("O"), "La receta base debería tener exactamente 3 átomos de oxígeno");
+        assertEquals(1, basicElementsBase.get("C"), "La receta base debería tener exactamente 1 átomo de carbono");
     }
     
     @Test
@@ -136,5 +164,39 @@ class ElementsFromZeroQueryTests {
         assertEquals(14, basicElements.get("O"), "Debería haber exactamente 14 átomo de oxígeno");
         assertEquals(1, basicElements.get("C"), "Debería haber exactamente 1 átomo de carbono");
         assertEquals(5, basicElements.size(), "Debería haber exactamente 5 tipos de elementos básicos");
+    }
+    
+    @Test
+    void testAcidoRadioactivo() {
+        Element acidoRadioactivo = new Element("ACIDO_RADIOACTIVO", Classification.ALL);
+        
+        RecipeTree result = query.run(acidoRadioactivo, libraries);
+        
+        assertNotNull(result, "Debería encontrar la receta de acido radioactivo");
+        assertEquals("ACIDO_RADIOACTIVO", result.getElementName(), "Debería ser la receta de acido radioactivo");
+
+        List<Recipe> recipes = result.getRecipes();
+        assertEquals(1, recipes.size(), "Debería encontrar exactamente 1 receta de acido radioactivo");
+        
+        Recipe recipe = recipes.get(0);
+        assertEquals(2, recipe.ingredients().size(), "La receta debería tener 2 ingrediente");
+        
+        Element ingrediente = recipe.ingredients().get(0);
+        System.out.println("Ingrediente usado: " + ingrediente.name());
+        
+        Map<String, Long> basicElements = QueryUtils.countAllBasicElements(recipe, libraries);
+        System.out.println("Elementos básicos encontrados: " + basicElements);
+        
+    }
+    
+    @Test
+    void testElementoInexistente() {
+        Element elementoInexistente = new Element("ELEMENTO_INEXISTENTE", Classification.ALL);
+        
+        IllegalArgumentException exception = assertThrows(
+            IllegalArgumentException.class,
+            () -> query.run(elementoInexistente, libraries),
+            "Debería lanzar IllegalArgumentException cuando no encuentra recetas"
+        );
     }
 } 
