@@ -2,12 +2,12 @@
   {
     "name": "H",
     "type": "water",
-    "quantity": 2
+    "quantity": 4
   },
   {
     "name": "O",
     "type": "water",
-    "quantity": 1
+    "quantity": 2
   },
   {
     "name": "F",

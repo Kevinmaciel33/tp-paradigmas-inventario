@@ -9,6 +9,7 @@ import org.unlam.paradigmas.zeta.querys.Query;
 import org.unlam.paradigmas.zeta.querys.ElementsFromZeroQuery;
 import org.unlam.paradigmas.zeta.querys.MissingElementsFromZeroQuery;
 
+import java.time.LocalDateTime;
 import java.util.*;
 
 import static org.unlam.paradigmas.zeta.enums.QueryEnum.*;
@@ -25,6 +26,7 @@ public class Worker {
         new MetalCrafter(),
         new BaseCrafter()// esto podria ser un parametro en el constructor o leerse de una config
     );
+    private final List<Log> historic = new ArrayList<>();
     private final EnumMap<QueryEnum, Query<?>> querys;
 
     public Worker(Inventory i, RecipeBook r) {
@@ -50,6 +52,7 @@ public class Worker {
         for (Crafter crafter : crafters) {
             if (crafter.shouldApply(inventory, element)) {
                 crafter.craft(element, inventory, recipe);
+                historic.add(new Log(LocalDateTime.now(), recipe));
                 //TODO: add to history list
                 return;
             }
@@ -65,5 +68,9 @@ public class Worker {
 
     public Inventory getInventory() {
         return inventory;
+    }
+
+    public List<Log> getHistoric() {
+        return historic;
     }
 }
