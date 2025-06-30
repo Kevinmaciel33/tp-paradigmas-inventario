@@ -4,15 +4,16 @@ import org.unlam.paradigmas.zeta.querys.QueryUtils;
 
 import java.util.List;
 import java.util.Map;
+import java.util.HashMap;
 
 public class RecipeTree implements Queryable {
     private final String elementName;
-    private final Recipe recipe;
+    private final List<Recipe> recipes;
     private final List<Library> libraries;
 
-    public RecipeTree(String elementName, Recipe recipe, List<Library> libraries) {
+    public RecipeTree(String elementName, List<Recipe> recipes, List<Library> libraries) {
         this.elementName = elementName;
-        this.recipe = recipe;
+        this.recipes = recipes;
         this.libraries = libraries;
     }
 
@@ -20,12 +21,15 @@ public class RecipeTree implements Queryable {
         return elementName;
     }
 
-    public Recipe getRecipe() {
-        return recipe;
+    public List<Recipe> getRecipes() {
+        return recipes;
     }
 
     public Map<String, Long> getBasicElementsCount() {
-        return QueryUtils.countAllBasicElements(recipe, libraries);
+        if (!recipes.isEmpty()) {
+            return QueryUtils.countAllBasicElements(recipes.get(0), libraries);
+        }
+        return null;
     }
 
     @Override
@@ -33,14 +37,24 @@ public class RecipeTree implements Queryable {
         StringBuilder message = new StringBuilder();
         message.append("Receta para craftear ").append(elementName).append(" desde cero:\n");
         
-        message.append("\nÁrbol de ingredientes:\n");
-        printRecipeTree(recipe, "", true, message);
-        
-        //Contador de elementos basicos
-        Map<String, Long> basicElementsCount = QueryUtils.countAllBasicElements(recipe, libraries);
-        message.append("\nElementos básicos necesarios:\n");
-        for (Map.Entry<String, Long> entry : basicElementsCount.entrySet()) {
-            message.append("  - ").append(entry.getKey()).append(": ").append(entry.getValue()).append("\n");
+        for (int i = 0; i < recipes.size(); i++) {
+            Recipe recipe = recipes.get(i);
+            
+            message.append("\nReceta de mesa: ").append(getTableName(recipe)).append("\n");
+            
+            message.append("Árbol de ingredientes:\n");
+            printRecipeTree(recipe, "", true, message);
+            
+            //Contador de elementos basicos
+            Map<String, Long> basicElementsCount = QueryUtils.countAllBasicElements(recipe, libraries);
+            message.append("\nElementos básicos necesarios:\n");
+            for (Map.Entry<String, Long> entry : basicElementsCount.entrySet()) {
+                message.append("  - ").append(entry.getKey()).append(": ").append(entry.getValue()).append("\n");
+            }
+            
+            if (i < recipes.size() - 1) {
+                message.append("\n");
+            }
         }
         
         return message.toString().trim();
@@ -56,16 +70,34 @@ public class RecipeTree implements Queryable {
             Element ingredient = ingredients.get(i);
             boolean isLastIngredient = i == ingredients.size() - 1;
             String nextIndent = indent + (isLast ? "    " : "│   ");    
-            Recipe childRecipe = QueryUtils.findRecipe(ingredient, libraries);
+            List<Recipe> childRecipes = QueryUtils.findRecipe(ingredient, libraries);
             
-            if (childRecipe != null) {
+            if (!childRecipes.isEmpty()) {
             	//Si el ingrediente tiene una receta en recipes.json, se procede a hacer una busqueda recursiva
-                printRecipeTree(childRecipe, nextIndent, isLastIngredient, message);
+                // Buscamos específicamente la receta de la mesa "BASE"
+                Recipe childRecipe = QueryUtils.findBaseRecipe(ingredient, libraries);
+                if (childRecipe != null) {
+                    printRecipeTree(childRecipe, nextIndent, isLastIngredient, message);
+                } else {
+                    // Si no hay receta base, usamos la primera encontrada
+                    printRecipeTree(childRecipes.get(0), nextIndent, isLastIngredient, message);
+                }
             } else {
                 //Si el ingrediente no tiene receta, entonces es un elemento basico
                 message.append(nextIndent).append(isLastIngredient ? "└── " : "├── ")
                        .append(ingredient.name()).append("\n");
             }
         }
+    }
+
+    private String getTableName(Recipe recipe) {
+        for (Library library : libraries) {
+            for (Recipe libRecipe : library.recipes()) {
+                if (libRecipe.equals(recipe)) {
+                    return library.originTable();
+                }
+            }
+        }
+        return "Desconocida";
     }
 } 

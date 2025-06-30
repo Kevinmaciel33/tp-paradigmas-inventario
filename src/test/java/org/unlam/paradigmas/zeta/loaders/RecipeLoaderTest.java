@@ -12,7 +12,7 @@ public class RecipeLoaderTest {
     @Test
     void verifyLoadedRecipesCountAndIntegrity() {
         RecipeBook r = loader.loadFile();
-        assertEquals(3, r.getLibraries().size());
+        assertEquals(4, r.getLibraries().size());
         for (var l : r.getLibraries()) {
             assertFalse(l.recipes().isEmpty());
         }

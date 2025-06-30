@@ -6,6 +6,7 @@ import org.unlam.paradigmas.zeta.models.Library;
 import org.unlam.paradigmas.zeta.models.Recipe;
 import org.unlam.paradigmas.zeta.models.MissingBasicIngredients;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,27 +24,33 @@ public class MissingElementsFromZeroQuery implements Query<MissingBasicIngredien
     	
         String elementName = element.name();
         
-        Recipe originalRecipe = QueryUtils.findRecipe(element, libraries);
-        if (originalRecipe == null) {
+        List<Recipe> recipes = QueryUtils.findRecipe(element, libraries);
+        if (recipes.isEmpty()) {
             throw new IllegalArgumentException("No recipe found to craft the element");
         }
 
-        //Se obtienen todos los elementos basicos de la receta 
-        Map<String, Long> requiredElements = QueryUtils.countAllBasicElements(originalRecipe, libraries);
+        List<Map<String, Integer>> missingElementsList = new ArrayList<>();
         
-        //Se crea un Map donde se guardaran todos los elementos basicos que faltan
-        Map<String, Integer> missingElements = new HashMap<>();
-        for (Map.Entry<String, Long> entry : requiredElements.entrySet()) {
-            String elementNameKey = entry.getKey();
-            Long required = entry.getValue();
-            int available = inventory.numberOf(new Element(elementNameKey));
+        for (Recipe recipe : recipes) {
+            //Se obtienen todos los elementos basicos de la receta 
+            Map<String, Long> requiredElements = QueryUtils.countAllBasicElements(recipe, libraries);
             
-            if (available < required) {
-                int missing = (int) (required - available);
-                missingElements.put(elementNameKey, missing);
+            //Se crea un Map donde se guardaran todos los elementos basicos que faltan
+            Map<String, Integer> missingElements = new HashMap<>();
+            for (Map.Entry<String, Long> entry : requiredElements.entrySet()) {
+                String elementNameKey = entry.getKey();
+                Long required = entry.getValue();
+                int available = inventory.numberOf(new Element(elementNameKey));
+                
+                if (available < required) {
+                    int missing = (int) (required - available);
+                    missingElements.put(elementNameKey, missing);
+                }
             }
+
+            missingElementsList.add(missingElements);
         }
 
-        return new MissingBasicIngredients(elementName, missingElements);
+        return new MissingBasicIngredients(elementName, missingElementsList, recipes, libraries);
     }
 } 
