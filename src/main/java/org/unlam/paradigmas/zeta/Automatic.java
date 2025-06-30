@@ -3,10 +3,10 @@ package org.unlam.paradigmas.zeta;
 import org.unlam.paradigmas.zeta.enums.QueryEnum;
 import org.unlam.paradigmas.zeta.models.*;
 
-public class Atomatic extends Menu {
+public class Automatic extends Menu {
     private Worker worker;
 
-    public Atomatic(Worker worker, Guide guide) {
+    public Automatic(Worker worker, Guide guide) {
         super(worker, guide);
         this.worker = worker;
     }
@@ -61,6 +61,12 @@ public class Atomatic extends Menu {
         System.out.println("#### CREANDO LA SEGUNDA RECETA ####");
         Recipe re2 = multiRecipe.libraries.get(1).getValue();
         this.worker.create(water, re2);
+        System.out.println();
+
+        final Element complejo = new Element("SULF_HIERRO");
+        System.out.println("#### QUERY BASICA ####");
+        Queryable dd = this.worker.query(QueryEnum.ELEMENTS, complejo);
+        System.out.println(dd.show());
         System.out.println();
 
         showCraftHistory();
