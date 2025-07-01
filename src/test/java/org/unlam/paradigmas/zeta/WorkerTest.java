@@ -3,7 +3,6 @@ package org.unlam.paradigmas.zeta;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.ArgumentMatchers;
 import org.unlam.paradigmas.zeta.models.Element;
 import org.unlam.paradigmas.zeta.models.Library;
 import org.unlam.paradigmas.zeta.models.Recipe;
@@ -21,22 +20,17 @@ public class WorkerTest {
     Inventory inventory;
     RecipeBook recipeBook;
     Worker w;
-    private static List<Library> LIBRARY;
+    private static Recipe RECIPE;
 
     @BeforeAll
     public static void setUp() {
-        LIBRARY = List.of(
-            new Library(
-                "base",
-                new Recipe(
-                    new Element("C"),
-                    15,
-                    List.of(
-                        new Element("H"),
-                        new Element("H"),
-                        new Element("H")
-                    )
-                )
+        RECIPE = new Recipe(
+            new Element("C"),
+            15,
+            List.of(
+                new Element("H"),
+                new Element("H"),
+                new Element("H")
             )
         );
     }
@@ -50,20 +44,18 @@ public class WorkerTest {
 
     @Test
     public void whenCraftElementShouldCheckInventoryAndAddElement() {
-        when(this.recipeBook.getLibraries()).thenReturn(LIBRARY);
         when(this.inventory.hasElement(any())).thenReturn(true);
 
-        w.create(new Element("C"));
+        w.create(new Element("C"), RECIPE);
 
         verify(this.inventory, times(1)).add(eq(new Element("C")), eq(1));
     }
 
     @Test
     public void whenCraftElementWithoutAllIngredientsShouldNotCreateTheElement() {
-        when(this.recipeBook.getLibraries()).thenReturn(LIBRARY);
         when(this.inventory.hasElement(any())).thenReturn(false);
 
-        assertThrows(RuntimeException.class, () -> w.create(new Element("C")));
+        assertThrows(RuntimeException.class, () -> w.create(new Element("C"), RECIPE));
 
         verify(this.inventory, never()).add(eq(new Element("C")), eq(1));
     }
@@ -75,14 +67,53 @@ public class WorkerTest {
         );
 
         verify(this.inventory, never()).add(any(Element.class), anyInt());
-        assertThrows(RuntimeException.class, () -> w.create(new Element("H")));
+        assertThrows(IllegalArgumentException.class, () -> w.create(new Element("H"), RECIPE));
     }
 
     @Test
     public void whenCraftElementIsNull() {
-        when(this.recipeBook.getLibraries()).thenReturn(LIBRARY);
 
         verify(this.inventory, never()).add(any(Element.class), anyInt());
-        assertThrows(RuntimeException.class, () -> w.create(null));
+        assertThrows(IllegalArgumentException.class, () -> w.create(null, RECIPE));
+    }
+
+    @Test
+    public void whenCraftMultiRecipesSelectingTheTable() {
+
+        when(this.inventory.hasElement(any())).thenReturn(true);
+
+        w.create(new Element("C"), new Recipe(
+                new Element("C"),
+                15,
+                List.of(
+                    new Element("H"),
+                    new Element("H"),
+                    new Element("H")
+                )
+            )
+        );
+
+        verify(this.inventory).add(any(Element.class), anyInt());
+        verify(this.inventory, times(3)).remove(any(Element.class));
+
+    }
+
+    @Test
+    public void whenCraftMultiRecipesSelectingAlternativeTable() {
+
+        when(this.inventory.hasElement(any())).thenReturn(true);
+
+        w.create(new Element("C"), new Recipe(
+                new Element("C"),
+                10,
+                List.of(
+                    new Element("H"),
+                    new Element("H")
+                )
+            )
+        );
+
+        verify(this.inventory).add(any(Element.class), anyInt());
+        verify(this.inventory, times(2)).remove(any(Element.class));
     }
 }

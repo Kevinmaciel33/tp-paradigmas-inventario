@@ -1,0 +1,159 @@
+{
+
+  "base": [
+    {
+      "name": "H",
+      "description": "Hidrogeno"
+    },
+    {
+      "name": "O",
+      "description": "oxigeno"
+    },
+    {
+      "name": "F",
+      "description": "Fluor"
+    },
+    {
+      "name": "E",
+      "description": "Electricidad"
+    },
+    {
+      "name": "A",
+      "description": "Algodon"
+    },
+    {
+      "name": "C",
+      "description": "Carbono"
+    },
+    {
+      "name": "N",
+      "description": "Nitrogeno"
+    },
+    {
+      "name": "S",
+      "description": "Azufre"
+    },
+    {
+      "name": "P",
+      "description": "Fosforo"
+    },
+    {
+      "name": "K",
+      "description": "Potasio"
+    },
+    {
+      "name": "Na",
+      "description": "Sodio"
+    },
+    {
+      "name": "Cl",
+      "description": "Cloro"
+    },
+    {
+      "name": "Fe",
+      "description": "Hierro"
+    },
+    {
+      "name": "Cu",
+      "description": "Cobre"
+    },
+    {
+      "name": "Ag",
+      "description": "Plata"
+    }
+  ],
+  "create": [
+    {
+      "name": "agua",
+      "description": ""
+    },
+    {
+      "name": "dioxido_carbono",
+      "description": ""
+    },
+    {
+      "name": "sal",
+      "description": ""
+    },
+    {
+      "name": "amoniaco",
+      "description": ""
+    },
+    {
+      "name": "sulfurico",
+      "description": ""
+    },
+    {
+      "name": "etanol",
+      "description": ""
+    },
+    {
+      "name": "metano",
+      "description": ""
+    },
+    {
+      "name": "oxido_aluminio",
+      "description": ""
+    },
+    {
+      "name": "acero",
+      "description": ""
+    },
+    {
+      "name": "clorhidrico",
+      "description": ""
+    },
+    {
+      "name": "lejia",
+      "description": ""
+    },
+    {
+      "name": "perclorico",
+      "description": ""
+    },
+    {
+      "name": "sulf_hierro",
+      "description": ""
+    },
+    {
+      "name": "acido_carbonico",
+      "description": ""
+    },
+    {
+      "name": "agua_salada",
+      "description": ""
+    },
+    {
+      "name": "bicarbonato",
+      "description": ""
+    },
+    {
+      "name": "sulfato_cobre",
+      "description": ""
+    },
+    {
+      "name": "nitrato_potasio",
+      "description": ""
+    },
+    {
+      "name": "acetato_sodio",
+      "description": ""
+    },
+    {
+      "name": "sulfato_hierro",
+      "description": ""
+    },
+    {
+      "name": "solucion_ultra_limpieza",
+      "description": ""
+    },
+    {
+      "name": "explosivo_ultimo_nivel",
+      "description": ""
+    },
+    {
+      "name": "acido_carbonico",
+      "description": ""
+    }
+  ]
+}

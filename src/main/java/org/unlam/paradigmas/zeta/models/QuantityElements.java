@@ -3,14 +3,46 @@ package org.unlam.paradigmas.zeta.models;
 import java.util.List;
 
 public class QuantityElements implements Queryable {
-    public final int number;
+    public static class Evaluation {
+        public final String table;
+        public final int number;
+        public final float time;
 
-    public QuantityElements(int number) {
-        this.number = number;
+        public Evaluation(String table, int number, float time) {
+            this.table = table;
+            this.number = number;
+            this.time = time;
+        }
+    }
+
+    List<Evaluation> evaluations;
+
+    public QuantityElements(List<Evaluation> evaluation) {
+        this.evaluations = evaluation;
+    }
+
+    public int getNumber() {
+        int n = 0;
+        for (Evaluation evaluation : evaluations) {
+            n += evaluation.number;
+        }
+
+        return n;
     }
 
     @Override
-    public String toString() {
-        return  "QuantityElements [number=" + number + "]";
+    public String show() {
+        StringBuilder sb = new StringBuilder();
+        for (Evaluation e : evaluations) {
+            sb.append("En la mesa ")
+                .append(e.table)
+                .append(" se pueden crear: ")
+                .append(e.number)
+                .append(" elementos en un total de ")
+                .append(e.number*e.time)
+                .append("ms\n");
+        }
+
+        return sb.toString();
     }
 }

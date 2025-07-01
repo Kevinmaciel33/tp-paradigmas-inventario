@@ -18,7 +18,7 @@ public class LiquidoCrafter extends Crafter {
 
 	@Override
 	public void craft(Element element, Inventory inventory, Recipe recipe) {
-	    if (shouldApply(inventory, element)) {
+	    if (!shouldApply(inventory, element)) {
 	        throw new IllegalArgumentException("Este catalizador solo aplica a recetas de tipo " + type());
 	    }
 
@@ -29,6 +29,8 @@ public class LiquidoCrafter extends Crafter {
 	    }
 
 	    inventory.remove(catalyst);
+
+		System.out.println(element+"*2 creado con el catalizador de liquido en "+recipe.time()+"ms");
 	    inventory.add(element, 2);
 	}
 }

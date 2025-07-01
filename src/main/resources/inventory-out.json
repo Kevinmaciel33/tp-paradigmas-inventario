@@ -1,0 +1,61 @@
+[ {
+  "name" : "A",
+  "type" : "AIR",
+  "quantity" : 4
+}, {
+  "name" : "C",
+  "type" : "EARTH",
+  "quantity" : 2
+}, {
+  "name" : "E",
+  "type" : "EARTH",
+  "quantity" : 5
+}, {
+  "name" : "F",
+  "type" : "FIRE",
+  "quantity" : 3
+}, {
+  "name" : "AG",
+  "type" : "EARTH",
+  "quantity" : 1
+}, {
+  "name" : "H",
+  "type" : "WATER",
+  "quantity" : 2
+}, {
+  "name" : "CL",
+  "type" : "WATER",
+  "quantity" : 3
+}, {
+  "name" : "K",
+  "type" : "EARTH",
+  "quantity" : 1
+}, {
+  "name" : "N",
+  "type" : "AIR",
+  "quantity" : 3
+}, {
+  "name" : "O",
+  "type" : "WATER",
+  "quantity" : 1
+}, {
+  "name" : "P",
+  "type" : "EARTH",
+  "quantity" : 2
+}, {
+  "name" : "CU",
+  "type" : "EARTH",
+  "quantity" : 2
+}, {
+  "name" : "S",
+  "type" : "FIRE",
+  "quantity" : 1
+}, {
+  "name" : "NA",
+  "type" : "EARTH",
+  "quantity" : 2
+}, {
+  "name" : "FE",
+  "type" : "EARTH",
+  "quantity" : 4
+} ]

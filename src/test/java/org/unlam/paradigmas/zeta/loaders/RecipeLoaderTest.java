@@ -12,12 +12,16 @@ public class RecipeLoaderTest {
     @Test
     void verifyLoadedRecipesCountAndIntegrity() {
         RecipeBook r = loader.loadFile();
-        assertEquals(16, r.getLibraries().size(), "Se esperaban 16 recetas cargadas");
+        assertEquals(4, r.getLibraries().size());
+        for (var l : r.getLibraries()) {
+            assertFalse(l.recipes().isEmpty());
+        }
 
         for (var library : r.getLibraries()) {
-            Recipe recipe = library.recipe();
-            assertFalse(recipe.ingredients().isEmpty(), "La receta debe tener al menos un ingrediente");
-            assertFalse(recipe.give().name().isEmpty(), "Debe tener un nombre");
+            for (var rr : library.recipes()) {
+                assertFalse(rr.ingredients().isEmpty(), "La receta debe tener al menos un ingrediente");
+                assertFalse(rr.give().name().isEmpty(), "Debe tener un nombre");
+            }
         }
     }
 }

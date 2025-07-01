@@ -1,12 +1,82 @@
 [
   {
+    "name": "CATALIZADOR_MINERAL",
+    "type": "MINERAL",
+    "quantity": 2
+  },
+  {
     "name": "H",
     "type": "water",
-    "quantity": 2
+    "quantity": 4
   },
   {
     "name": "O",
     "type": "water",
+    "quantity": 2
+  },
+  {
+    "name": "F",
+    "type": "fire",
+    "quantity": 3
+  },
+  {
+    "name": "E",
+    "type": "earth",
+    "quantity": 5
+  },
+  {
+    "name": "A",
+    "type": "air",
+    "quantity": 4
+  },
+  {
+    "name": "C",
+    "type": "earth",
+    "quantity": 2
+  },
+  {
+    "name": "N",
+    "type": "air",
+    "quantity": 3
+  },
+  {
+    "name": "S",
+    "type": "fire",
+    "quantity": 1
+  },
+  {
+    "name": "P",
+    "type": "earth",
+    "quantity": 2
+  },
+  {
+    "name": "K",
+    "type": "earth",
+    "quantity": 1
+  },
+  {
+    "name": "Na",
+    "type": "earth",
+    "quantity": 2
+  },
+  {
+    "name": "Cl",
+    "type": "water",
+    "quantity": 3
+  },
+  {
+    "name": "Fe",
+    "type": "earth",
+    "quantity": 4
+  },
+  {
+    "name": "Cu",
+    "type": "earth",
+    "quantity": 2
+  },
+  {
+    "name": "Ag",
+    "type": "earth",
     "quantity": 1
   }
 ]
