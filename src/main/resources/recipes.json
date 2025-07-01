@@ -71,13 +71,6 @@
   },
   {
     "table": "base",
-    "give": "agua_ox",
-    "time": 4.0,
-    "type": "liquido",
-    "elements": ["h", "h","o","o"]
-  },
-  {
-    "table": "base",
     "give": "clorhidrico",
     "time": 2.0,
     "type": "acido",
@@ -106,16 +99,149 @@
   },
   {
     "table": "base",
-    "give": "comb_avanz",
-    "time": 2.0,
-    "type": "liquido",
-    "elements": ["c","h","h","h", "h", "o","o"]
-  },
-  {
-    "table": "base",
     "give": "acido_carbonico",
     "time": 5.0,
     "type": "liquido",
     "elements": ["agua","dioxido_carbono"]
+  },
+  {
+    "table": "base",
+    "give": "agua_salada",
+    "time": 3.0,
+    "type": "liquido",
+    "elements": ["agua", "sal"]
+  },
+  {
+    "table": "base",
+    "give": "bicarbonato",
+    "time": 4.0,
+    "type": "mineral",
+    "elements": ["acido_carbonico", "na"]
+  },
+  {
+    "table": "base",
+    "give": "sulfato_cobre",
+    "time": 3.0,
+    "type": "mineral",
+    "elements": ["sulfurico", "cu"]
+  },
+  {
+    "table": "base",
+    "give": "nitrato_potasio",
+    "time": 3.0,
+    "type": "mineral",
+    "elements": ["clorhidrico", "k"]
+  },
+  {
+    "table": "base",
+    "give": "acetato_sodio",
+    "time": 4.0,
+    "type": "mineral",
+    "elements": ["etanol", "na"]
+  },
+  {
+    "table": "base",
+    "give": "sulfato_hierro",
+    "time": 3.0,
+    "type": "mineral",
+    "elements": ["sulfurico", "fe"]
+  },
+  {
+    "table": "base",
+    "give": "cloruro_plata",
+    "time": 2.0,
+    "type": "mineral",
+    "elements": ["clorhidrico", "ag"]
+  },
+  {
+    "table": "base",
+    "give": "agua_oxigenada",
+    "time": 4.0,
+    "type": "liquido",
+    "elements": ["h", "h", "o", "o"]
+  },
+  {
+    "table": "base",
+    "give": "solucion_limpieza",
+    "time": 6.0,
+    "type": "liquido",
+    "elements": ["lejia", "agua"]
+  },
+  {
+    "table": "base",
+    "give": "combustible_avanzado",
+    "time": 2.0,
+    "type": "liquido",
+    "elements": ["c", "h", "h", "h", "h", "o", "o"]
+  },
+  {
+    "table": "base",
+    "give": "acido_sulfurico_concentrado",
+    "time": 8.0,
+    "type": "acido",
+    "elements": ["sulfurico", "agua_oxigenada"]
+  },
+  {
+    "table": "base",
+    "give": "solucion_electrolitica",
+    "time": 5.0,
+    "type": "liquido",
+    "elements": ["agua_salada", "lejia"]
+  },
+  {
+    "table": "base",
+    "give": "mezcla_explosiva",
+    "time": 9.0,
+    "type": "liquido",
+    "elements": ["combustible_avanzado", "agua_oxigenada"]
+  },
+  {
+    "table": "base",
+    "give": "solucion_desinfectante",
+    "time": 6.0,
+    "type": "liquido",
+    "elements": ["solucion_limpieza", "clorhidrico"]
+  },
+  {
+    "table": "base",
+    "give": "acido_super_concentrado",
+    "time": 10.0,
+    "type": "acido",
+    "elements": ["acido_sulfurico_concentrado", "perclorico"]
+  },
+  {
+    "table": "base",
+    "give": "solucion_ultra_limpieza",
+    "time": 8.0,
+    "type": "liquido",
+    "elements": ["solucion_desinfectante", "solucion_limpieza"]
+  },
+  {
+    "table": "base",
+    "give": "explosivo_ultimo_nivel",
+    "time": 12.0,
+    "type": "liquido",
+    "elements": ["mezcla_explosiva", "acido_super_concentrado"]
+  },
+  {
+    "table": "otra-tabla",
+    "give": "acido_carbonico",
+    "time": 5.0,
+    "type": "liquido",
+    "elements": ["agua"]
+  },
+  {
+    "table": "otra-tabla",
+    "give": "acido_radioactivo",
+    "time": 10.0,
+    "type": "liquido",
+    "elements": ["plutonio","agua"]
+  },
+  {
+    "table": "experimental",
+    "give": "plutonio",
+    "time": 20.0,
+    "type": "metal",
+    "elements": ["sulfato_hierro", "acido_super_concentrado"]
   }
 ]

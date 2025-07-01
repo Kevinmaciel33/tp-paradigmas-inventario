@@ -4,18 +4,22 @@ import java.util.Scanner;
 import org.unlam.paradigmas.zeta.loaders.InventorySaver;
 import org.unlam.paradigmas.zeta.enums.Classification;
 import org.unlam.paradigmas.zeta.enums.QueryEnum;
-import org.unlam.paradigmas.zeta.models.Element;
-import org.unlam.paradigmas.zeta.models.MultiRecipe;
-import org.unlam.paradigmas.zeta.models.Queryable;
-import org.unlam.paradigmas.zeta.models.Recipe;
+import org.unlam.paradigmas.zeta.models.*;
 
 import java.util.*;
 
 import static org.unlam.paradigmas.zeta.Constants.FILE_INVENTORY_OUT;
 
 public class Menu {
+    private final Worker worker;
+    private final Guide guide;
 
-    public static void run(Worker w) {
+    public Menu(Worker w, Guide guide) {
+        this.worker = w;
+        this.guide = guide;
+    }
+
+    public void run() {
         Scanner scanner = new Scanner(System.in);
         int option;
 
@@ -29,14 +33,14 @@ public class Menu {
             }
 
             option = scanner.nextInt();
-            executeOption(option, w);
+            executeOption(option);
 
-        } while (option != 10);
+        } while (option != 9);
 
         scanner.close();
     }
 
-    public static void showMenu() {
+    private static void showMenu() {
         System.out.println("\n=== MENÚ PRINCIPAL ===");
         System.out.println("0. Guia de Elementos");
         System.out.println("1. ¿Qué necesito para craftear un objeto?");
@@ -46,37 +50,44 @@ public class Menu {
         System.out.println("5. ¿Cuántos puedo craftear?");
         System.out.println("6. Realizar un crafteo");
         System.out.println("7. Mostrar historial de crafteos");
-        System.out.println("8. Mostrar receta de crafteo(Arbol)");
-        System.out.println("9. Mostrar inventario actual");
-        System.out.println("10. Salir");
+        System.out.println("8. Mostrar inventario actual");
+        System.out.println("9. Salir");
     }
 
-    public static void executeOption(int option, Worker w) {
+    private void executeOption(int option) {
 
         switch (option) {
+            case 0:
+                this.showGuide();
+                break;
             case 1:
-                queryProcessInput(w, QueryEnum.ELEMENTS);
+                queryProcessInput(QueryEnum.ELEMENTS);
                 break;
             case 2:
-                queryProcessInput(w, QueryEnum.ELEMENTS_FROM_ZERO);
+                queryProcessInput(QueryEnum.ELEMENTS_FROM_ZERO);
                 break;
             case 3:
-                queryProcessInput(w, QueryEnum.MISSING_ELEMENTS);
+                queryProcessInput(QueryEnum.MISSING_ELEMENTS);
                 break;
             case 4:
-                queryProcessInput(w, QueryEnum.MISSING_ELEMENTS_FROM_ZERO);
+                queryProcessInput(QueryEnum.MISSING_ELEMENTS_FROM_ZERO);
                 break;
             case 5:
-                queryProcessInput(w, QueryEnum.HOW_MANY_ELEMENTS);
+                queryProcessInput(QueryEnum.HOW_MANY_ELEMENTS);
                 break;
             case 6:
-                performCraft(w);
+                performCraft();
                 break;
-            case 9:
+            case 7:
+                showCraftHistory();
+                break;
+            case 8:
                 showCurrentInventory();
                 break;
-            case 0:
-                //TODO: show list of all elements and the classififcations
+            case 9:
+                System.out.println("Guardando inventario...");
+                InventorySaver.saveToFile(worker.getInventory(), FILE_INVENTORY_OUT);
+                System.out.println("Inventario guardado en " +FILE_INVENTORY_OUT+ ". Saliendo...");
                 break;
             case 10:
                 System.out.println("Guardando inventario...");
@@ -88,7 +99,7 @@ public class Menu {
         }
     }
 
-    private static Element buildElementFromInput() {
+    private Element buildElementFromInput() {
 
         Scanner scanner = new Scanner(System.in);
 
@@ -104,11 +115,11 @@ public class Menu {
         return new Element(name.toUpperCase(Locale.ROOT), Classification.valueOf(type.toUpperCase(Locale.ROOT)));
     }
 
-    private static void queryProcessInput(Worker w, QueryEnum query) {
+    private void queryProcessInput(QueryEnum query) {
         Scanner scanner = new Scanner(System.in);
         Element e = buildElementFromInput();
         try {
-            Queryable res = w.query(query, e);
+            Queryable res = worker.query(query, e);
             System.out.println(res.show());
             scanner.nextLine();
         } catch (IllegalArgumentException ex) {
@@ -117,12 +128,12 @@ public class Menu {
         }
     }
 
-    public static void performCraft(Worker w) {
+    private void performCraft() {
         Scanner scanner = new Scanner(System.in);
-        Element e = buildElementFromInput();
+        Element e = this.buildElementFromInput();
         try {
 
-            MultiRecipe multiRecipe = (MultiRecipe) w.query(QueryEnum.ELEMENTS, e);
+            MultiRecipe multiRecipe = (MultiRecipe) worker.query(QueryEnum.ELEMENTS, e);
             System.out.println(multiRecipe.show());
 
             if ( multiRecipe.libraries.isEmpty()) {
@@ -139,9 +150,11 @@ public class Menu {
             System.out.println("Ingrese el numero de receta que desea usar: ");
             int o = scanner.nextInt();
 
-            if ( o > decitionMap.size() || o < 0 ) o = 0;
+            if ( o > decitionMap.size() || o < 0 ) o = 1;
 
-            w.create(e, decitionMap.get(o-1));
+            worker.create(e, decitionMap.get(o-1));
+            System.out.println("Elemento creado");
+
             scanner.nextLine();
         } catch (IllegalArgumentException ex) {
             System.out.println("No pudimos completar la peticion intente de nuevo");
@@ -150,15 +163,33 @@ public class Menu {
         }
     }
 
-    public static void showCraftHistory() {
-        System.out.println("[7] Mostrando historial de crafteos...");
+    protected void showCraftHistory() {
+        for ( Log l : this.worker.getHistoric() ) {
+            System.out.println("["+l.time+"] se creo "+l.recipe.give()+" con "+l.recipe.ingredients());
+        }
     }
 
-    public static void showCraftRecipeTree() {
-        System.out.println("[8] Mostrando receta en forma de árbol...");
+    protected void showGuide() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Los elementos bases son: ");
+        for (Guide.Page p : this.guide.getBase()) {
+            System.out.println(p.name()+": "+p.description());
+        }
+        System.out.println("Los elementos que se pueden crear: ");
+        for (Guide.Page p : this.guide.getCreate()) {
+            System.out.println(p.name()+": "+p.description());
+        }
     }
 
-    public static void showCurrentInventory() {
-        System.out.println("[9] Mostrando inventario actual...");
+    protected void showCurrentInventory() {
+        Inventory inventory = worker.getInventory();
+        System.out.println("Inventario: ");
+        for (Map.Entry<Element, Integer> entry : inventory.getStock().entrySet()) {
+            if ( entry.getValue() == 0 ) {
+                continue;
+            }
+
+            System.out.println(entry.getKey() + " - " + entry.getValue());
+        }
     }
 }

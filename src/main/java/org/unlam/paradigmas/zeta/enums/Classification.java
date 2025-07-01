@@ -10,5 +10,7 @@ public enum Classification {
     ACIDO,
     MINERAL,
     METAL,
+    EARTH,
+    AIR,
     ALL;
 }

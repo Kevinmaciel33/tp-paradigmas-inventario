@@ -54,7 +54,7 @@ public class HowManyCreateQueryTest {
             )
         );
 
-        assertEquals(0, q.number);
+        assertEquals(0, q.getNumber());
     }
 
     @Test
@@ -83,7 +83,7 @@ public class HowManyCreateQueryTest {
             )
         );
 
-        assertEquals(2, q.number);
+        assertEquals(2, q.getNumber());
     }
 
     @Test
@@ -112,7 +112,7 @@ public class HowManyCreateQueryTest {
             )
         );
 
-        assertEquals(1, q.number);
+        assertEquals(1, q.getNumber());
     }
 
     @Test
@@ -141,7 +141,7 @@ public class HowManyCreateQueryTest {
             )
         );
 
-        assertEquals(0, q.number);
+        assertEquals(0, q.getNumber());
     }
 
     @Test
@@ -170,6 +170,6 @@ public class HowManyCreateQueryTest {
             )
         );
 
-        assertEquals(0, q.number);
+        assertEquals(0, q.getNumber());
     }
 }
