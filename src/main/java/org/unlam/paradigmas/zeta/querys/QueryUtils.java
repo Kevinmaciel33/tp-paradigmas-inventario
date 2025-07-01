@@ -114,4 +114,12 @@ public class QueryUtils {
         
         return null;
     }
+
+    public static Map<String, Integer> countFirstLevelIngredients(Recipe recipe) {
+        Map<String, Integer> counts = new HashMap<>();
+        for (Element ingredient : recipe.ingredients()) {
+            counts.put(ingredient.name(), counts.getOrDefault(ingredient.name(), 0) + 1);
+        }
+        return counts;
+    }
 } 

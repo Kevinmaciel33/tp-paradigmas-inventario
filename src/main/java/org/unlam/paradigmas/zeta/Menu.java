@@ -91,7 +91,7 @@ public class Menu {
                 break;
             case 10:
                 System.out.println("Guardando inventario...");
-                InventorySaver.saveToFile(w.getInventory(), FILE_INVENTORY_OUT);
+                InventorySaver.saveToFile(worker.getInventory(), FILE_INVENTORY_OUT);
                 System.out.println("Inventario guardado en " +FILE_INVENTORY_OUT+ ". Saliendo...");
                 break;
             default:

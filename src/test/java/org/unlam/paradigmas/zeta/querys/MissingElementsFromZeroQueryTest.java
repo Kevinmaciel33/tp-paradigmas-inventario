@@ -37,7 +37,7 @@ class MissingElementsFromZeroQueryTest {
     }
 
     @Test
-    void testAguaConTodosLosIngredientes() {
+    void waterWithAllIngredients() {
     	
         Element agua = new Element("AGUA", Classification.ALL);
         
@@ -55,7 +55,7 @@ class MissingElementsFromZeroQueryTest {
     }
     
     @Test
-    void testDioxidoCarbonoFaltaUnAtomoOxigeno() {
+    void dioxidoCarbonoWithNoIngredients() {
         Element dioxidoDeCarbono = new Element("DIOXIDO_CARBONO", Classification.ALL);
         
         MissingBasicIngredients result = query.run(dioxidoDeCarbono, libraries);
@@ -72,7 +72,7 @@ class MissingElementsFromZeroQueryTest {
     }
     
     @Test
-    void testAcidoCarbonicoFaltanDosAtomosDeOxigeno() {
+    void acidoCarbonicoWithNoIngredientsForBaseRecipe() {
         Element acidoCarbonico = new Element("ACIDO_CARBONICO", Classification.ALL);
         
         MissingBasicIngredients result = query.run(acidoCarbonico, libraries);
@@ -94,7 +94,7 @@ class MissingElementsFromZeroQueryTest {
     }
     
     @Test
-    void testAcidoSulfuricoConcentradoFaltanElementos() {
+    void acidoSulfuricoWithNoIngredients() {
         Element acidoSulfurico = new Element("ACIDO_SULFURICO_CONCENTRADO", Classification.ALL);
         
         MissingBasicIngredients result = query.run(acidoSulfurico, libraries);
@@ -112,7 +112,7 @@ class MissingElementsFromZeroQueryTest {
     }
     
     @Test
-    void testSulfatoHierroFaltanTresDeOxigeno() {
+    void sulfatoHierroWithNoIngredients() {
         Element sulfatoHierro = new Element("SULFATO_HIERRO", Classification.ALL);
         
         MissingBasicIngredients result = query.run(sulfatoHierro, libraries);
@@ -129,7 +129,7 @@ class MissingElementsFromZeroQueryTest {
     }
     
     @Test
-    void testExplosivoUltimoNivel() {
+    void explosivoUltimoNivelWithNoIngredients() {
         Element explosivoUltimoNivel = new Element("EXPLOSIVO_ULTIMO_NIVEL", Classification.ALL);
         
         MissingBasicIngredients result = query.run(explosivoUltimoNivel, libraries);
@@ -146,7 +146,7 @@ class MissingElementsFromZeroQueryTest {
     }
     
     @Test
-    void testAcidoRadioactivo() {
+    void acidoRadioactivoWithNoIngredients() {
         Element acidoRadioactivo = new Element("ACIDO_RADIOACTIVO", Classification.ALL);
         
         MissingBasicIngredients result = query.run(acidoRadioactivo, libraries);
