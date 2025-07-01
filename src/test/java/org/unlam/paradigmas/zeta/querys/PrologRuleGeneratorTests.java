@@ -1,4 +1,4 @@
-package java.org.unlam.paradigmas.zeta.querys;
+package org.unlam.paradigmas.zeta.querys;
 
 import org.unlam.paradigmas.zeta.models.Recipe;
 import org.unlam.paradigmas.zeta.RecipeBook;
@@ -7,8 +7,14 @@ import org.unlam.paradigmas.zeta.loaders.RecipeLoader;
 import org.unlam.paradigmas.zeta.models.Element;
 import org.unlam.paradigmas.zeta.models.Library;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import java.io.File;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.projog.api.Projog;
+import org.projog.api.QueryResult;
 
 public class PrologRuleGeneratorTests {
     @Test
