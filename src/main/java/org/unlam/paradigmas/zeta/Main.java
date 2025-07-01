@@ -4,10 +4,11 @@ import org.unlam.paradigmas.zeta.loaders.GuideLoder;
 import org.unlam.paradigmas.zeta.loaders.InventoryLoader;
 import org.unlam.paradigmas.zeta.loaders.Loader;
 import org.unlam.paradigmas.zeta.loaders.RecipeLoader;
+import org.unlam.paradigmas.zeta.querys.PrologRuleGenerator;
 import org.unlam.paradigmas.zeta.models.Guide;
-
 import static org.unlam.paradigmas.zeta.Constants.MANUAL;
 import static org.unlam.paradigmas.zeta.Constants.SCOPE;
+
 
 
 public class Main {
@@ -22,6 +23,12 @@ public class Main {
         final Guide g = gl.loadFile();
         Worker w = new Worker(i, r);
 
+        try{
+        	PrologRuleGenerator.writeCraftingRulesToFile("src/base.pl", true);
+        }catch(Exception e) {
+        	throw new RuntimeException("Error al leer el inventario JSON", e);
+        }
+      
         Menu m;
         String scope = System.getenv(SCOPE);
         if ( scope != null && scope.equalsIgnoreCase(MANUAL) ) {
@@ -30,5 +37,6 @@ public class Main {
             m = new Automatic(w, g);
         }
         m.run();
+
     }
 }
