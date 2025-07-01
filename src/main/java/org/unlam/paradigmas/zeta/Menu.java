@@ -1,7 +1,6 @@
 package org.unlam.paradigmas.zeta;
 
 import java.util.Scanner;
-
 import org.unlam.paradigmas.zeta.loaders.InventorySaver;
 import org.unlam.paradigmas.zeta.enums.Classification;
 import org.unlam.paradigmas.zeta.enums.QueryEnum;
@@ -90,6 +89,11 @@ public class Menu {
                 InventorySaver.saveToFile(worker.getInventory(), FILE_INVENTORY_OUT);
                 System.out.println("Inventario guardado en " +FILE_INVENTORY_OUT+ ". Saliendo...");
                 break;
+            case 10:
+                System.out.println("Guardando inventario...");
+                InventorySaver.saveToFile(w.getInventory(), FILE_INVENTORY_OUT);
+                System.out.println("Inventario guardado en " +FILE_INVENTORY_OUT+ ". Saliendo...");
+                break;
             default:
                 System.out.println("Opción no válida. Intentá de nuevo.");
         }
@@ -150,6 +154,7 @@ public class Menu {
 
             worker.create(e, decitionMap.get(o-1));
             System.out.println("Elemento creado");
+
             scanner.nextLine();
         } catch (IllegalArgumentException ex) {
             System.out.println("No pudimos completar la peticion intente de nuevo");

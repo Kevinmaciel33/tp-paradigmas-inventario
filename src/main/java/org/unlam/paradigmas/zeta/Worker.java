@@ -73,4 +73,5 @@ public class Worker {
     public List<Log> getHistoric() {
         return historic;
     }
+
 }
