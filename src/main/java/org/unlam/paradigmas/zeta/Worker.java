@@ -8,6 +8,7 @@ import org.unlam.paradigmas.zeta.querys.HowManyCreateQuery;
 import org.unlam.paradigmas.zeta.querys.Query;
 import org.unlam.paradigmas.zeta.querys.ElementsFromZeroQuery;
 import org.unlam.paradigmas.zeta.querys.MissingElementsFromZeroQuery;
+import org.unlam.paradigmas.zeta.querys.MissingElementsQuery;
 
 import java.time.LocalDateTime;
 import java.util.*;
@@ -37,7 +38,7 @@ public class Worker {
             Map.of(
                 ELEMENTS, new ElementsQuery(),
                 ELEMENTS_FROM_ZERO, new ElementsFromZeroQuery(),
-                MISSING_ELEMENTS, new ElementsQuery(),
+                MISSING_ELEMENTS, new MissingElementsQuery(inventory),
                 MISSING_ELEMENTS_FROM_ZERO, new MissingElementsFromZeroQuery(inventory),
                 HOW_MANY_ELEMENTS, new HowManyCreateQuery(inventory)
             )

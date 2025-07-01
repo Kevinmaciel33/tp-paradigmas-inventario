@@ -23,11 +23,11 @@ public class Main {
         final Guide g = gl.loadFile();
         Worker w = new Worker(i, r);
 
-        try{
-        	PrologRuleGenerator.writeCraftingRulesToFile("src/base.pl", true);
-        }catch(Exception e) {
-        	throw new RuntimeException("Error al leer el inventario JSON", e);
-        }
+//        try{
+//        	PrologRuleGenerator.writeCraftingRulesToFile("src/base.pl", true);
+//        }catch(Exception e) {
+//        	throw new RuntimeException("Error al leer el inventario JSON", e);
+//        }
       
         Menu m;
         String scope = System.getenv(SCOPE);
