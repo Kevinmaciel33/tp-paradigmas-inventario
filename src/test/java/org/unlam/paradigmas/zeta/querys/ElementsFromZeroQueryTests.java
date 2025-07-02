@@ -181,19 +181,20 @@ class ElementsFromZeroQueryTests {
         Recipe recipe = recipes.get(0);
         assertEquals(2, recipe.ingredients().size(), "La receta debería tener 2 ingrediente");
         
-        Element ingrediente = recipe.ingredients().get(0);
-        System.out.println("Ingrediente usado: " + ingrediente.name());
-        
+
         Map<String, Long> basicElements = QueryUtils.countAllBasicElements(recipe, libraries);
-        System.out.println("Elementos básicos encontrados: " + basicElements);
-        
+        assertEquals(2, basicElements.get("S"), "Debería haber exactamente 2 átomos de azufre");
+        assertEquals(15, basicElements.get("O"), "Debería haber exactamente 15 átomos de oxígeno");
+        assertEquals(9, basicElements.get("H"), "Debería haber exactamente 9 átomos de carbono");
+        assertEquals(1, basicElements.get("FE"), "Debería haber exactamente 1 átomo de hierro");
+        assertEquals(1, basicElements.get("CL"), "Debería haber exactamente 1 átomo de cloro");
     }
     
     @Test
     void testElementoInexistente() {
         Element elementoInexistente = new Element("ELEMENTO_INEXISTENTE", Classification.ALL);
         
-        IllegalArgumentException exception = assertThrows(
+        assertThrows(
             IllegalArgumentException.class,
             () -> query.run(elementoInexistente, libraries),
             "Debería lanzar IllegalArgumentException cuando no encuentra recetas"
