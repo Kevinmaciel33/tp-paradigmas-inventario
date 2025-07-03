@@ -43,7 +43,7 @@ public class RecipeLoader implements Loader<RecipeBook> {
                 libraries.add(new Library(k, mapa.get(k)));
             }
 
-            //PrologRuleGenerator.writeRulesRecipeToFile(recetas, "src/base.pl", true);  //Realiza las reglas prolog
+            PrologRuleGenerator.writeRulesRecipeToFile(recetas, "src/base.pl", true);  //Realiza las reglas prolog
             
             return new RecipeBook(libraries);
         } catch (Exception e) {
