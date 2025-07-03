@@ -30,8 +30,9 @@ public class PrologRuleGenerator {					//Requiere descargar projog y agregarlo e
             Paths.get(path),
             rules,
             StandardCharsets.UTF_8,
-            append ? StandardOpenOption.CREATE : StandardOpenOption.TRUNCATE_EXISTING,
-            append ? StandardOpenOption.APPEND : StandardOpenOption.WRITE
+            StandardOpenOption.CREATE,
+            StandardOpenOption.TRUNCATE_EXISTING,
+            StandardOpenOption.WRITE
         );
     }
 
