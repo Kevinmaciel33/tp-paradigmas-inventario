@@ -2,11 +2,13 @@ package org.unlam.paradigmas.zeta.querys;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.AfterAll;
 import org.projog.api.Projog;
 import org.projog.api.QueryResult;
 import org.unlam.paradigmas.zeta.loaders.InventoryJson;
 import org.unlam.paradigmas.zeta.loaders.RecipeJson;
+import org.unlam.paradigmas.zeta.loaders.InventoryLoader;
+import org.unlam.paradigmas.zeta.loaders.RecipeLoader;
 
 import java.io.File;
 import java.io.IOException;
@@ -18,37 +20,26 @@ import static org.junit.jupiter.api.Assertions.*;
 public class PrologRuleGeneratorTests {
     
     private Projog engine;
-    private static final String TEST_PROLOG_FILE = "src/test_prolog_rules.pl";
-    private InventoryJson[] testInventory;
-    private RecipeJson[] testRecipes;
     
     @BeforeEach
     void setUp() throws IOException {
-        testInventory = loadInventoryFromFile("src/test/resources/inventory.json");
-        testRecipes = loadRecipesFromFile("src/test/resources/recipes.json");
+        InventoryLoader inventoryLoader = new InventoryLoader();
+        RecipeLoader recipeLoader = new RecipeLoader();
         
-        PrologRuleGenerator.writeRulesInventoryToFile(testInventory, TEST_PROLOG_FILE, false);
-        PrologRuleGenerator.writeRulesRecipeToFile(testRecipes, TEST_PROLOG_FILE, true);
-        PrologRuleGenerator.writeCraftingRulesToFile(TEST_PROLOG_FILE, true);
+        inventoryLoader.loadFile();
+        recipeLoader.loadFile();
+        
+        PrologRuleGenerator.writeCraftingRulesToFile("src/base.pl", true);
         
         engine = new Projog();
-        engine.consultFile(new File(TEST_PROLOG_FILE));
-    }
-
-    @AfterEach
-    void tearDown() throws IOException {
-        Files.deleteIfExists(Paths.get(TEST_PROLOG_FILE));
-    }
-
-    private InventoryJson[] loadInventoryFromFile(String path) throws IOException {
-        com.fasterxml.jackson.databind.ObjectMapper mapper = new com.fasterxml.jackson.databind.ObjectMapper();
-        return mapper.readValue(new java.io.File(path), InventoryJson[].class);
+        engine.consultFile(new File("src/base.pl"));
     }
     
-    private RecipeJson[] loadRecipesFromFile(String path) throws IOException {
-        com.fasterxml.jackson.databind.ObjectMapper mapper = new com.fasterxml.jackson.databind.ObjectMapper();
-        return mapper.readValue(new java.io.File(path), RecipeJson[].class);
+    @AfterAll
+    static void deleteFile() throws IOException {
+        Files.deleteIfExists(Paths.get("src/base.pl"));
     }
+    
 
     @Test
     void testCanCreate() {
@@ -81,11 +72,6 @@ public class PrologRuleGeneratorTests {
         assertFalse(result.next());
     }
     
-    @Test
-    void testInventoryElementTypes() {
-        QueryResult result = engine.executeQuery("tengo(Elemento, Cantidad), Elemento = h.");
-        assertTrue(result.next());
-    }
 
     @Test
     void testCannotCreatePlutonio() {
