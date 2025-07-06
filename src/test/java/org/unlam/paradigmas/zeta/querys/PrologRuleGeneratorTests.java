@@ -1,38 +1,95 @@
 package org.unlam.paradigmas.zeta.querys;
 
-import org.unlam.paradigmas.zeta.models.Recipe;
-import org.unlam.paradigmas.zeta.RecipeBook;
-import org.unlam.paradigmas.zeta.enums.Classification;
-import org.unlam.paradigmas.zeta.loaders.RecipeLoader;
-import org.unlam.paradigmas.zeta.models.Element;
-import org.unlam.paradigmas.zeta.models.Library;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
-import java.io.File;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.AfterEach;
 import org.projog.api.Projog;
 import org.projog.api.QueryResult;
+import org.unlam.paradigmas.zeta.loaders.InventoryJson;
+import org.unlam.paradigmas.zeta.loaders.RecipeJson;
+
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class PrologRuleGeneratorTests {
-    @Test
-    public void TestCanCreate() {
-        // Crear motor Prolog
-        Projog engine = new Projog();
+    
+    private Projog engine;
+    private static final String TEST_PROLOG_FILE = "src/test_prolog_rules.pl";
+    private InventoryJson[] testInventory;
+    private RecipeJson[] testRecipes;
+    
+    @BeforeEach
+    void setUp() throws IOException {
+        testInventory = loadInventoryFromFile("src/test/resources/inventory.json");
+        testRecipes = loadRecipesFromFile("src/test/resources/recipes.json");
+        
+        PrologRuleGenerator.writeRulesInventoryToFile(testInventory, TEST_PROLOG_FILE, false);
+        PrologRuleGenerator.writeRulesRecipeToFile(testRecipes, TEST_PROLOG_FILE, true);
+        PrologRuleGenerator.writeCraftingRulesToFile(TEST_PROLOG_FILE, true);
+        
+        engine = new Projog();
+        engine.consultFile(new File(TEST_PROLOG_FILE));
+    }
 
-        // Cargar archivo con reglas y hechos
-        engine.consultFile(new File("src/base.pl"));
+    @AfterEach
+    void tearDown() throws IOException {
+        Files.deleteIfExists(Paths.get(TEST_PROLOG_FILE));
+    }
 
-        // Ejecutar consulta
-        QueryResult result = engine.executeQuery("puedo_crear(agua).");
-
-        // Verificar si hay al menos una solución
-        boolean canBeCreated = result.next();
-
-        // Afirmar que se puede crear el agua
-        assertEquals(true, canBeCreated);
+    private InventoryJson[] loadInventoryFromFile(String path) throws IOException {
+        com.fasterxml.jackson.databind.ObjectMapper mapper = new com.fasterxml.jackson.databind.ObjectMapper();
+        return mapper.readValue(new java.io.File(path), InventoryJson[].class);
     }
     
+    private RecipeJson[] loadRecipesFromFile(String path) throws IOException {
+        com.fasterxml.jackson.databind.ObjectMapper mapper = new com.fasterxml.jackson.databind.ObjectMapper();
+        return mapper.readValue(new java.io.File(path), RecipeJson[].class);
+    }
+
+    @Test
+    void testCanCreate() {
+        QueryResult result = engine.executeQuery("puedo_crear(agua).");
+        assertTrue(result.next());
+    }
+    
+    @Test
+    void testCannotCreateWhenInsufficientResources() {
+        QueryResult result = engine.executeQuery("puedo_crear(acido_carbonico).");
+        //Teniendo en cuenta el inventario actual, se puede crear con la receta alternativa de acido carbonico
+        assertTrue(result.next());
+    }
+    
+    @Test
+    void testCanCreateWithExactResources() {
+        QueryResult result = engine.executeQuery("puedo_crear(sal).");
+        assertTrue(result.next());
+    }
+    
+    @Test
+    void testCanCreateAguaSalada() {
+        QueryResult result = engine.executeQuery("puedo_crear(agua_salada).");
+        assertTrue(result.next());
+    }
+       
+    @Test
+    void testCannotCreateOxidoAluminio() {
+        QueryResult result = engine.executeQuery("puedo_crear(oxido_aluminio).");
+        assertFalse(result.next());
+    }
+    
+    @Test
+    void testInventoryElementTypes() {
+        QueryResult result = engine.executeQuery("tengo(Elemento, Cantidad), Elemento = h.");
+        assertTrue(result.next());
+    }
+
+    @Test
+    void testCannotCreatePlutonio() {
+        QueryResult result = engine.executeQuery("puedo_crear(plutonio).");
+        assertFalse(result.next());
+    }           
 }
