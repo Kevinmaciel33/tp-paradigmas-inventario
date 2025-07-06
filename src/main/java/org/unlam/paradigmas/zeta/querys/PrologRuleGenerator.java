@@ -88,63 +88,59 @@ public class PrologRuleGenerator {					//Requiere descargar projog y agregarlo e
         rules.add("% === Reglas de crafteo ===");
 
         rules.addAll(List.of(
+            //Calcula todos los requerimientos totales para crear un producto
+            "calcular_requerimientos_totales(Ings, Cants, Requerimientos) :-",
+            "	calcular_requerimientos_lista(Ings, Cants, RequerimientosParciales),",
+            "	agrupar_requerimientos(RequerimientosParciales, Requerimientos).",
             
-            "requerimientos_totales(Prod, Cant, []) :-",			//Veo si esta en el inventario con la cantidad suficiente
-            "    tengo(Prod, CantInv),",
-            "    CantInv >= Cant.",
-
-            "requerimientos_totales(Prod, Cant, [(Prod, CantRestante)]) :-",			//Elemento base que tengo o no lo suficiente
-            "    \\+ receta(Prod, _, _),",
-            "    ( \\+ tengo(Prod, _) ; tengo(Prod, CantInv), CantInv < Cant ),",
-            "    CantRestante is Cant - CantInv.",
-
-            "requerimientos_totales(Prod, Cant, TotalReqs) :-",						
-            "    receta(Prod, Ings, Cants),",
-            "    ( tengo(Prod, CantInv), CantInv >= Cant ->",					//Tengo la cantidad suficiente
-            "        TotalReqs = []",
-            "    ;",
-            "        CantFaltante is max(Cant - CantInv, 0),",							//No tengo la cantidad suficiente, desglosa los ingredientes y los agrupa
-            "        requerimientos_lista(Ings, Cants, CantFaltante, Parciales),",
-            "        agrupar_requerimientos(Parciales, TotalReqs)",
-            "    ).",
-
-           
-            "requerimientos_lista([], [], _, []).",
-            "requerimientos_lista([I|Is], [C|Cs], Factor, Total) :-",
-            "    CantNecesaria is C * Factor,",									//Multiplica las cantidades necesarias
-            "    requerimientos_totales(I, CantNecesaria, ReqI),",				//Ve si se tiene esa cantidad
-            "    requerimientos_lista(Is, Cs, Factor, Resto),",					//Sino baja de nivel de nuevo
-            "    append(ReqI, Resto, Total).",									//Une las listas
-
-         
-            "agrupar_requerimientos(Lista, Agrupada) :-",							//Tres funciones para agrupar los requisitos
-            "    sort(0, @=<, Lista, Ordenada),",
-            "    agrupar_requerimientos_ordenada(Ordenada, Agrupada).",
-
-            "agrupar_requerimientos_ordenada([], []).",
-            "agrupar_requerimientos_ordenada([(Ing, C)|T], [(Ing, Suma)|Resto]) :-",
-            "    juntar_iguales(Ing, T, C, Suma, TResto),",
-            "    agrupar_requerimientos_ordenada(TResto, Resto).",
-
-            "juntar_iguales(_, [], Acum, Acum, []).",
-            "juntar_iguales(Ing, [(Ing, C2)|T], Acum, Suma, Resto) :-",
-            "    Acum1 is Acum + C2,",
-            "    juntar_iguales(Ing, T, Acum1, Suma, Resto).",
-            "juntar_iguales(Ing, [(Otro, C)|T], Acum, Acum, [(Otro, C)|T]) :-",
-            "    Ing \\= Otro.",
-
+            //Calcula requerimientos para una lista de ingredientes
+            "calcular_requerimientos_lista([], [], []).",
+            "calcular_requerimientos_lista([Ing|Ings], [Cant|Cants], Requerimientos) :-",
+            "	( receta(Ing, IngsReceta, CantsReceta) -> ",
+            "	multiplicar_cantidades(IngsReceta, CantsReceta, Cant, IngsExpandidos, CantsExpandidos),",
+            "	calcular_requerimientos_lista(IngsExpandidos, CantsExpandidos, ReqExpandidos),",
+            "	calcular_requerimientos_lista(Ings, Cants, ReqResto),",
+            "	append(ReqExpandidos, ReqResto, Requerimientos)",
+            "	;",
+            "	calcular_requerimientos_lista(Ings, Cants, ReqResto),",
+            "	Requerimientos = [(Ing, Cant)|ReqResto]",
+            ").",
+            
+            //Agrupa requerimientos del mismo ingrediente
+            "agrupar_requerimientos([], []).",
+            "agrupar_requerimientos([(Ing, Cant)|Resto], [(Ing, Total)|Agrupados]) :-",
+            "sumar_requerimientos(Ing, Resto, Cant, Total, RestoFiltrado),",
+            "agrupar_requerimientos(RestoFiltrado, Agrupados).",
+            
+            //Suma requerimientos del mismo ingrediente 
+            "sumar_requerimientos(_, [], Acum, Acum, []).",
+            "sumar_requerimientos(Ing, [(Ing, Cant)|Resto], Acum, Total, RestoFiltrado) :-",
+            "	Acum1 is Acum + Cant,",
+            "	sumar_requerimientos(Ing, Resto, Acum1, Total, RestoFiltrado).",
+            "sumar_requerimientos(Ing, [(Otro, Cant)|Resto], Acum, Acum, [(Otro, Cant)|RestoFiltrado]) :-",
+            "	Ing \\= Otro,",
+            "	sumar_requerimientos(Ing, Resto, Acum, Acum, RestoFiltrado).",
+            
+            //Verifica si se puede crear considerando el consumo real de recursos
+            "puedo_crear_con_recursos(Ings, Cants) :-",
+            "calcular_requerimientos_totales(Ings, Cants, Requerimientos),",
+            "verificar_reqs_con_inventario(Requerimientos).",
             
             "puedo_crear(Prod) :-",
-            "    requerimientos_totales(Prod, 1, Reqs),",
-            "    verificar_reqs_con_inventario(Reqs).",
-
+            "    receta(Prod, Ings, Cants),",
+            "    puedo_crear_con_recursos(Ings, Cants).",
+            //Verifica si hay suficientes recursos disponibles
             "verificar_reqs_con_inventario([]).",
             "verificar_reqs_con_inventario([(Ing, Cant)|T]) :-",
             "    tengo(Ing, CantInv),",
             "    CantInv >= Cant,",
-            "    verificar_reqs_con_inventario(T)."
-        ));
-
+            "    verificar_reqs_con_inventario(T).",
+            //Multiplica cantidades de una receta por el factor necesario
+            "multiplicar_cantidades([], [], _, [], []).",
+            "multiplicar_cantidades([Ing|Ings], [Cant|Cants], Factor, [Ing|IngsResult],[CantMult|CantsResult]) :- ",
+            "	 CantMult is Cant * Factor,",
+            "	multiplicar_cantidades(Ings, Cants, Factor, IngsResult, CantsResult)."
+            ));
         rules.add(""); // Línea en blanco final
 
         Files.write(
