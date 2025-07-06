@@ -65,28 +65,35 @@ public class RecipeTree implements Queryable {
         message.append(indent).append(isLast ? "└── " : "├── ").append(recipe.give().name()).append("\n");
         List<Element> ingredients = recipe.ingredients();
         
-        for (int i = 0; i < ingredients.size(); i++) {
+        Map<String, Integer> ingredientCounts = new HashMap<>();
+        for (Element ingredient : ingredients) {
+            ingredientCounts.put(ingredient.name(), ingredientCounts.getOrDefault(ingredient.name(), 0) + 1);
+        }
+        
+        int i = 0;
+        for (Map.Entry<String, Integer> entry : ingredientCounts.entrySet()) {
         	
-            Element ingredient = ingredients.get(i);
-            boolean isLastIngredient = i == ingredients.size() - 1;
+            String ingredientName = entry.getKey();
+            int count = entry.getValue();
+            boolean isLastIngredient = i == ingredientCounts.size() - 1;
             String nextIndent = indent + (isLast ? "    " : "│   ");    
+            
+            Element ingredient = new Element(ingredientName);
             List<Recipe> childRecipes = QueryUtils.findRecipe(ingredient, libraries);
             
             if (!childRecipes.isEmpty()) {
-            	//Si el ingrediente tiene una receta en recipes.json, se procede a hacer una busqueda recursiva
-                // Buscamos específicamente la receta de la mesa "BASE"
                 Recipe childRecipe = QueryUtils.findBaseRecipe(ingredient, libraries);
                 if (childRecipe != null) {
                     printRecipeTree(childRecipe, nextIndent, isLastIngredient, message);
                 } else {
-                    // Si no hay receta base, usamos la primera encontrada
                     printRecipeTree(childRecipes.get(0), nextIndent, isLastIngredient, message);
                 }
             } else {
-                //Si el ingrediente no tiene receta, entonces es un elemento basico
+                String displayText = count > 1 ? ingredientName + " x" + count : ingredientName;
                 message.append(nextIndent).append(isLastIngredient ? "└── " : "├── ")
-                       .append(ingredient.name()).append("\n");
+                       .append(displayText).append("\n");
             }
+            i++;
         }
     }
 
