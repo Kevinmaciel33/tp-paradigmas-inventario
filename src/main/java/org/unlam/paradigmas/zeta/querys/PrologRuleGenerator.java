@@ -15,7 +15,6 @@ public class PrologRuleGenerator {
         return s.toLowerCase(Locale.ROOT).replaceAll("[^a-z0-9_]", "_");
     }
 
-    
     public static void writeRulesInventoryToFile(InventoryJson[] items, String path, boolean append) throws IOException {                      
         List<String> rules = new ArrayList<>();
         rules.add("% === Hechos de inventario ===");
