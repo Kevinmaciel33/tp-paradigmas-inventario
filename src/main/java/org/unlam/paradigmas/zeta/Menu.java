@@ -35,7 +35,7 @@ public class Menu {
             option = scanner.nextInt();
             executeOption(option);
 
-        } while (option != 9);
+        } while (option != 10);
 
         scanner.close();
     }
@@ -48,10 +48,11 @@ public class Menu {
         System.out.println("3. ¿Qué me falta para craftear un objeto?");
         System.out.println("4. ¿Qué me falta para craftear un objeto desde cero?");
         System.out.println("5. ¿Cuántos puedo craftear?");
-        System.out.println("6. Realizar un crafteo");
-        System.out.println("7. Mostrar historial de crafteos");
-        System.out.println("8. Mostrar inventario actual");
-        System.out.println("9. Salir");
+        System.out.println("6. ¿Que objetos podría generar con el inventario actual? (Prolog)");
+        System.out.println("7. Realizar un crafteo");
+        System.out.println("8. Mostrar historial de crafteos");
+        System.out.println("9. Mostrar inventario actual");
+        System.out.println("10. Salir");
     }
 
     private void executeOption(int option) {
@@ -76,18 +77,16 @@ public class Menu {
                 queryProcessInput(QueryEnum.HOW_MANY_ELEMENTS);
                 break;
             case 6:
-                performCraft();
+                queryProcessInputProlog(QueryEnum.FIND_ALL_ELEMENTS_PROLOG);
                 break;
             case 7:
-                showCraftHistory();
+                performCraft();
                 break;
             case 8:
-                showCurrentInventory();
+                showCraftHistory();
                 break;
             case 9:
-                System.out.println("Guardando inventario...");
-                InventorySaver.saveToFile(worker.getInventory(), FILE_INVENTORY_OUT);
-                System.out.println("Inventario guardado en " +FILE_INVENTORY_OUT+ ". Saliendo...");
+                showCurrentInventory();
                 break;
             case 10:
                 System.out.println("Guardando inventario...");
@@ -124,6 +123,18 @@ public class Menu {
             scanner.nextLine();
         } catch (IllegalArgumentException ex) {
             System.out.println("No encontramos receta para ese elemento");
+            scanner.nextLine();
+        }
+    }
+
+    private void queryProcessInputProlog(QueryEnum query) {
+        Scanner scanner = new Scanner(System.in);
+        try {
+            Queryable res = worker.query(query, null);
+            System.out.println(res.show());
+            scanner.nextLine();
+        } catch (Exception ex) {
+            System.out.println("Error al ejecutar la consulta Prolog: " + ex.getMessage());
             scanner.nextLine();
         }
     }

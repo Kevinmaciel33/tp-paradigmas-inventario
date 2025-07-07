@@ -35,7 +35,7 @@ public class InventoryLoader implements Loader<Inventory> {
                 data.put(element, i.quantity);
             }
 
-            //PrologRuleGenerator.writeRulesInventoryToFile(items, "src/base.pl", false);
+            PrologRuleGenerator.writeRulesInventoryToFile(items, "src/base.pl", false);
 
             return new Inventory(data);
 

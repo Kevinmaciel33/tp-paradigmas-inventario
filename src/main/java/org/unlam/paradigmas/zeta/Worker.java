@@ -4,6 +4,7 @@ import org.unlam.paradigmas.zeta.crafters.*;
 import org.unlam.paradigmas.zeta.enums.QueryEnum;
 import org.unlam.paradigmas.zeta.models.*;
 import org.unlam.paradigmas.zeta.querys.ElementsQuery;
+import org.unlam.paradigmas.zeta.querys.FindAllElementsPrologQuery;
 import org.unlam.paradigmas.zeta.querys.HowManyCreateQuery;
 import org.unlam.paradigmas.zeta.querys.Query;
 import org.unlam.paradigmas.zeta.querys.ElementsFromZeroQuery;
@@ -40,7 +41,8 @@ public class Worker {
                 ELEMENTS_FROM_ZERO, new ElementsFromZeroQuery(),
                 MISSING_ELEMENTS, new MissingElementsQuery(inventory),
                 MISSING_ELEMENTS_FROM_ZERO, new MissingElementsFromZeroQuery(inventory),
-                HOW_MANY_ELEMENTS, new HowManyCreateQuery(inventory)
+                HOW_MANY_ELEMENTS, new HowManyCreateQuery(inventory),
+                FIND_ALL_ELEMENTS_PROLOG, new FindAllElementsPrologQuery()
             )
         );
     }
