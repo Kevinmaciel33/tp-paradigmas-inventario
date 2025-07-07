@@ -53,7 +53,8 @@ class FindAllElementsPrologQueryTest {
             System.out.println("  - " + elemento);
             count++;
         }
-
+        
+        //Segun el inventario de test, solo se pueden crear 10 elementos
         assertTrue(count == 10 );
     }
 
