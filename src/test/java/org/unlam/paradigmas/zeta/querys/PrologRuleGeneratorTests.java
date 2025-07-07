@@ -5,8 +5,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.AfterAll;
 import org.projog.api.Projog;
 import org.projog.api.QueryResult;
-import org.unlam.paradigmas.zeta.loaders.InventoryJson;
-import org.unlam.paradigmas.zeta.loaders.RecipeJson;
 import org.unlam.paradigmas.zeta.loaders.InventoryLoader;
 import org.unlam.paradigmas.zeta.loaders.RecipeLoader;
 

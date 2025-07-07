@@ -6,11 +6,12 @@ import java.nio.file.*;
 import org.unlam.paradigmas.zeta.loaders.InventoryJson;
 import org.unlam.paradigmas.zeta.loaders.RecipeJson;
 import java.util.*;
-import java.util.stream.Collectors;
 
-public class PrologRuleGenerator {					//Requiere descargar projog y agregarlo en el build path del proyecto
+//Requiere descargar projog y agregarlo en el build path del proyecto
+public class PrologRuleGenerator {					
 
-    private static String toPrologAtom(String s) {								//Pasa el nombre a snake_case
+    private static String toPrologAtom(String s) {
+    	//Pasa el nombre a snake_case
         return s.toLowerCase(Locale.ROOT).replaceAll("[^a-z0-9_]", "_");
     }
 
@@ -42,14 +43,16 @@ public class PrologRuleGenerator {					//Requiere descargar projog y agregarlo e
         List<String> reglas = new ArrayList<>();
 
         reglas.add("% === Reglas de recetas ===");
-        for (RecipeJson r : recipe) {						//Cuenta la ocurrencia de cada ingrediente
+        //Cuenta la ocurrencia de cada ingrediente
+        for (RecipeJson r : recipe) {						
             Map<String, Integer> counts = new LinkedHashMap<>();
             for (String ing : r.elements) {
                 String atom = toPrologAtom(ing);
                 counts.put(atom, counts.getOrDefault(atom, 0) + 1);
             }
-
-            String product = toPrologAtom(r.give);					//Separa claves y valores
+            
+          //Separa claves y valores
+            String product = toPrologAtom(r.give);					
 
             StringBuilder elementsBuilder = new StringBuilder();
             StringBuilder amountBuilder = new StringBuilder();
@@ -70,9 +73,11 @@ public class PrologRuleGenerator {					//Requiere descargar projog y agregarlo e
 
             reglas.add(String.format("receta(%s, [%s], [%s]).", product, elements, amount));
         }
-        reglas.add(""); // línea en blanco
-        	
-        Files.write(					//Escribe las reglas en un archivo
+        //línea en blanco
+        reglas.add(""); 
+        
+        //Escribe las reglas en un archivo
+        Files.write(					
             Paths.get(path),
             reglas,
             StandardCharsets.UTF_8,
@@ -141,7 +146,8 @@ public class PrologRuleGenerator {					//Requiere descargar projog y agregarlo e
             "	 CantMult is Cant * Factor,",
             "	multiplicar_cantidades(Ings, Cants, Factor, IngsResult, CantsResult)."
             ));
-        rules.add(""); // Línea en blanco final
+        //Línea en blanco final
+        rules.add(""); 
 
         Files.write(
             Paths.get(path),
